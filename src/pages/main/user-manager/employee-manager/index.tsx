@@ -57,33 +57,18 @@ export default function EmployeeManager() {
       where: isReset
         ? initFilter
         : {
-            ...prev.where,
-            ...filter,
-          },
+          ...prev.where,
+          ...filter,
+        },
     }));
   };
 
   const filterFields: FilterField[] = [
-    // ... existing fields ...
     {
-      key: "code",
-      label: "Mã nhân viên",
-      type: "input",
-      placeholder: "Nhập mã nhân viên",
-      col: 6,
-    },
-    {
-      key: "name",
+      key: "fullName",
       label: "Tên nhân viên",
       type: "input",
       placeholder: "Nhập tên nhân viên",
-      col: 6,
-    },
-    {
-      key: "email",
-      label: "Email",
-      type: "input",
-      placeholder: "Nhập email",
       col: 6,
     },
     {
@@ -94,26 +79,10 @@ export default function EmployeeManager() {
       col: 6,
     },
     {
-      key: "roleIds",
-      label: "Vai trò",
-      type: "multiSelect",
-      placeholder: "Chọn vai trò",
-      options: roles.map((role) => ({
-        label: role.name,
-        value: role.id,
-      })),
-      col: 6,
-    },
-    {
-      key: "roleFilterMode",
-      label: "Loại lọc vai trò",
-      type: "select",
-      placeholder: "Chọn loại lọc",
-      options: [
-        { label: "Có bất kỳ vai trò (OR)", value: "OR" },
-        { label: "Có tất cả vai trò (AND)", value: "AND" },
-        { label: "Không có vai trò (EXCLUDE)", value: "EXCLUDE" },
-      ],
+      key: "position",
+      label: "Chức vụ",
+      type: "input",
+      placeholder: "Nhập chức vụ",
       col: 6,
     },
     {
@@ -138,55 +107,48 @@ export default function EmployeeManager() {
   };
 
   const [columnWidths] = useState<Record<string, number>>({
-    code: 120,
-    name: 200,
+    fullName: 200,
     email: 200,
+    username: 150,
     phone: 150,
+    position: 150,
     isDeleted: 120,
     actions: 120,
   });
 
   const columns = [
-    // ... existing columns ...
     {
-      title: "Mã",
-      dataIndex: "code",
-      key: "code",
-      width: columnWidths.code,
+      title: "Họ và tên",
+      dataIndex: "fullName",
+      key: "fullName",
+      width: columnWidths.fullName,
     },
     {
-      title: "Tên nhân viên",
-      dataIndex: "name",
-      key: "name",
-      width: columnWidths.name,
+      title: "Chức vụ",
+      dataIndex: "position",
+      key: "position",
+      width: columnWidths.position,
+      render: (position: string) => position || "---",
+    },
+    {
+      title: "Username",
+      dataIndex: ["user", "username"],
+      key: "username",
+      width: columnWidths.username,
+      render: (_: any, record: EmployeeDto) => record.user?.username || "---",
     },
     {
       title: "Email",
-      dataIndex: "email",
+      dataIndex: ["user", "email"],
       key: "email",
       width: columnWidths.email,
+      render: (_: any, record: EmployeeDto) => record.user?.email || "---",
     },
     {
       title: "Số điện thoại",
       dataIndex: "phone",
       key: "phone",
       width: columnWidths.phone,
-    },
-    {
-      title: "Vai trò",
-      dataIndex: "roles",
-      key: "roles",
-      width: 200,
-      render: (roles: RoleDto[]) => (
-        <div>
-          {roles?.slice(0, 2).map((role) => (
-            <Tag key={role.id} color="blue" style={{ marginBottom: "2px" }}>
-              {role.name}
-            </Tag>
-          ))}
-          {roles && roles.length > 2 && <Tag>+{roles.length - 2} more</Tag>}
-        </div>
-      ),
     },
     {
       title: "Trạng thái",

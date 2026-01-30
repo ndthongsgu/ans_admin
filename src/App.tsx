@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App as AntdApp } from "antd";
 import viVN from "antd/locale/vi_VN";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastProvider } from "./components/toast";
@@ -19,13 +19,15 @@ export default function App() {
       <AuthInitializer />
       <Router>
         <ConfigProvider locale={viVN} theme={{ token: { borderRadius: 8 } }}>
-          <QueryClientProvider client={queryClient}>
-            <LoadingProvider>
-              <ToastProvider>
-                <AppRoutes />
-              </ToastProvider>
-            </LoadingProvider>
-          </QueryClientProvider>
+          <AntdApp>
+            <QueryClientProvider client={queryClient}>
+              <LoadingProvider>
+                <ToastProvider>
+                  <AppRoutes />
+                </ToastProvider>
+              </LoadingProvider>
+            </QueryClientProvider>
+          </AntdApp>
         </ConfigProvider>
       </Router>
     </>

@@ -1,6 +1,7 @@
 import { ROUTES } from "@/common/constants/routes";
 import AppLayout from "@/layouts/AppLayout";
 import LoginPage from "@/pages/auth/LoginPage";
+import RegisterPage from "@/pages/auth/RegisterPage";
 import BookingManager from "@/pages/main/booking-manager";
 import AddBookingScreen from "@/pages/main/booking-manager/add";
 import BookingDetail from "@/pages/main/booking-manager/detail";
@@ -25,6 +26,7 @@ import DetailTripScreen from "@/pages/main/car-trip-manager/trip-manager/detail"
 import EditTripScreen from "@/pages/main/car-trip-manager/trip-manager/edit";
 import Dashboard from "@/pages/main/dashboard/Dashboard";
 import RoleManager from "@/pages/main/role-manager";
+import UserManager from "@/pages/main/user-manager";
 import CustomerManager from "@/pages/main/user-manager/customer-manager";
 import CustomerPage from "@/pages/main/user-manager/customer-manager/customer";
 import CustomerTypePage from "@/pages/main/user-manager/customer-manager/customer-type";
@@ -38,6 +40,10 @@ import EmployeeManager from "@/pages/main/user-manager/employee-manager";
 import AddEmployeeScreen from "@/pages/main/user-manager/employee-manager/add";
 import DetailEmployeeScreen from "@/pages/main/user-manager/employee-manager/detail";
 import EditEmployeeScreen from "@/pages/main/user-manager/employee-manager/edit";
+import OwnerManager from "@/pages/main/owner-manager";
+import AddOwnerScreen from "@/pages/main/owner-manager/add";
+import DetailOwnerScreen from "@/pages/main/owner-manager/detail";
+import EditOwnerScreen from "@/pages/main/owner-manager/edit";
 import PaymentMethodPage from "@/pages/main/payment-manager/payment-method-manager";
 import AddPaymentMethodScreen from "@/pages/main/payment-manager/payment-method-manager/add";
 import EditPaymentMethodScreen from "@/pages/main/payment-manager/payment-method-manager/edit";
@@ -58,12 +64,12 @@ import RevenueReportPage from "@/pages/main/reports/revenue";
 import DetailRoleScreen from "@/pages/main/role-manager/detail";
 import AddRoleScreen from "@/pages/main/role-manager/add";
 import EditRoleScreen from "@/pages/main/role-manager/edit";
-
 export default function AppRoutes() {
   return (
     <Routes>
       {/* Route công khai */}
       <Route path={ROUTES.AUTH.LOGIN.path} element={<LoginPage />} />
+      <Route path={ROUTES.AUTH.REGISTER.path} element={<RegisterPage />} />
       <Route
         path={ROUTES.AUTH.CHANGE_PASSWORD.path}
         element={<ChangePasswordPage />}
@@ -89,16 +95,25 @@ export default function AppRoutes() {
             path={ROUTES.MAIN.ROLE_MANAGER.path}
             element={<RoleManager />}
           />
+          {/* Quản lý người dùng (parent) */}
           <Route
-            path={ROUTES.MAIN.ROLE_MANAGER.Children.ADD_ROLE.path}
+            path={ROUTES.MAIN.USER_MANAGER.path}
+            element={<UserManager />}
+          />
+          <Route
+          path={ROUTES.MAIN.USER_MANAGER.path}
+          element={<UserManager />}
+      />
+          <Route
+            path={ROUTES.MAIN.ROLE_MANAGER.children.ADD_ROLE.path}
             element={<AddRoleScreen />}
           />
           <Route
-            path={ROUTES.MAIN.ROLE_MANAGER.Children.EDIT_ROLE.path}
+            path={ROUTES.MAIN.ROLE_MANAGER.children.EDIT_ROLE.path}
             element={<EditRoleScreen />}
           />
           <Route
-            path={ROUTES.MAIN.ROLE_MANAGER.Children.DETAIL_ROLE.path}
+            path={ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path}
             element={<DetailRoleScreen />}
           />
           {/* Quản lý nhân viên */}
@@ -126,6 +141,23 @@ export default function AppRoutes() {
                 .DETAIL_EMPLOYEE.path
             }
             element={<DetailEmployeeScreen />}
+          />
+          {/* Quản lý chủ quán */}
+          <Route
+            path="/owner-manager"
+            element={<OwnerManager />}
+          />
+          <Route
+            path="/owner-manager/add"
+            element={<AddOwnerScreen />}
+          />
+          <Route
+            path="/owner-manager/edit/:id"
+            element={<EditOwnerScreen />}
+          />
+          <Route
+            path="/owner-manager/detail/:id"
+            element={<DetailOwnerScreen />}
           />
           {/* Quản lý khách hàng */}
           <Route

@@ -10,14 +10,14 @@ export const API_ROUTES: ApiRoutes = {
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: "/auth/login",
-    LOGOUT: "/auth/logout",
-    REFRESH: "/auth/refresh",
-    PROFILE: "/me",
-    ME: "/auth/me",
-    PASSWORD_CHANGE: "/auth/change-password",
-    PASSWORD_RESET_REQUEST: "/auth/password-reset/request",
-    PASSWORD_RESET_CONFIRM: "/auth/password-reset/confirm",
+    LOGIN: "/api/auth/login",
+    LOGOUT: "/api/auth/logout",
+    REFRESH: "/api/auth/refresh",
+    PROFILE: "/api/auth/me",
+    ME: "/api/auth/me",
+    PASSWORD_CHANGE: "/api/auth/change-password",
+    PASSWORD_RESET_REQUEST: "/api/auth/password-reset/request",
+    PASSWORD_RESET_CONFIRM: "/api/auth/password-reset/confirm",
   },
   OAUTH: {
     GOOGLE: "/oauth2/authorization/google", // Spring Security default
@@ -54,6 +54,17 @@ export const API_ENDPOINTS = {
     SELECT: "/admin/customers/select",
     DEACTIVATE: (id: string) => `/admin/customers/deactivate/${id}`,
     ACTIVATE: (id: string) => `/admin/customers/activate/${id}`,
+  },
+
+  OWNER: {
+    PAGINATION: "/admin/owners/pagination",
+    GET_ALL: "/admin/owners",
+    CREATE: "/admin/owners",
+    UPDATE: (id: string) => `/admin/owners/${id}`,
+    FIND_BY_ID: (id: string) => `/admin/owners/${id}`,
+    SELECT: "/admin/owners/select",
+    DEACTIVATE: (id: string) => `/admin/owners/deactivate/${id}`,
+    ACTIVATE: (id: string) => `/admin/owners/activate/${id}`,
   },
 
   CUSTOMER_TYPE: {

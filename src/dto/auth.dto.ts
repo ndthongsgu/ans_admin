@@ -1,7 +1,7 @@
 import type { RoleDto } from "./role.dto";
 
 export interface LoginRequest {
-  username: string;
+  username_or_email: string;
   password: string;
   loginAsAdmin?: boolean;
 }
@@ -66,6 +66,7 @@ export interface UserInfo {
 export const ModuleCode = {
   CUSTOMER: "CUSTOMER",
   USER: "USER",
+  OWNER: "OWNER",
   CAR: "CAR",
   ROUTE: "ROUTE",
   TRIP: "TRIP",

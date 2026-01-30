@@ -35,11 +35,11 @@ export const useAuthStore = create<AuthState>()(
         set({ userInfo }),
 
       clearTokens: () =>
-        set({ 
-          accessToken: null, 
-          refreshToken: null, 
+        set({
+          accessToken: null,
+          refreshToken: null,
           isAuthenticated: false,
-          userInfo: null 
+          userInfo: null
         }),
 
       getAccessToken: () => get().accessToken,
@@ -48,6 +48,10 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
+      onRehydrateStorage: () => (state) => {
+        // Set hydration flag when rehydration completes
+        useAuthHydrationStore.getState().setHasHydrated(true);
+      },
     }
   )
 );

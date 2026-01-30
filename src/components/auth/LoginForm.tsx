@@ -1,181 +1,76 @@
 import { useLoading } from "@/context/LoadingContext";
-import { Button, Checkbox, Form, Input, Divider, Alert } from "antd";
-import { GoogleOutlined } from "@ant-design/icons";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Button, Form, Input, Alert, Divider } from "antd";
+import { useNavigate } from "react-router-dom";
 import { useLogin } from "@/hooks/auth/auth";
 
-// Field type for the form values
-type FieldType = {
-  username: string;
-  password: string;
-  remember?: boolean;
-  // loginAsAdmin?: boolean;
-};
-
-// Props for the LoginForm component
-interface LoginFormProps {
-  // When true, the form renders in "admin mode"
-  // Customer login form is used when false
-  adminMode?: boolean;
-}
-
-export default function LoginForm({ adminMode = false }: LoginFormProps) {
+export default function LoginForm({ adminMode = true }) {
   const { showLoading, hideLoading } = useLoading();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const message = searchParams.get("message");
-
   const loginMutation = useLogin();
 
-  // If adminMode is true, show a UI cue (title/subtitle) indicating admin login
-  // The actual admin-only behavior is controlled by the backend/auth hook; we simply reflect the mode in UI
-  const onFinish = async (values: FieldType) => {
+  const onFinish = async (values: any) => {
     showLoading();
     try {
       await loginMutation.mutateAsync({
-        username: values.username,
+        username_or_email: values.username_or_email,
         password: values.password,
-        // retain existing shape; admin mode is conveyed via loginAsAdmin if needed
-        // loginAsAdmin: values.loginAsAdmin,
-        loginAsAdmin: adminMode,
       });
     } finally {
       hideLoading();
     }
   };
 
-  // Google login remains the same
-  const handleGoogleLogin = () => {
-    // Redirect to Google OAuth
-    window.location.href = `${
-      import.meta.env.VITE_API_BASE_URL || "hhttp://localhost:8080/bookvexe-be-j2e"
-    }/oauth2/authorization/google`;
-  };
-
   return (
-    <div
-      style={{
-        padding: "2rem",
-        borderRadius: "16px",
-        boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-        background: "white",
-        minWidth: 400,
-      }}
-    >
-      <h2
-        style={{
-          textAlign: "center",
-          marginBottom: "1.5rem",
-          color: adminMode ? "#06498B" : "#06498B",
-        }}
-      >
-        {adminMode ? "Đăng nhập quản trị" : "Đăng nhập khách hàng"}
-      </h2>
-
-      {/* Optional message banner from query params */}
-      {message && (
-        <Alert
-          message={message}
-          type="warning"
-          showIcon
-          style={{ marginBottom: "1rem" }}
-        />
-      )}
+    <div style={{
+      padding: "50px",
+      borderRadius: "30px",
+      background: "rgba(255, 255, 255, 0.9)",
+      backdropFilter: "blur(10px)",
+      width: 440,
+      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.1)"
+    }}>
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#1a202c', letterSpacing: '-1px' }}>
+          {adminMode ? "Admin StreetFood" : "StreetFoodGo"}
+        </h2>
+        <p style={{ color: '#718096', fontSize: '16px' }}>Đăng nhập hệ thống quản trị</p>
+      </div>
 
       {loginMutation.isError && (
-        <Alert
-          message={loginMutation.error.message}
-          type="error"
-          showIcon
-          style={{ marginBottom: "1rem" }}
-        />
+        <Alert message="Sai tài khoản hoặc mật khẩu" type="error" showIcon style={{ marginBottom: '24px', borderRadius: '12px' }} />
       )}
 
-      <Form
-        name="login"
-        layout="vertical"
-        initialValues={{
-          remember: true,
-          // Do not render a customer/admin toggle; adminMode controls the mode
-          loginAsAdmin: adminMode,
-        }}
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.Item<FieldType>
-          label={adminMode ? "Tên đăng nhập (Admin)" : "Tên đăng nhập"}
-          name="username"
-          rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập!" }]}
-        >
-          <Input size="large" />
+      <Form name="login" layout="vertical" onFinish={onFinish} size="large" requiredMark={false}>
+        <Form.Item label={<span style={{ fontWeight: 600 }}>Tài khoản</span>} name="username_or_email" rules={[{ required: true, message: 'Nhập email hoặc username' }]}>
+          <Input placeholder="admin@example.com" style={{ borderRadius: '12px' }} />
         </Form.Item>
 
-        <Form.Item<FieldType>
-          label="Mật khẩu"
-          name="password"
-          rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
-        >
-          <Input.Password size="large" />
+        <Form.Item label={<span style={{ fontWeight: 600 }}>Mật khẩu</span>} name="password" rules={[{ required: true, message: 'Nhập mật khẩu' }]}>
+          <Input.Password placeholder="••••••••" style={{ borderRadius: '12px' }} />
         </Form.Item>
 
-        {/* Do not render admin/customer toggle for admin mode */}
-        {/* {!adminMode && (
-          <Form.Item<FieldType> name="loginAsAdmin" valuePropName="checked">
-            <Checkbox>Đăng nhập với tư cách quản trị viên</Checkbox>
-          </Form.Item>
-        )} */}
-
-        {/* Remember me checkbox is kept for customer mode; omit if not desired in admin mode */}
-        {!adminMode && (
-          <Form.Item<FieldType> name="remember" valuePropName="checked">
-            <Checkbox>Nhớ mật khẩu</Checkbox>
-          </Form.Item>
-        )}
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            size="large"
-            style={{ width: "100%" }}
-            loading={loginMutation.isPending}
-          >
-            Đăng nhập
+        <Form.Item style={{ marginTop: '30px' }}>
+          <Button type="primary" htmlType="submit" block style={{
+            height: '54px',
+            borderRadius: '15px',
+            fontWeight: 700,
+            fontSize: '17px',
+            background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+            border: 'none',
+            boxShadow: '0 10px 15px -3px rgba(79, 70, 229, 0.4)'
+          }} loading={loginMutation.isPending}>
+            Đăng nhập ngay
           </Button>
         </Form.Item>
       </Form>
-      {!adminMode && (
-        <>
-          <Divider>Hoặc</Divider>
-          <Button
-            icon={<GoogleOutlined />}
-            size="large"
-            style={{ width: "100%" }}
-            onClick={handleGoogleLogin}
-          >
-            Đăng nhập với Google
-          </Button>
-          <div style={{ textAlign: "center", marginTop: "1rem" }}>
-            {/* FIX: Use onClick and navigate instead of href for internal link */}
-            <Button
-              type="link"
-              onClick={() => navigate("/forgot-password")}
-              style={{ padding: 0 }}
-            >
-              Quên mật khẩu?
-            </Button>
-            {/* NEW: Conditionally show a separator and Register link */}
-            <Divider type="vertical" />
-            <Button
-              type="link"
-              onClick={() => navigate("/register")}
-              style={{ padding: 0 }}
-            >
-              Đăng ký
-            </Button>
-          </div>
-        </>
-      )}
+
+      <Divider plain style={{ color: '#cbd5e0', fontSize: '12px' }}>Hoặc</Divider>
+
+      <div style={{ textAlign: 'center' }}>
+        <Button type="link" onClick={() => navigate("/register")} style={{ color: '#4f46e5', fontWeight: 600 }}>
+          Bạn chưa có tài khoản? Đăng ký ngay
+        </Button>
+      </div>
     </div>
   );
 }

@@ -31,7 +31,9 @@ export default function LoginPage() {
           backgroundSize: "cover",
         }}
       >
-        <Spin size="large" tip="Đang tải..." />
+        <Spin size="large">
+          <div style={{ marginTop: 20 }}>Đang tải...</div>
+        </Spin>
       </div>
     );
   }
@@ -49,7 +51,9 @@ export default function LoginPage() {
           backgroundSize: "cover",
         }}
       >
-        <Spin size="large" tip="Đang kiểm tra phiên đăng nhập..." />
+        <Spin size="large">
+          <div style={{ marginTop: 20 }}>Đang kiểm tra phiên đăng nhập...</div>
+        </Spin>
       </div>
     );
   }
@@ -68,7 +72,9 @@ export default function LoginPage() {
           backgroundSize: "cover",
         }}
       >
-        <Spin size="large" tip="Đang chuyển hướng..." />
+        <Spin size="large">
+          <div style={{ marginTop: 20 }}>Đang chuyển hướng...</div>
+        </Spin>
       </div>
     );
   }

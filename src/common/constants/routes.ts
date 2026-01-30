@@ -7,6 +7,11 @@ export const ROUTES = {
       label: "Đăng nhập",
       path: "/login",
     },
+    REGISTER: {
+      key: "REGISTER",
+      label: "Đăng ký",
+      path: "/register",
+    },
     CHANGE_PASSWORD: {
       key: "CHANGE_PASSWORD",
       label: "Đổi mật khẩu",
@@ -38,7 +43,7 @@ export const ROUTES = {
       key: "ROLE_MANAGER",
       label: "Quản lý vai trò",
       path: "/role_manager",
-      Children: {
+      children: {
         ADD_ROLE: {
           key: "ADD_ROLE",
           label: "Thêm vai trò",
@@ -60,6 +65,29 @@ export const ROUTES = {
       key: "PERMISSION_MANAGER",
       label: "Quản lý phân quyền",
       path: "/user_manager/permission",
+    },
+    /* Quản lý quán */
+    STALL_MANAGER: {
+      key: "STALL_MANAGER",
+      label: "Quản lý quán",
+      path: "/stall-manager",
+      children: {
+        ADD_STALL: {
+          key: "ADD_STALL",
+          label: "Thêm quán",
+          path: "/stall-manager/add",
+        },
+        EDIT_STALL: {
+          key: "EDIT_STALL",
+          label: "Chỉnh sửa quán",
+          path: "/stall-manager/edit/:id",
+        },
+        DETAIL_STALL: {
+          key: "DETAIL_STALL",
+          label: "Chi tiết quán",
+          path: "/stall-manager/detail/:id",
+        },
+      },
     },
     /* Quản lý người dùng */
     USER_MANAGER: {
@@ -137,6 +165,28 @@ export const ROUTES = {
               key: "EDIT_EMPLOYEE",
               label: "Chỉnh sửa nhân viên",
               path: "/employee_manager/edit/:id",
+            },
+          },
+        },
+        OWNER_MANAGER: {
+          key: "OWNER_MANAGER",
+          label: "Quản lý chủ quán",
+          path: "/owner-manager",
+          children: {
+            ADD_OWNER: {
+              key: "ADD_OWNER",
+              label: "Thêm chủ quán",
+              path: "/owner-manager/add",
+            },
+            EDIT_OWNER: {
+              key: "EDIT_OWNER",
+              label: "Chỉnh sửa chủ quán",
+              path: "/owner-manager/edit/:id",
+            },
+            DETAIL_OWNER: {
+              key: "DETAIL_OWNER",
+              label: "Chi tiết chủ quán",
+              path: "/owner-manager/detail/:id",
             },
           },
         },

@@ -1,11 +1,17 @@
 import { ROUTES } from "@/common/constants/routes";
+import { formatDate } from "@/common/helpers/format";
 import BaseView from "@/components/base-view/BaseView";
-import RowActions from "@/components/row-action";
+import ActionConfirm from "@/components/confirm-action";
 import { CommonActions } from "@/components/row-action/CommonAction";
+import RowActions from "@/components/row-action";
 import TableCustom, { type TableAction } from "@/components/table/Table";
 import type { PaginationDto } from "@/dto/base.dto";
 import type { RoleDto } from "@/dto/role.dto";
-import { useActivateRole, useDeActivateRole, usePaginationRole } from "@/hooks/role";
+import {
+  useActivateRole,
+  useDeActivateRole,
+  usePaginationRole,
+} from "@/hooks/role";
 import { useRouter } from "@/routes/hooks";
 import {
   EditOutlined,
@@ -13,7 +19,7 @@ import {
   PlayCircleOutlined,
   StopOutlined,
 } from "@ant-design/icons";
-import { Button, Row, Tag } from "antd";
+import { Button, Tag } from "antd";
 import { useState } from "react";
 
 export default function RoleManager() {
@@ -24,62 +30,49 @@ export default function RoleManager() {
     where: {},
   });
 
-  const { data, total, isLoading } = usePaginationRole(pagination);
-  const { onDeActivateRole, isLoading: isLoadingDeactivating } = useDeActivateRole();
-  const { onActivateRole, isLoading: isLoadingActivating } = useActivateRole();
+  const { data, total, isLoading, refetch } = usePaginationRole(pagination);
+  const { onDeActivateRole } = useDeActivateRole();
+  const { onActivateRole } = useActivateRole();
 
   const handleCreate = () => {
-    router.push(
-      ROUTES.MAIN.ROLE_MANAGER.Children.ADD_ROLE
-        .path
-    );
+    router.push(ROUTES.MAIN.ROLE_MANAGER.children.ADD_ROLE.path);
   };
-
-  const [columnWidths] = useState<Record<string, number>>({
-    code: 120,
-    name: 200,
-    email: 200,
-    phone: 150,
-    createdDate: 180,
-  });
 
   const columns = [
     {
       title: "Mã vai trò",
       dataIndex: "code",
       key: "code",
-      width: 120,
+      width: 150,
     },
     {
       title: "Tên vai trò",
       dataIndex: "name",
       key: "name",
-      width: 200,
+      width: 250,
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "description",
+      key: "description",
     },
     {
       title: "Trạng thái",
       dataIndex: "isDeleted",
       key: "isDeleted",
-      width: 120,
-      render: (isDeleted: boolean) => {
-        const colorMap = {
-          true: "red",
-          false: "green",
-        };
-        const textMap = {
-          true: "Không hoạt động",
-          false: "Hoạt động",
-        };
-        return (
-          <Row justify={"center"}>
-            <Tag
-              color={colorMap[isDeleted as unknown as keyof typeof colorMap]}
-            >
-              {textMap[isDeleted as unknown as keyof typeof textMap]}
-            </Tag>
-          </Row>
-        );
-      },
+      width: 150,
+      render: (isDeleted: boolean) => (
+        <Tag color={isDeleted ? "red" : "green"}>
+          {isDeleted ? "Không hoạt động" : "Hoạt động"}
+        </Tag>
+      ),
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "createdDate",
+      key: "createdDate",
+      width: 180,
+      render: (date: string) => formatDate(date),
     },
   ];
 
@@ -88,12 +81,10 @@ export default function RoleManager() {
       key: "view",
       label: "",
       icon: <EyeOutlined />,
-      showKey: "isCanView",
       type: "default",
-      tooltip: "Xem chi tiết",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.ROLE_MANAGER.Children.DETAIL_ROLE.path.replace(
+          ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path.replace(
             ":id",
             record.id
           )
@@ -104,12 +95,10 @@ export default function RoleManager() {
       key: "edit",
       label: "",
       icon: <EditOutlined />,
-      showKey: "isCanEdit",
       type: "default",
-      tooltip: "Chỉnh sửa",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.ROLE_MANAGER.Children.EDIT_ROLE.path.replace(
+          ROUTES.MAIN.ROLE_MANAGER.children.EDIT_ROLE.path.replace(
             ":id",
             record.id
           )
@@ -118,52 +107,61 @@ export default function RoleManager() {
     },
     {
       key: "deActivate",
-      tooltip: "Ngưng hoạt động",
       showKey: "isCanDeactivate",
       type: "default",
-      render: () => <Button icon={<StopOutlined />} />,
-      onClick: (record) => {
-        onDeActivateRole(record.id);
-      }
+      render: (record) => (
+        <ActionConfirm
+          title="Bạn có chắc muốn ngưng hoạt động vai trò này?"
+          confirmText="Ngưng hoạt động"
+          onConfirm={async () => {
+            await onDeActivateRole(record.id);
+            refetch();
+          }}
+        >
+          <Button icon={<StopOutlined />} danger />
+        </ActionConfirm>
+      ),
     },
-
     {
       key: "activate",
-      tooltip: "Kích hoạt",
       showKey: "isCanActivate",
-      label: "",
       type: "default",
-      render: () => <Button icon={<PlayCircleOutlined />} />,
-      onClick: (record) => {
-        onActivateRole(record.id);
-      }
+      render: (record) => (
+        <ActionConfirm
+          title="Bạn có chắc muốn kích hoạt vai trò này?"
+          confirmText="Hoạt động"
+          onConfirm={async () => {
+            await onActivateRole(record.id);
+            refetch();
+          }}
+        >
+          <Button icon={<PlayCircleOutlined />} />
+        </ActionConfirm>
+      ),
     },
   ];
-
-  const handlePageChange = (page: number, pageSize: number) => {
-    setPagination((prev) => ({
-      ...prev,
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    }));
-  };
 
   return (
     <BaseView>
       <TableCustom<RoleDto>
-        loading={isLoading || isLoadingActivating || isLoadingDeactivating}
         columns={columns}
-        columnWidths={columnWidths}
         data={data}
+        loading={isLoading}
         actions={actions}
-        actionsWidth={120}
+        actionsWidth={150}
         pagination={{
           total,
           pageSize: pagination.take,
           current: Math.floor(pagination.skip / pagination.take) + 1,
           showSizeChanger: true,
         }}
-        onPageChange={handlePageChange}
+        onPageChange={(page, pageSize) => {
+          setPagination((prev) => ({
+            ...prev,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+          }));
+        }}
         customToolbar={
           <RowActions actions={[CommonActions.create(() => handleCreate())]} />
         }

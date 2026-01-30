@@ -1,41 +1,35 @@
 import type { BaseDto } from "./base.dto";
-import type { RoleDto } from "./role.dto";
 
 export interface EmployeeDto extends BaseDto {
-  code: string;
-  name: string;
-  email: string;
-  phone: string;
-  description?: string;
-  roles: RoleDto[];
+  userId: string;
+  fullName: string;
+  phone?: string;
+  position?: string;
+  user?: {
+    username: string;
+    email: string;
+    isActive: boolean;
+  };
 }
 
 export interface EmployeeCreateDto {
-  code: string;
-  name: string;
-  email: string;
-  phone: string;
-  description?: string;
-  roles: RoleDto[];
+  userId: string;
+  fullName: string;
+  phone?: string;
+  position?: string;
 }
 
 export interface EmployeeUpdateDto {
-  code: string;
-  name: string;
-  email: string;
-  phone: string;
-  description?: string;
-  roles: RoleDto[];
+  fullName: string;
+  phone?: string;
+  position?: string;
 }
 
 export interface EmployeeFilter {
-  code?: string;
-  name?: string;
-  email?: string;
+  fullName?: string;
   phone?: string;
+  position?: string;
   isDeleted?: boolean;
-  roleIds?: string[]; // role filter
-  roleFilterMode?: "OR" | "AND" | "EXCLUDE"; // filter mode
 }
 
 export interface EmployeePageRequest extends EmployeeFilter {
@@ -43,4 +37,11 @@ export interface EmployeePageRequest extends EmployeeFilter {
   size: number;
   sortBy?: string;
   sortDirection?: string;
+}
+
+export interface EmployeeSelectOption {
+  id: string;
+  fullName: string;
+  phone: string;
+  position: string;
 }

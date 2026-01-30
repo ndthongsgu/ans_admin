@@ -3,7 +3,6 @@ import type { FormField } from "@/components/form-custom";
 import FormCustom from "@/components/form-custom";
 import type { EmployeeDto } from "@/dto/employee.dto";
 import { useCreateEmployee } from "@/hooks/employee";
-import { useSelectBoxRoles } from "@/hooks/role";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";
 
@@ -21,69 +20,46 @@ export default function AddEmployeeScreen({
   isLoadingUpdate?: boolean;
 }) {
   const { isLoading, onCreateEmployee } = useCreateEmployee();
-  const { data: roles = [] } = useSelectBoxRoles();
   const router = useRouter();
 
   const formFields = useMemo(() => {
     const fields: FormField[] = [
       {
-        name: "code",
-        label: "Mã nhân viên",
+        name: "userId",
+        label: "User ID",
         type: "input",
         required: true,
-        placeholder: "Nhập mã nhân viên",
+        placeholder: "Nhập User ID",
+        disabled: isEdit,
       },
       {
-        name: "name",
+        name: "fullName",
         label: "Tên nhân viên",
         type: "input",
         required: true,
         placeholder: "Nhập tên nhân viên",
       },
       {
-        name: "email",
-        label: "Email",
-        type: "input",
-        required: true,
-        placeholder: "Nhập email",
-      },
-      {
         name: "phone",
         label: "Số điện thoại",
         type: "input",
-        required: true,
+        required: false,
         placeholder: "Nhập số điện thoại",
       },
       {
-        name: "roleIds",
-        label: "Vai trò",
-        type: "multiselect",
+        name: "position",
+        label: "Chức vụ",
+        type: "input",
         required: false,
-        placeholder: "Chọn vai trò",
-        options: roles.map((role) => ({
-          label: role.name,
-          name: role.name,
-          value: role.id,
-          id: role.id,
-        })),
-        gridColumn: "1 / -1",
-      },
-      {
-        name: "description",
-        label: "Mô tả",
-        type: "textarea",
-        required: false,
-        placeholder: "Nhập mô tả",
-        gridColumn: "1 / -1",
+        placeholder: "Nhập chức vụ",
       },
     ];
     return fields;
-  }, [roles]);
+  }, [isEdit]);
 
   const handleSubmit = (values: any) => {
     const submitData = {
       ...values,
-      roleIds: values.roleIds || [], // Ensure roleIds is always an array
     };
 
     if (isEdit) {
@@ -99,13 +75,13 @@ export default function AddEmployeeScreen({
     router.back();
   };
 
-  // Prepare initial values with role IDs
+  // Prepare initial values
   const initialValues = useMemo(() => {
     if (!initData) return undefined;
 
     return {
       ...initData,
-      roleIds: initData.roles?.map((role) => role.id) || [],
+      // userId might be needed if displayed or used, though disabled in edit
     };
   }, [initData]);
 

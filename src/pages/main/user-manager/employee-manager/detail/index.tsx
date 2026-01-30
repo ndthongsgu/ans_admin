@@ -59,37 +59,37 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
         style={{ marginBottom: "24px" }}
       >
         <Row gutter={[24, 24]}>
-          <Col span={8} style={{ padding: "20px" }}>
+          <Col span={12} style={{ padding: "20px" }}>
             <Text
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Mã nhân viên
+              Họ và tên
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.code}
+              {data?.fullName}
             </Text>
           </Col>
-          <Col span={8} style={{ padding: "20px" }}>
+          <Col span={12} style={{ padding: "20px" }}>
             <Text
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Tên nhân viên
+              Chức vụ
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.name}
+              {data?.position || "Chưa cập nhật"}
             </Text>
           </Col>
-          <Col span={8} style={{ padding: "20px" }}>
+          <Col span={12} style={{ padding: "20px" }}>
             <Text
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Ngày thêm vào
+              Tài khoản (Username)
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {formatDate(data?.createdDate)}
+              {data?.user?.username || "N/A"}
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
@@ -100,7 +100,7 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
               Email
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.email}
+              {data?.user?.email || "N/A"}
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
@@ -111,37 +111,18 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
               Số điện thoại
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.phone}
+              {data?.phone || "Chưa cập nhật"}
             </Text>
           </Col>
-          <Col span={24} style={{ padding: "20px" }}>
+          <Col span={12} style={{ padding: "20px" }}>
             <Text
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Vai trò
-            </Text>
-            <div style={{ marginTop: "8px" }}>
-              {data?.roles?.map((role: RoleDto) => (
-                <Tag
-                  key={role.id}
-                  color="blue"
-                  style={{ marginBottom: "4px", fontSize: "14px" }}
-                >
-                  {role.name}
-                </Tag>
-              )) || <Text type="secondary">Không có vai trò</Text>}
-            </div>
-          </Col>
-          <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
-              Mô tả
+              Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.description || "Không có"}
+              {formatDate(data?.createdDate)}
             </Text>
           </Col>
         </Row>
