@@ -27,20 +27,21 @@ import EditTripScreen from "@/pages/main/car-trip-manager/trip-manager/edit";
 import Dashboard from "@/pages/main/dashboard/Dashboard";
 import RoleManager from "@/pages/main/role-manager";
 import UserManager from "@/pages/main/user-manager";
-import CustomerManager from "@/pages/main/user-manager/customer-manager";
-import CustomerPage from "@/pages/main/user-manager/customer-manager/customer";
-import CustomerTypePage from "@/pages/main/user-manager/customer-manager/customer-type";
-import AddCustomerTypeScreen from "@/pages/main/user-manager/customer-manager/customer-type/add";
-import DetailCustomerTypeScreen from "@/pages/main/user-manager/customer-manager/customer-type/detail";
-import EditCustomerTypeScreen from "@/pages/main/user-manager/customer-manager/customer-type/edit";
-import AddCustomerScreen from "@/pages/main/user-manager/customer-manager/customer/add";
-import DetailCustomerScreen from "@/pages/main/user-manager/customer-manager/customer/detail";
-import EditCustomerScreen from "@/pages/main/user-manager/customer-manager/customer/edit";
+import CustomerManager from "@/pages/main/customer-manager";
+import CustomerListPage from "@/pages/main/customer-manager";
+import AddCustomerScreen from "@/pages/main/customer-manager/add";
+import EditCustomerScreen from "@/pages/main/customer-manager/edit";
+import DetailCustomerScreen from "@/pages/main/customer-manager/detail";
 import EmployeeManager from "@/pages/main/user-manager/employee-manager";
 import AddEmployeeScreen from "@/pages/main/user-manager/employee-manager/add";
 import DetailEmployeeScreen from "@/pages/main/user-manager/employee-manager/detail";
 import EditEmployeeScreen from "@/pages/main/user-manager/employee-manager/edit";
+import CustomerTypeManager from "@/pages/main/customer-type-manager";
+import AddCustomerTypeScreen from "@/pages/main/customer-type-manager/add";
+import DetailCustomerTypeScreen from "@/pages/main/customer-type-manager/detail";
+import EditCustomerTypeScreen from "@/pages/main/customer-type-manager/edit";
 import OwnerManager from "@/pages/main/owner-manager";
+import OwnerListPage from "@/pages/main/owner-manager/list";
 import AddOwnerScreen from "@/pages/main/owner-manager/add";
 import DetailOwnerScreen from "@/pages/main/owner-manager/detail";
 import EditOwnerScreen from "@/pages/main/owner-manager/edit";
@@ -148,6 +149,10 @@ export default function AppRoutes() {
             element={<OwnerManager />}
           />
           <Route
+            path="/owner-manager/list"
+            element={<OwnerListPage />}
+          />
+          <Route
             path="/owner-manager/add"
             element={<AddOwnerScreen />}
           />
@@ -161,22 +166,37 @@ export default function AppRoutes() {
           />
           {/* Quản lý khách hàng */}
           <Route
-            path={ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.path}
-            element={<CustomerManager />}
+            path="/customer-manager"
+            element={<CustomerListPage />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_LIST.path
-            }
-            element={<CustomerPage />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_LIST.children.ADD_CUSTOMER.path
-            }
+            path="/customer-manager/add"
             element={<AddCustomerScreen />}
+          />
+          <Route
+            path="/customer-manager/edit/:id"
+            element={<EditCustomerScreen />}
+          />
+          <Route
+            path="/customer-manager/detail/:id"
+            element={<DetailCustomerScreen />}
+          />
+          {/* Quản lý loại khách hàng */}
+          <Route
+            path={ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.path}
+            element={<CustomerTypeManager />}
+          />
+          <Route
+            path={ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.children.ADD.path}
+            element={<AddCustomerTypeScreen />}
+          />
+          <Route
+            path={ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.children.EDIT.path}
+            element={<EditCustomerTypeScreen />}
+          />
+          <Route
+            path={ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.children.DETAIL.path}
+            element={<DetailCustomerTypeScreen />}
           />
           <Route
             path={
@@ -184,42 +204,6 @@ export default function AppRoutes() {
                 .CUSTOMER_LIST.children.EDIT_CUSTOMER.path
             }
             element={<EditCustomerScreen />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_LIST.children.DETAIL_CUSTOMER.path
-            }
-            element={<DetailCustomerScreen />}
-          />
-          {/* Quản lý loại khách hàng */}
-          <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_TYPE.path
-            }
-            element={<CustomerTypePage />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_TYPE.children.ADD_CUSTOMER_TYPE.path
-            }
-            element={<AddCustomerTypeScreen />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_TYPE.children.EDIT_CUSTOMER_TYPE.path
-            }
-            element={<EditCustomerTypeScreen />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_TYPE.children.DETAIL_CUSTOMER_TYPE.path
-            }
-            element={<DetailCustomerTypeScreen />}
           />
           {/* Quản lý xe */}
           <Route

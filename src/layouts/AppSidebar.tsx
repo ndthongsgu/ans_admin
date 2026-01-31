@@ -1,7 +1,5 @@
 import {
   DashboardOutlined,
-  LockOutlined,
-  SafetyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -10,8 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Logo } from "../assets/icons";
 import { ROUTES } from "../common/constants/routes";
 import { useUserInfo } from "@/hooks/auth/useUserInfo";
-import { canAccessModule, isAdmin } from "@/common/helpers/permissions";
-import { ModuleCode, type ModuleCodeType } from "@/dto/auth.dto";
+import { type ModuleCodeType } from "@/dto/auth.dto";
 import { useMemo } from "react";
 
 type AppSidebarProps = {
@@ -39,80 +36,36 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
       icon: <DashboardOutlined />,
       label: ROUTES.MAIN.HOME.label,
     },
+    // Quản lý người dùng hệ thống (System Users Management)
     {
       key: ROUTES.MAIN.USER_MANAGER.key,
       path: ROUTES.MAIN.USER_MANAGER.path,
       icon: <UserOutlined />,
-      label: ROUTES.MAIN.USER_MANAGER.label,
-      children: [
-        {
-          key: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.key,
-          path: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.path,
-          label: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.label,
-          moduleCode: ModuleCode.CUSTOMER,
-        },
-        {
-          key: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.key,
-          path: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.path,
-          label: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.label,
-          moduleCode: ModuleCode.OWNER,
-        },
-        {
-          key: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.key,
-          path: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.path,
-          label: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.label,
-          moduleCode: ModuleCode.EMPLOYEE,
-        },
-      ],
+      label: "Quản lý người dùng hệ thống",
     },
+
+    // Quản lý chủ quán (Owners)
     {
-      key: ROUTES.MAIN.ROLE_MANAGER.key,
-      path: ROUTES.MAIN.ROLE_MANAGER.path,
-      icon: <SafetyOutlined />,
-      label: ROUTES.MAIN.ROLE_MANAGER.label,
-      moduleCode: ModuleCode.ROLE,
+      key: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.key,
+      path: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.path,
+      icon: <UserOutlined />,
+      label: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.label,
     },
+    // Quản lý loại khách hàng (Customer Types)
     {
-      key: ROUTES.MAIN.PERMISSION_MANAGER.key,
-      path: ROUTES.MAIN.PERMISSION_MANAGER.path,
-      icon: <LockOutlined />,
-      label: ROUTES.MAIN.PERMISSION_MANAGER.label,
-      moduleCode: ModuleCode.PERMISSION,
+      key: ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.key,
+      path: ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.path,
+      icon: <UserOutlined />,
+      label: ROUTES.MAIN.CUSTOMER_TYPE_MANAGER.label,
     },
   ];
 
-  // Filter menu items based on user permissions
+  // Build menu items. For now show all menu items when user is logged in.
+  // Note: backend /api/auth/me does not return permissions in current API,
+  // so we avoid filtering here to ensure admin can see management menus.
   const menuItems = useMemo(() => {
     if (!userInfo) return [];
-
-    // ⚠️ ADMIN BYPASS: Admin sees ALL menu items
-    if (isAdmin(userInfo)) {
-      return allMenuItems;
-    }
-
-    const filterItems = (items: MenuItem[]): MenuItem[] => {
-      return items
-        .map((item) => {
-          // If item has moduleCode, check permission
-          if (item.moduleCode) {
-            const hasAccess = canAccessModule(item.moduleCode, userInfo);
-            if (!hasAccess) return null;
-          }
-
-          // Filter children recursively
-          if (item.children) {
-            const filteredChildren = filterItems(item.children);
-            // If no children have access, hide parent
-            if (filteredChildren.length === 0) return null;
-            return { ...item, children: filteredChildren };
-          }
-
-          return item;
-        })
-        .filter((item): item is MenuItem => item !== null);
-    };
-
-    return filterItems(allMenuItems);
+    return allMenuItems;
   }, [userInfo]);
 
   const renderMenuItems = (items: MenuItem[]) =>

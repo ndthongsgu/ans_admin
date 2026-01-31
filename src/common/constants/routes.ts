@@ -192,6 +192,29 @@ export const ROUTES = {
         },
       },
     },
+    /* Quản lý loại khách hàng */
+    CUSTOMER_TYPE_MANAGER: {
+      key: "CUSTOMER_TYPE_MANAGER",
+      label: "Quản lý loại khách hàng",
+      path: "/customer-type-manager",
+      children: {
+        ADD: {
+          key: "ADD",
+          label: "Thêm loại khách hàng",
+          path: "/customer-type-manager/add",
+        },
+        EDIT: {
+          key: "EDIT",
+          label: "Chỉnh sửa loại khách hàng",
+          path: "/customer-type-manager/edit/:id",
+        },
+        DETAIL: {
+          key: "DETAIL",
+          label: "Chi tiết loại khách hàng",
+          path: "/customer-type-manager/detail/:id",
+        },
+      },
+    },
 
     CAR_TRIP_MANAGER: {
       key: "CAR_TRIP_MANAGER",
