@@ -8,13 +8,14 @@ import RowActions from "@/components/row-action";
 import { CommonActions } from "@/components/row-action/CommonAction";
 import TableCustom, { type TableAction } from "@/components/table/Table";
 import type { PaginationDto } from "@/dto/base.dto";
-import type { CarDto, CarFilter } from "@/dto/car.dto";
+import type { EmployeeDto, EmployeeFilter } from "@/dto/employee.dto";
+import type { RoleDto } from "@/dto/role.dto";
 import {
-  useActivateCar,
-  useDeActivateCar,
-  usePaginationCar,
-} from "@/hooks/car";
-import { useSelectCarTypes } from "@/hooks/car-type";
+  useActivateEmployee,
+  useDeActivateEmployee,
+  usePaginationEmployee,
+} from "@/hooks/employee";
+import { useSelectBoxRoles } from "@/hooks/role";
 import { useRouter } from "@/routes/hooks";
 import {
   EditOutlined,
@@ -25,28 +26,31 @@ import {
 import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
-const initFilter: CarFilter = {
+const initFilter: EmployeeFilter = {
   code: "",
-  licensePlate: "",
-  carTypeId: undefined,
+  name: "",
+  email: "",
+  phone: "",
   isDeleted: undefined,
+  roleIds: [],
+  roleFilterMode: "OR",
 };
 
-export default function CarPage() {
+export default function EmployeeManager() {
   const router = useRouter();
-  const [filter, setFilter] = useState<CarFilter>(initFilter);
-  const [pagination, setPagination] = useState<PaginationDto<CarFilter>>({
-    skip: 0,
-    take: 10,
-    where: initFilter,
-  });
+  const [filter, setFilter] = useState<EmployeeFilter>(initFilter);
+  const [pagination, setPagination] =
+    useState<PaginationDto<EmployeeFilter>>({
+      skip: 0,
+      take: 10,
+      where: initFilter,
+    });
 
-  const { data, total, isLoading, refetch } = usePaginationCar(pagination);
+  const { data, total, isLoading, refetch } =
+    usePaginationEmployee(pagination);
 
-  const { data: carTypes } = useSelectCarTypes();
-
-  const { onDeActivateCar } = useDeActivateCar();
-  const { onActivateCar } = useActivateCar();
+  const { onDeActivateEmployee } = useDeActivateEmployee();
+  const { onActivateEmployee } = useActivateEmployee();
 
   const handleSearch = (isReset?: boolean) => {
     setPagination((prev) => ({
@@ -63,27 +67,30 @@ export default function CarPage() {
   const filterFields: FilterField[] = [
     {
       key: "code",
-      label: "Mã xe",
+      label: "Mã nhân viên",
       type: "input",
-      placeholder: "Nhập mã xe",
+      placeholder: "Nhập mã nhân viên",
       col: 6,
     },
     {
-      key: "licensePlate",
-      label: "Biển số xe",
+      key: "name",
+      label: "Tên nhân viên",
       type: "input",
-      placeholder: "Nhập biển số xe",
+      placeholder: "Nhập tên nhân viên",
       col: 6,
     },
     {
-      key: "carTypeId",
-      label: "Loại xe",
-      type: "select",
-      options: carTypes.map((ct) => ({
-        label: ct.name,
-        value: ct.id,
-      })),
-      placeholder: "Chọn loại xe",
+      key: "email",
+      label: "Email",
+      type: "input",
+      placeholder: "Nhập email",
+      col: 6,
+    },
+    {
+      key: "phone",
+      label: "Số điện thoại",
+      type: "input",
+      placeholder: "Nhập số điện thoại",
       col: 6,
     },
     {
@@ -91,53 +98,77 @@ export default function CarPage() {
       label: "Trạng thái",
       type: "select",
       placeholder: "Chọn trạng thái",
-      col: 6,
       options: [
+        { label: "Tất cả", value: undefined },
         { label: "Hoạt động", value: false },
         { label: "Không hoạt động", value: true },
       ],
+      col: 6,
     },
   ];
 
   const handleCreate = () => {
     router.push(
-      ROUTES.MAIN.CAR_TRIP_MANAGER.children.CAR_MANAGER.children.CAR_LIST
-        .children.ADD_CAR.path
+      ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children.ADD_EMPLOYEE
+        .path
     );
   };
 
   const [columnWidths] = useState<Record<string, number>>({
-    code: 150,
-    licensePlate: 150,
-    carTypeName: 200,
-    isDeleted: 150,
+    code: 120,
+    name: 200,
+    email: 200,
+    phone: 150,
+    isDeleted: 120,
+    actions: 120,
   });
 
   const columns = [
     {
-      title: "Mã xe",
+      title: "Mã",
       dataIndex: "code",
       key: "code",
+      width: columnWidths.code,
     },
     {
-      title: "Biển số xe",
-      dataIndex: "licensePlate",
-      key: "licensePlate",
+      title: "Tên nhân viên",
+      dataIndex: "name",
+      key: "name",
+      width: columnWidths.name,
     },
-
     {
-      title: "Loại xe",
-      dataIndex: "carTypeName",
-      key: "carTypeName ",
-      render: (_: any, record: CarDto) => {
-        return record.carType?.name || "";
-      },
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: columnWidths.email,
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      width: columnWidths.phone,
+    },
+    {
+      title: "Vai trò",
+      dataIndex: "roles",
+      key: "roles",
+      width: 200,
+      render: (roles: RoleDto[]) => (
+        <div>
+          {roles?.slice(0, 2).map((role) => (
+            <Tag key={role.id} color="blue" style={{ marginBottom: "2px" }}>
+              {role.name}
+            </Tag>
+          ))}
+          {roles && roles.length > 2 && <Tag>+{roles.length - 2} more</Tag>}
+        </div>
+      ),
     },
     {
       title: "Trạng thái",
       dataIndex: "isDeleted",
       key: "isDeleted",
-      width: 120,
+      width: columnWidths.isDeleted,
       render: (isDeleted: boolean) => {
         const colorMap = {
           true: "red",
@@ -170,7 +201,7 @@ export default function CarPage() {
       tooltip: "Xem chi tiết",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.CAR_TRIP_MANAGER.children.CAR_MANAGER.children.CAR_LIST.children.DETAIL_CAR.path.replace(
+          ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children.DETAIL_EMPLOYEE.path.replace(
             ":id",
             record.id
           )
@@ -186,7 +217,7 @@ export default function CarPage() {
       tooltip: "Chỉnh sửa",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.CAR_TRIP_MANAGER.children.CAR_MANAGER.children.CAR_LIST.children.EDIT_CAR.path.replace(
+          ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children.EDIT_EMPLOYEE.path.replace(
             ":id",
             record.id
           )
@@ -200,10 +231,10 @@ export default function CarPage() {
       type: "default",
       render: (record) => (
         <ActionConfirm
-          title="Bạn có chắc muốn ngưng hoạt động xe này?"
+          title="Bạn có chắc muốn ngưng hoạt động nhân viên này?"
           confirmText="Ngưng hoạt động"
           onConfirm={async () => {
-            await onDeActivateCar(record.id);
+            await onDeActivateEmployee(record.id);
             refetch();
           }}
         >
@@ -220,10 +251,10 @@ export default function CarPage() {
       type: "default",
       render: (record) => (
         <ActionConfirm
-          title="Bạn có chắc muốn kích hoạt xe này?"
+          title="Bạn có chắc muốn kích hoạt nhân viên này?"
           confirmText="Hoạt động"
           onConfirm={async () => {
-            await onActivateCar(record.id);
+            await onActivateEmployee(record.id);
             refetch();
           }}
         >
@@ -242,7 +273,7 @@ export default function CarPage() {
   };
 
   const handleFiltersChange = (newFilters: Record<string, any>) => {
-    setFilter(newFilters as CarFilter);
+    setFilter(newFilters as EmployeeFilter);
   };
 
   return (
@@ -257,13 +288,13 @@ export default function CarPage() {
         }}
       />
 
-      <TableCustom<CarDto>
+      <TableCustom<EmployeeDto>
         columns={columns}
         columnWidths={columnWidths}
         data={data}
         loading={isLoading}
         actions={actions}
-        actionsWidth={120}
+        actionsWidth={columnWidths.actions}
         pagination={{
           total,
           pageSize: pagination.take,

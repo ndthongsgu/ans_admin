@@ -45,82 +45,6 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
       label: ROUTES.MAIN.HOME.label,
     },
     {
-      key: ROUTES.MAIN.REPORTS.key,
-      path: ROUTES.MAIN.REPORTS.path,
-      icon: <BarChartOutlined />,
-      label: ROUTES.MAIN.REPORTS.label,
-      children: [
-        {
-          key: ROUTES.MAIN.REPORTS.children.REVENUE_TIME.key,
-          path: ROUTES.MAIN.REPORTS.children.REVENUE_TIME.path,
-          label: ROUTES.MAIN.REPORTS.children.REVENUE_TIME.label,
-        },
-        {
-          key: ROUTES.MAIN.REPORTS.children.BOOKINGS_BY_ROUTE.key,
-          path: ROUTES.MAIN.REPORTS.children.BOOKINGS_BY_ROUTE.path,
-          label: ROUTES.MAIN.REPORTS.children.BOOKINGS_BY_ROUTE.label,
-        },
-        {
-          key: ROUTES.MAIN.REPORTS.children.TRIPS_STATUS.key,
-          path: ROUTES.MAIN.REPORTS.children.TRIPS_STATUS.path,
-          label: ROUTES.MAIN.REPORTS.children.TRIPS_STATUS.label,
-        },
-      ],
-    },
-    {
-      key: ROUTES.MAIN.CAR_TRIP_MANAGER.key,
-      path: ROUTES.MAIN.CAR_TRIP_MANAGER.path,
-      icon: <CarOutlined />,
-      label: ROUTES.MAIN.CAR_TRIP_MANAGER.label,
-      children: [
-        {
-          key: ROUTES.MAIN.CAR_TRIP_MANAGER.children.CAR_MANAGER.key,
-          path: ROUTES.MAIN.CAR_TRIP_MANAGER.children.CAR_MANAGER.path,
-          label: ROUTES.MAIN.CAR_TRIP_MANAGER.children.CAR_MANAGER.label,
-          moduleCode: ModuleCode.CAR,
-        },
-        {
-          key: ROUTES.MAIN.CAR_TRIP_MANAGER.children.TRIP_MANAGER.key,
-          path: ROUTES.MAIN.CAR_TRIP_MANAGER.children.TRIP_MANAGER.path,
-          label: ROUTES.MAIN.CAR_TRIP_MANAGER.children.TRIP_MANAGER.label,
-          moduleCode: ModuleCode.TRIP,
-        },
-        {
-          key: ROUTES.MAIN.CAR_TRIP_MANAGER.children.ROUTE_MANAGER.key,
-          path: ROUTES.MAIN.CAR_TRIP_MANAGER.children.ROUTE_MANAGER.path,
-          label: ROUTES.MAIN.CAR_TRIP_MANAGER.children.ROUTE_MANAGER.label,
-          moduleCode: ModuleCode.ROUTE,
-        },
-      ],
-    },
-    {
-      key: ROUTES.MAIN.BOOKING_MANAGER.key,
-      path: ROUTES.MAIN.BOOKING_MANAGER.path,
-      icon: <ScheduleOutlined />,
-      label: ROUTES.MAIN.BOOKING_MANAGER.label,
-      moduleCode: ModuleCode.BOOKING,
-    },
-    {
-      key: ROUTES.MAIN.PAYMENT_MANAGER.key,
-      path: ROUTES.MAIN.PAYMENT_MANAGER.path,
-      icon: <CreditCardOutlined />,
-      label: ROUTES.MAIN.PAYMENT_MANAGER.label,
-      children: [
-        {
-          key: ROUTES.MAIN.PAYMENT_MANAGER.children.PAYMENT_LIST.key,
-          path: ROUTES.MAIN.PAYMENT_MANAGER.children.PAYMENT_LIST.path,
-          label: ROUTES.MAIN.PAYMENT_MANAGER.children.PAYMENT_LIST.label,
-          moduleCode: ModuleCode.PAYMENT,
-        },
-        {
-          key: ROUTES.MAIN.PAYMENT_MANAGER.children.PAYMENT_METHOD_MANAGER.key,
-          path: ROUTES.MAIN.PAYMENT_MANAGER.children.PAYMENT_METHOD_MANAGER.path,
-          label: ROUTES.MAIN.PAYMENT_MANAGER.children.PAYMENT_METHOD_MANAGER.label,
-          moduleCode: ModuleCode.PAYMENT_METHOD,
-        }
-      ]
-    },
-    {
       key: ROUTES.MAIN.USER_MANAGER.key,
       path: ROUTES.MAIN.USER_MANAGER.path,
       icon: <UserOutlined />,
@@ -130,37 +54,13 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
           key: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.key,
           path: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.path,
           label: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.label,
-          moduleCode: ModuleCode.EMPLOYEE,
         },
-
         {
           key: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.key,
           path: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.path,
           label: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.label,
-          moduleCode: ModuleCode.CUSTOMER,
         },
       ],
-    },
-
-    {
-      key: ROUTES.MAIN.ROLE_MANAGER.key,
-      path: ROUTES.MAIN.ROLE_MANAGER.path,
-      icon: <SafetyOutlined />,
-      label: ROUTES.MAIN.ROLE_MANAGER.label,
-      moduleCode: ModuleCode.ROLE,
-    },
-    {
-      key: ROUTES.MAIN.PERMISSION_MANAGER.key,
-      path: ROUTES.MAIN.PERMISSION_MANAGER.path,
-      icon: <LockOutlined />,
-      label: ROUTES.MAIN.PERMISSION_MANAGER.label,
-      moduleCode: ModuleCode.PERMISSION,
-    },
-    {
-      key: "settings",
-      path: "/settings",
-      icon: <SettingOutlined />,
-      label: "Cài đặt",
     },
   ];
 

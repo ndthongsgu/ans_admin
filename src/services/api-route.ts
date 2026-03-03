@@ -10,14 +10,14 @@ export const API_ROUTES: ApiRoutes = {
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: "/auth/login",
-    LOGOUT: "/auth/logout",
-    REFRESH: "/auth/refresh",
-    PROFILE: "/me",
-    ME: "/auth/me",
-    PASSWORD_CHANGE: "/auth/change-password",
-    PASSWORD_RESET_REQUEST: "/auth/password-reset/request",
-    PASSWORD_RESET_CONFIRM: "/auth/password-reset/confirm",
+    LOGIN: "/admin/auth/login",
+    LOGOUT: "/admin/auth/logout",
+    REFRESH: "/admin/auth/refresh",
+    PROFILE: "/admin/auth/me",
+    ME: "/admin/auth/me",
+    PASSWORD_CHANGE: "/admin/auth/change-password",
+    PASSWORD_RESET_REQUEST: "/admin/auth/password-reset/request",
+    PASSWORD_RESET_CONFIRM: "/admin/auth/password-reset/confirm",
   },
   OAUTH: {
     GOOGLE: "/oauth2/authorization/google", // Spring Security default
@@ -65,16 +65,6 @@ export const API_ENDPOINTS = {
     SELECT: "/admin/customer-types/select",
     DEACTIVATE: (id: string) => `/admin/customer-types/deactivate/${id}`,
     ACTIVATE: (id: string) => `/admin/customer-types/activate/${id}`,
-  },
-  ROLE: {
-    PAGINATION: "/admin/roles/pagination",
-    CREATE: "/admin/roles",
-    UPDATE: (id: string) => `/admin/roles/${id}`,
-    DETAIL: (id: string) => `/admin/roles/${id}`,
-    LIST_ALL: "/admin/roles",
-    DEACTIVATE: (id: string) => `/admin/roles/deactivate/${id}`,
-    ACTIVATE: (id: string) => `/admin/roles/activate/${id}`,
-    SELECT: "/admin/roles/select",
   },
   CAR: {
     PAGINATION: "/admin/cars/pagination",
