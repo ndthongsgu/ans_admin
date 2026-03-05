@@ -215,3 +215,31 @@ export const useActivateCustomer = () => {
 
   return { onActivateCustomer, isLoading };
 };
+export const useDeleteCustomer = () => {
+  const queryClient = useQueryClient();
+  const showToast = useToast();
+
+  const { mutateAsync: onDeleteCustomer, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.delete<SuccessResponse>(API_ENDPOINTS.CUSTOMER.DELETE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.CUSTOMER.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Xóa khách hàng thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Xóa khách hàng thất bại!",
+      });
+    },
+  });
+
+  return { onDeleteCustomer, isLoading };
+};

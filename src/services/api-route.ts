@@ -52,6 +52,7 @@ export const API_ENDPOINTS = {
     UPDATE: (id: string) => `/admin/customers/${id}`,
     FIND_BY_ID: (id: string) => `/admin/customers/${id}`,
     SELECT: "/admin/customers/select",
+    DELETE: (id: string) => `/admin/customers/${id}`,
     DEACTIVATE: (id: string) => `/admin/customers/deactivate/${id}`,
     ACTIVATE: (id: string) => `/admin/customers/activate/${id}`,
   },
