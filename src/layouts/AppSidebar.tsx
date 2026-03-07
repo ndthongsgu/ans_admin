@@ -1,13 +1,7 @@
 import {
-  BarChartOutlined,
-  CarOutlined,
-  CreditCardOutlined,
   DashboardOutlined,
-  LockOutlined,
-  SafetyOutlined,
-  ScheduleOutlined,
-  SettingOutlined,
   UserOutlined,
+  ShopOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
@@ -16,7 +10,7 @@ import { Logo } from "../assets/icons";
 import { ROUTES } from "../common/constants/routes";
 import { useUserInfo } from "@/hooks/auth/useUserInfo";
 import { canAccessModule, isAdmin } from "@/common/helpers/permissions";
-import { ModuleCode, type ModuleCodeType } from "@/dto/auth.dto";
+import { type ModuleCodeType } from "@/dto/auth.dto";
 import { useMemo } from "react";
 
 type AppSidebarProps = {
@@ -25,7 +19,7 @@ type AppSidebarProps = {
 
 type MenuItem = {
   key: string;
-  path: string;
+  path?: string;
   icon?: React.ReactNode;
   label: string;
   children?: MenuItem[];
@@ -46,7 +40,6 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
     },
     {
       key: ROUTES.MAIN.USER_MANAGER.key,
-      path: ROUTES.MAIN.USER_MANAGER.path,
       icon: <UserOutlined />,
       label: ROUTES.MAIN.USER_MANAGER.label,
       children: [
@@ -59,6 +52,38 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
           key: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.key,
           path: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.path,
           label: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.label,
+        },
+        {
+          key: ROUTES.MAIN.ROLE_MANAGER.key,
+          path: ROUTES.MAIN.ROLE_MANAGER.path,
+          label: ROUTES.MAIN.ROLE_MANAGER.label,
+        },
+        {
+          key: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.key,
+          path: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.path,
+          label: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.label,
+        },
+      ],
+    },
+    {
+      key: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.key,
+      icon: <ShopOutlined />,
+      label: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.label,
+      children: [
+        {
+          key: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_MANAGER.key,
+          path: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_MANAGER.path,
+          label: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_MANAGER.label,
+        },
+        {
+          key: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.key,
+          path: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.path,
+          label: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.label,
+        },
+        {
+          key: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.key,
+          path: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.path,
+          label: ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.label,
         },
       ],
     },
@@ -103,7 +128,7 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
       item.children ? (
         <Menu.SubMenu key={item.key} icon={item.icon} title={item.label}>
           {item.children.map((child) => (
-            <Menu.Item key={child.key} onClick={() => navigate(child.path)}>
+            <Menu.Item key={child.key} onClick={() => child.path && navigate(child.path)}>
               {child.label}
             </Menu.Item>
           ))}
@@ -112,7 +137,7 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
         <Menu.Item
           key={item.key}
           icon={item.icon}
-          onClick={() => navigate(item.path)}
+          onClick={() => item.path && navigate(item.path)}
         >
           {item.label}
         </Menu.Item>
