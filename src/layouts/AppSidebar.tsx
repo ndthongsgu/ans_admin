@@ -56,8 +56,8 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
           label: ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.label,
         },
         {
-          key: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.key,
-          path: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.path,
+          key: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.key,
+          path: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.path,
           label: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.label,
         },
       ],

@@ -2,32 +2,34 @@ import type { BaseDto } from "./base.dto";
 import type { CustomerTypeDto } from "./customerType.dto";
 
 export interface CustomerDto extends BaseDto {
-  code: string;
+  // code: string;
   name: string;
   email: string;
   phone: string;
-  description?: string;
+  password: string;
+  // description?: string;
   customerType?: CustomerTypeDto;
 }
 
 export interface CustomerCreateDto {
-  code: string;
+  // code: string;
   name: string;
   email: string;
   phone: string;
-  description?: string;
+  // description?: string;
+  password: string;
 }
 
 export interface CustomerUpdateDto {
-  code: string;
+  // code: string;
   name: string;
   email: string;
   phone: string;
-  description?: string;
+  // description?: string;
 }
 
 export interface CustomerFilter {
-  code?: string;
+  // code?: string;
   name?: string;
   email?: string;
   phone?: string;

@@ -6,6 +6,10 @@ import EmployeeManager from "@/pages/main/user/employee";
 import AddEmployeeScreen from "@/pages/main/user/employee/add";
 import DetailEmployeeScreen from "@/pages/main/user/employee/detail";
 import EditEmployeeScreen from "@/pages/main/user/employee/edit";
+import CustomerManager from "@/pages/main/user/customer";
+import AddCustomerScreen from "@/pages/main/user/customer/add";
+import DetailCustomerScreen from "@/pages/main/user/customer/detail";
+import EditCustomerScreen from "@/pages/main/user/customer/edit";
 import NotFound from "@/pages/NotFound";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
@@ -69,6 +73,32 @@ export default function AppRoutes() {
                 .DETAIL_EMPLOYEE.path
             }
             element={<DetailEmployeeScreen />}
+          />
+          {/* Quản lý khách hàng */}
+          <Route
+            path={ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.path}
+            element={<CustomerManager />}
+          />
+          <Route
+            path={
+              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
+                .CUSTOMER_LIST.children.ADD_CUSTOMER.path
+            }
+            element={<AddCustomerScreen />}
+          />
+          <Route
+            path={
+              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
+                .CUSTOMER_LIST.children.EDIT_CUSTOMER.path
+            }
+            element={<EditCustomerScreen />}
+          />
+          <Route
+            path={
+              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
+                .CUSTOMER_LIST.children.DETAIL_CUSTOMER.path
+            }
+            element={<DetailCustomerScreen />}
           />
         </Route>
       </Route>{" "}
