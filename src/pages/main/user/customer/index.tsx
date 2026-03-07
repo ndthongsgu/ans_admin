@@ -25,7 +25,6 @@ import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
 const initFilter: CustomerFilter = {
-  code: "",
   name: "",
   email: "",
   phone: "",

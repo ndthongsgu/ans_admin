@@ -34,8 +34,8 @@ export const usePaginationRole = (params: PaginationDto<object>) => {
 
 export const useAllRoles = () => {
   const { data, isLoading, refetch, error } = useQuery({
-    queryKey: [API_ENDPOINTS.ROLE.LIST_ALL],
-    queryFn: () => rootApiService.get<RoleDto[]>(API_ENDPOINTS.ROLE.LIST_ALL),
+    queryKey: [API_ENDPOINTS.ROLE.GET_ALL],
+    queryFn: () => rootApiService.get<RoleDto[]>(API_ENDPOINTS.ROLE.GET_ALL),
   });
 
   return {
@@ -46,10 +46,10 @@ export const useAllRoles = () => {
   };
 };
 
-export const useRoleDetail = (id: string) => {
+export const useDetailRole = (id: string) => {
   const { data, isLoading, refetch, error } = useQuery({
-    queryKey: [API_ENDPOINTS.ROLE.DETAIL(id)],
-    queryFn: () => rootApiService.get<RoleDto>(API_ENDPOINTS.ROLE.DETAIL(id)),
+    queryKey: [API_ENDPOINTS.ROLE.FIND_BY_ID(id)],
+    queryFn: () => rootApiService.get<RoleDto>(API_ENDPOINTS.ROLE.FIND_BY_ID(id)),
     enabled: !!id,
   });
 
@@ -72,7 +72,7 @@ export const useCreateRole = () => {
         queryKey: [API_ENDPOINTS.ROLE.PAGINATION],
       });
       queryClient.invalidateQueries({
-        queryKey: [API_ENDPOINTS.ROLE.LIST_ALL],
+        queryKey: [API_ENDPOINTS.ROLE.GET_ALL],
       });
       showToast({
         title: "Thành công!",
@@ -104,7 +104,7 @@ export const useUpdateRole = (id: string) => {
         queryKey: [API_ENDPOINTS.ROLE.PAGINATION],
       });
       queryClient.invalidateQueries({
-        queryKey: [API_ENDPOINTS.ROLE.LIST_ALL],
+        queryKey: [API_ENDPOINTS.ROLE.GET_ALL],
       });
       showToast({
         title: "Thành công!",
