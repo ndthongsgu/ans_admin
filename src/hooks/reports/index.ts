@@ -17,10 +17,7 @@ export const useRevenueTime = (filters: RevenueFilterDto | null) => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.REPORTS.REVENUE_TIME, filters],
     queryFn: async () =>
-      rootApiService.post<RevenueTimePoint[]>(
-        API_ENDPOINTS.REPORTS.REVENUE_TIME,
-        filters || {}
-      ),
+      rootApiService.post<RevenueTimePoint[]>(API_ENDPOINTS.REPORTS.REVENUE_TIME, filters || {}),
     enabled: !!filters,
     retry: 0,
   });
@@ -55,9 +52,7 @@ export const useBookingsByRoute = (filters: BookingsFilterDto | null) => {
   return { data: data || [], isLoading, error, refetch };
 };
 
-export const useBookingsStatusByRoute = (
-  filters: BookingsFilterDto | null
-) => {
+export const useBookingsStatusByRoute = (filters: BookingsFilterDto | null) => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.REPORTS.BOOKINGS_STATUS_BY_ROUTE, filters],
     queryFn: async () =>
@@ -75,10 +70,7 @@ export const useTripsStatus = (filters: TripsFilterDto | null) => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.REPORTS.TRIPS_STATUS, filters],
     queryFn: async () =>
-      rootApiService.post<TripsStatusDto[]>(
-        API_ENDPOINTS.REPORTS.TRIPS_STATUS,
-        filters || {}
-      ),
+      rootApiService.post<TripsStatusDto[]>(API_ENDPOINTS.REPORTS.TRIPS_STATUS, filters || {}),
     enabled: !!filters,
     retry: 0,
   });

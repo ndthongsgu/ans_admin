@@ -12,14 +12,7 @@ import {
   Typography,
 } from "antd";
 import type { SizeType } from "antd/es/config-provider/SizeContext";
-import {
-  type Key,
-  type ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { type Key, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 
 const { Text } = Typography;
 
@@ -47,8 +40,7 @@ export interface PaginationConfig {
   pageSizeOptions?: string[];
 }
 
-export interface TableCustomProps<T = any>
-  extends Omit<TableProps<T>, "pagination"> {
+export interface TableCustomProps<T = any> extends Omit<TableProps<T>, "pagination"> {
   data: T[];
   loading?: boolean;
   pagination?: PaginationConfig;
@@ -132,7 +124,8 @@ function TableCustom<T extends Record<string, any>>({
     const renderActions = (record: T, index: number) => {
       const visibleActions = actions.filter((action) => {
         if (action.hidden) {
-          const isHidden = typeof action.hidden === "function" ? action.hidden(record) : action.hidden;
+          const isHidden =
+            typeof action.hidden === "function" ? action.hidden(record) : action.hidden;
           if (isHidden) return false;
         }
         if (!action.showKey) return true;
@@ -152,9 +145,7 @@ function TableCustom<T extends Record<string, any>>({
         >
           {visibleActions.map((action, idx) => {
             const isDisabled =
-              typeof action.disabled === "function"
-                ? action.disabled(record)
-                : !!action.disabled;
+              typeof action.disabled === "function" ? action.disabled(record) : !!action.disabled;
 
             const handleClick = () => {
               if (!isDisabled) {
@@ -164,11 +155,7 @@ function TableCustom<T extends Record<string, any>>({
 
             const button = action.render ? (
               <span
-                onClick={
-                  !isDisabled
-                    ? () => action.onClick?.(record, index)
-                    : undefined
-                }
+                onClick={!isDisabled ? () => action.onClick?.(record, index) : undefined}
                 style={{
                   cursor: isDisabled ? "not-allowed" : "pointer",
                   opacity: isDisabled ? 0.5 : 1,
@@ -250,10 +237,7 @@ function TableCustom<T extends Record<string, any>>({
         {pagination.showTotal && typeof pagination.showTotal === "function"
           ? pagination.showTotal(pagination.total, [
               (pagination.current - 1) * pagination.pageSize + 1,
-              Math.min(
-                pagination.current * pagination.pageSize,
-                pagination.total
-              ),
+              Math.min(pagination.current * pagination.pageSize, pagination.total),
             ])
           : `${(pagination.current - 1) * pagination.pageSize + 1}-${Math.min(
               pagination.current * pagination.pageSize,
@@ -266,9 +250,7 @@ function TableCustom<T extends Record<string, any>>({
         onShowSizeChange={(current, size) => handlePageChange(current, size)}
         showQuickJumper={false}
         showTotal={undefined}
-        pageSizeOptions={
-          pagination.pageSizeOptions || ["10", "20", "50", "100"]
-        }
+        pageSizeOptions={pagination.pageSizeOptions || ["10", "20", "50", "100"]}
       />
     </div>
   ) : null;
@@ -329,11 +311,7 @@ function TableCustom<T extends Record<string, any>>({
             {customToolbar}
             {showRefreshButton && (
               <Tooltip title="Làm mới">
-                <Button
-                  type="primary"
-                  icon={<EyeOutlined />}
-                  onClick={onRefresh}
-                >
+                <Button type="primary" icon={<EyeOutlined />} onClick={onRefresh}>
                   Làm mới
                 </Button>
               </Tooltip>
@@ -361,10 +339,7 @@ function TableCustom<T extends Record<string, any>>({
               }
               locale={{
                 emptyText: emptyText || (
-                  <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description="Không có dữ liệu"
-                  />
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Không có dữ liệu" />
                 ),
               }}
             />

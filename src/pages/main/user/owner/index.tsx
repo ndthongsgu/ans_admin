@@ -1,26 +1,15 @@
 import { ROUTES } from "@/common/constants/routes";
 import BaseView from "@/components/base-view/BaseView";
 import ActionConfirm from "@/components/confirm-action";
-import FilterComponent, {
-  type FilterField,
-} from "@/components/filter/FilterCustom";
+import FilterComponent, { type FilterField } from "@/components/filter/FilterCustom";
 import RowActions from "@/components/row-action";
 import { CommonActions } from "@/components/row-action/CommonAction";
 import TableCustom, { type TableAction } from "@/components/table/Table";
 import type { PaginationDto } from "@/dto/base.dto";
 import type { OwnerDto, OwnerFilter } from "@/dto/owner.dto";
-import {
-  useActivateOwner,
-  useDeActivateOwner,
-  usePaginationOwner,
-} from "@/hooks/owner";
+import { useActivateOwner, useDeActivateOwner, usePaginationOwner } from "@/hooks/owner";
 import { useRouter } from "@/routes/hooks";
-import {
-  EditOutlined,
-  EyeOutlined,
-  PlayCircleOutlined,
-  StopOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, EyeOutlined, PlayCircleOutlined, StopOutlined } from "@ant-design/icons";
 import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
@@ -94,10 +83,7 @@ export default function OwnerManager() {
   ];
 
   const handleCreate = () => {
-    router.push(
-      ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER
-        .children.ADD_OWNER.path
-    );
+    router.push(ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.ADD_OWNER.path);
   };
 
   const [columnWidths] = useState<Record<string, number>>({
@@ -270,9 +256,7 @@ export default function OwnerManager() {
           showSizeChanger: true,
         }}
         onPageChange={handlePageChange}
-        customToolbar={
-          <RowActions actions={[CommonActions.create(() => handleCreate())]} />
-        }
+        customToolbar={<RowActions actions={[CommonActions.create(() => handleCreate())]} />}
       />
     </BaseView>
   );

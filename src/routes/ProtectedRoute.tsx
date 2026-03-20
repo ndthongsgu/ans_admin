@@ -12,10 +12,7 @@ interface ProtectedRouteProps {
  * Component to protect routes based on user permissions
  * Redirects to home if user doesn't have access
  */
-export default function ProtectedRoute({
-  children,
-  routePath,
-}: ProtectedRouteProps) {
+export default function ProtectedRoute({ children, routePath }: ProtectedRouteProps) {
   const userInfo = useUserInfo();
   const canAccess = useCanAccessRoute(routePath);
 

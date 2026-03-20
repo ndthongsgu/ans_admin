@@ -52,9 +52,7 @@ export default function SeatSelector({
     );
   }
 
-  const sortedSeats = [...seats].sort((a, b) =>
-    a.seatNumber.localeCompare(b.seatNumber)
-  );
+  const sortedSeats = [...seats].sort((a, b) => a.seatNumber.localeCompare(b.seatNumber));
 
   const SEATS_PER_ROW = 3;
   const totalSeats = sortedSeats.length;
@@ -82,11 +80,7 @@ export default function SeatSelector({
     if (disabled) return;
     const seatIdStr = String(seatId);
     if (actualBookedSeats.includes(seatIdStr)) return; // Cannot select booked seats
-    if (
-      actualHeldSeats.includes(seatIdStr) &&
-      !selectedSeats.includes(seatIdStr)
-    )
-      return; // Cannot select held seats
+    if (actualHeldSeats.includes(seatIdStr) && !selectedSeats.includes(seatIdStr)) return; // Cannot select held seats
 
     const newSelected = selectedSeats.includes(seatIdStr)
       ? selectedSeats.filter((s) => s !== seatIdStr)
@@ -94,9 +88,7 @@ export default function SeatSelector({
     onChange?.(newSelected);
   };
 
-  const getSeatStatus = (
-    seatId: string
-  ): "selected" | "booked" | "held" | "available" => {
+  const getSeatStatus = (seatId: string): "selected" | "booked" | "held" | "available" => {
     const seatIdStr = String(seatId);
     if (selectedSeats.includes(seatIdStr)) return "selected";
     if (actualBookedSeats.includes(seatIdStr)) return "booked";
@@ -120,12 +112,12 @@ export default function SeatSelector({
         status === "available"
           ? "#E6F7FF" // Light blue for available
           : status === "selected"
-          ? "#1890FF" // Blue for selected
-          : status === "held"
-          ? "#FAAD14" // Orange for held (temporarily reserved)
-          : status === "booked"
-          ? "#F5222D" // Red for booked (permanently taken)
-          : "#F5F5F5", // Gray fallback
+            ? "#1890FF" // Blue for selected
+            : status === "held"
+              ? "#FAAD14" // Orange for held (temporarily reserved)
+              : status === "booked"
+                ? "#F5222D" // Red for booked (permanently taken)
+                : "#F5F5F5", // Gray fallback
       color: status === "selected" ? "#fff" : "#595959",
       opacity: disabled || status === "booked" || status === "held" ? 0.6 : 1,
       border: "2px solid #ccc",
@@ -158,9 +150,7 @@ export default function SeatSelector({
           <img src={SteeringWheel} width={30} height={30} alt="Steering" />
         </div>
       )}
-      <h4 style={{ color: "#06498B", fontWeight: 600 }}>
-        {isLower ? "Tầng dưới" : "Tầng trên"}
-      </h4>
+      <h4 style={{ color: "#06498B", fontWeight: 600 }}>{isLower ? "Tầng dưới" : "Tầng trên"}</h4>
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         {floor.map((column, colIndex) => (

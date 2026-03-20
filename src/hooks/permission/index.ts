@@ -7,8 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 export const useGetAllPermission = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PERMISSION.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<PermissionModule[]>(API_ENDPOINTS.PERMISSION.GET_ALL),
+    queryFn: () => rootApiService.get<PermissionModule[]>(API_ENDPOINTS.PERMISSION.GET_ALL),
   });
 
   return {

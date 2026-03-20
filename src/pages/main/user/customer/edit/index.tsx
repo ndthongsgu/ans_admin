@@ -9,9 +9,7 @@ export default function EditCustomerScreen() {
 
   const { data, isLoading } = useDetailCustomer(id || "");
 
-  const { onUpdateCustomer, isLoading: isLoadingUpdate } = useUpdateCustomer(
-    id || ""
-  );
+  const { onUpdateCustomer, isLoading: isLoadingUpdate } = useUpdateCustomer(id || "");
 
   const handleUpdate = (values: CustomerUpdateDto) => {
     onUpdateCustomer(values);

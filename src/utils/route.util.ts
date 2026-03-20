@@ -25,10 +25,7 @@ export const buildRouteTree = (
       };
 
       if (value.children) {
-        Object.assign(
-          result,
-          buildRouteTree(value.children, value.path, value.key)
-        );
+        Object.assign(result, buildRouteTree(value.children, value.path, value.key));
       }
     } else if (typeof value === "object") {
       Object.assign(result, buildRouteTree(value, parentPath, parentKey));

@@ -34,6 +34,7 @@ npm ci
 ```bash
 npm run dev
 ```
+
 Mặc định Vite sẽ chạy ở `http://localhost:5173` (hoặc port được log ra).
 
 3. Build production:

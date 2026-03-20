@@ -113,8 +113,7 @@ export const BookingStatus = {
   CANCELLED: "cancelled",
 } as const;
 
-export type BookingStatusType =
-  (typeof BookingStatus)[keyof typeof BookingStatus];
+export type BookingStatusType = (typeof BookingStatus)[keyof typeof BookingStatus];
 
 export const BookingStatusLabels: Record<BookingStatusType, string> = {
   new: "Chờ xác nhận",

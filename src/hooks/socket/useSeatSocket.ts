@@ -9,8 +9,7 @@ import SockJS from "sockjs-client";
 // - Clients can SEND to application endpoint: /app/seat/hold and /app/seat/release
 
 const WS_URL =
-  (import.meta.env.VITE_WS_URL as string) ||
-  `${location.protocol}//${location.hostname}:5181/ws`;
+  (import.meta.env.VITE_WS_URL as string) || `${location.protocol}//${location.hostname}:5181/ws`;
 
 export type SeatUpdatePayload = {
   tripId: string;
@@ -86,12 +85,7 @@ export const useSeatSocket = () => {
     };
   };
 
-  const sendHold = (
-    tripId: string,
-    carId: string,
-    seatIds: string[],
-    minutes: number = 5
-  ) => {
+  const sendHold = (tripId: string, carId: string, seatIds: string[], minutes: number = 5) => {
     if (!clientRef.current) {
       console.warn("WebSocket not connected, cannot send hold message");
       return;

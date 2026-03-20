@@ -1,7 +1,4 @@
-export function formatDateTime(
-  dateStr: string | Date,
-  locale = "vi-VN"
-): string {
+export function formatDateTime(dateStr: string | Date, locale = "vi-VN"): string {
   if (!dateStr) return "";
 
   const date = new Date(dateStr);

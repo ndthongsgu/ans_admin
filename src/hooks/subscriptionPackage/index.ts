@@ -62,7 +62,9 @@ export const useSelectSubscriptionPackages = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.SUBSCRIPTION_PACKAGE.SELECT],
     queryFn: () =>
-      rootApiService.get<SubscriptionPackageSelectOption[]>(API_ENDPOINTS.SUBSCRIPTION_PACKAGE.SELECT),
+      rootApiService.get<SubscriptionPackageSelectOption[]>(
+        API_ENDPOINTS.SUBSCRIPTION_PACKAGE.SELECT
+      ),
   });
 
   return {
@@ -156,30 +158,29 @@ export const useDeActivateSubscriptionPackage = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateSubscriptionPackage, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<SubscriptionPackageDto>>(
-          API_ENDPOINTS.SUBSCRIPTION_PACKAGE.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.SUBSCRIPTION_PACKAGE.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động gói đăng ký thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động gói đăng ký thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateSubscriptionPackage, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<SubscriptionPackageDto>>(
+        API_ENDPOINTS.SUBSCRIPTION_PACKAGE.DEACTIVATE(id)
+      ),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.SUBSCRIPTION_PACKAGE.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động gói đăng ký thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động gói đăng ký thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateSubscriptionPackage, isLoading };
 };
@@ -188,31 +189,29 @@ export const useActivateSubscriptionPackage = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateSubscriptionPackage, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<SubscriptionPackageDto>>(
-          API_ENDPOINTS.SUBSCRIPTION_PACKAGE.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.SUBSCRIPTION_PACKAGE.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt gói đăng ký thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt gói đăng ký thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateSubscriptionPackage, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<SubscriptionPackageDto>>(
+        API_ENDPOINTS.SUBSCRIPTION_PACKAGE.ACTIVATE(id)
+      ),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.SUBSCRIPTION_PACKAGE.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt gói đăng ký thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt gói đăng ký thất bại!",
+      });
+    },
+  });
 
   return { onActivateSubscriptionPackage, isLoading };
 };

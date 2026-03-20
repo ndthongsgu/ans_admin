@@ -33,11 +33,7 @@ export default function AppLayout() {
           onChangePassword={handleChangePassword}
           onLogout={handleLogout}
         />
-        <Content
-          style={{ borderRadius: 8, minHeight: "calc(100vh - 64px - 32px)" }}
-        >
-          
-          
+        <Content style={{ borderRadius: 8, minHeight: "calc(100vh - 64px - 32px)" }}>
           <Outlet />
         </Content>
       </Layout>

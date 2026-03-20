@@ -39,12 +39,9 @@ apiClient.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem("refreshToken");
         if (refreshToken) {
-          const response = await axios.post(
-            `${API_ROUTES.BASE_URL}/api/auth/refresh`,
-            {
-              refreshToken,
-            }
-          );
+          const response = await axios.post(`${API_ROUTES.BASE_URL}/api/auth/refresh`, {
+            refreshToken,
+          });
 
           const { token } = response.data;
           localStorage.setItem("token", token);
@@ -65,33 +62,20 @@ apiClient.interceptors.response.use(
 );
 
 export const apiRequest = {
-  get: <T>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> => apiClient.get(url, config),
+  get: <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> =>
+    apiClient.get(url, config),
 
-  post: <T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> => apiClient.post(url, data, config),
+  post: <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> =>
+    apiClient.post(url, data, config),
 
-  put: <T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> => apiClient.put(url, data, config),
+  put: <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> =>
+    apiClient.put(url, data, config),
 
-  patch: <T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> => apiClient.patch(url, data, config),
+  patch: <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> =>
+    apiClient.patch(url, data, config),
 
-  delete: <T>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> => apiClient.delete(url, config),
+  delete: <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> =>
+    apiClient.delete(url, config),
 };
 
 export default apiClient;

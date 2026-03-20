@@ -1,15 +1,4 @@
-import {
-  Card,
-  Select,
-  Row,
-  Col,
-  Typography,
-  Tag,
-  Space,
-  Button,
-  Checkbox,
-  message,
-} from "antd";
+import { Card, Select, Row, Col, Typography, Tag, Space, Button, Checkbox, message } from "antd";
 import { useEffect, useState } from "react";
 import BaseView from "@/components/base-view/BaseView";
 import Title from "@/components/title";
@@ -19,8 +8,7 @@ import { useGetAllPermission } from "@/hooks/permission";
 const { Text } = Typography;
 
 export default function PermissionManagement() {
-  const { data: permissionModules, isLoading: modulesLoading } =
-    useGetAllPermission();
+  const { data: permissionModules, isLoading: modulesLoading } = useGetAllPermission();
 
   if (modulesLoading) {
     return (
@@ -38,9 +26,7 @@ export default function PermissionManagement() {
       <BaseView>
         <Title>Quản lý phân quyền</Title>
         <Card>
-          <Text type="danger">
-            Không tìm thấy dữ liệu quyền. Vui lòng kiểm tra lại.
-          </Text>
+          <Text type="danger">Không tìm thấy dữ liệu quyền. Vui lòng kiểm tra lại.</Text>
         </Card>
       </BaseView>
     );
@@ -62,9 +48,7 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
   const [isSaving, setIsSaving] = useState(false);
 
   // Find selected role
-  const { data: role, refetch: refetchRole } = useDetailRole(
-    selectedRoleId || "",
-  );
+  const { data: role, refetch: refetchRole } = useDetailRole(selectedRoleId || "");
   const { onUpdateRole } = useUpdateRole(selectedRoleId || "");
 
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
@@ -79,9 +63,7 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
                 const parsed = JSON.parse(role.permissions);
                 return Array.isArray(parsed)
                   ? parsed
-                  : Object.keys(parsed).filter(
-                      (key) => parsed[key as keyof typeof parsed],
-                    );
+                  : Object.keys(parsed).filter((key) => parsed[key as keyof typeof parsed]);
               } catch {
                 return role.permissions.split(",").map((p) => p.trim());
               }
@@ -89,7 +71,7 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
           : Array.isArray(role.permissions)
             ? role.permissions
             : Object.keys(role.permissions || {}).filter(
-                (key) => (role.permissions as Record<string, any>)?.[key],
+                (key) => (role.permissions as Record<string, any>)?.[key]
               )
         : [];
 
@@ -106,19 +88,12 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
     }
   };
 
-  const handleModuleSelectAll = (
-    module: (typeof modules)[0],
-    checked: boolean,
-  ) => {
+  const handleModuleSelectAll = (module: (typeof modules)[0], checked: boolean) => {
     const moduleCodes = module.permissions.map((p: any) => p.code);
     if (checked) {
-      setSelectedPermissions([
-        ...new Set([...selectedPermissions, ...moduleCodes]),
-      ]);
+      setSelectedPermissions([...new Set([...selectedPermissions, ...moduleCodes])]);
     } else {
-      setSelectedPermissions(
-        selectedPermissions.filter((p) => !moduleCodes.includes(p)),
-      );
+      setSelectedPermissions(selectedPermissions.filter((p) => !moduleCodes.includes(p)));
     }
   };
 
@@ -212,14 +187,12 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
               <div style={{ marginTop: "16px" }}>
                 <Row gutter={[16, 16]}>
                   {modules.map((module) => {
-                    const modulePermissions = module.permissions.map(
-                      (p: any) => p.code,
-                    );
+                    const modulePermissions = module.permissions.map((p: any) => p.code);
                     const allSelected = modulePermissions.every((p: string) =>
-                      selectedPermissions.includes(p),
+                      selectedPermissions.includes(p)
                     );
                     const someSelected = modulePermissions.some((p: string) =>
-                      selectedPermissions.includes(p),
+                      selectedPermissions.includes(p)
                     );
 
                     return (
@@ -227,38 +200,26 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
                         <Card
                           size="small"
                           style={{
-                            backgroundColor: someSelected
-                              ? "#f0f5ff"
-                              : "#fafafa",
+                            backgroundColor: someSelected ? "#f0f5ff" : "#fafafa",
                           }}
                         >
                           <Space direction="vertical" style={{ width: "100%" }}>
                             <Checkbox
                               checked={allSelected}
                               indeterminate={someSelected && !allSelected}
-                              onChange={(e) =>
-                                handleModuleSelectAll(module, e.target.checked)
-                              }
+                              onChange={(e) => handleModuleSelectAll(module, e.target.checked)}
                               style={{ fontWeight: "bold" }}
                             >
                               {module.label}
                             </Checkbox>
                             <div style={{ paddingLeft: "24px" }}>
-                              <Space
-                                direction="vertical"
-                                style={{ width: "100%" }}
-                              >
+                              <Space direction="vertical" style={{ width: "100%" }}>
                                 {module.permissions.map((perm: any) => (
                                   <Checkbox
                                     key={perm.code}
-                                    checked={selectedPermissions.includes(
-                                      perm.code,
-                                    )}
+                                    checked={selectedPermissions.includes(perm.code)}
                                     onChange={(e) =>
-                                      handlePermissionChange(
-                                        perm.code,
-                                        e.target.checked,
-                                      )
+                                      handlePermissionChange(perm.code, e.target.checked)
                                     }
                                   >
                                     {perm.label}
@@ -280,7 +241,7 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
               <Row gutter={[16, 16]}>
                 {modules.map((module) => {
                   const modulePerms = module.permissions.filter((p: any) =>
-                    selectedPermissions.includes(p.code),
+                    selectedPermissions.includes(p.code)
                   );
 
                   if (modulePerms.length === 0) return null;
@@ -305,8 +266,7 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
               </Row>
               {selectedPermissions.length === 0 && (
                 <Text type="secondary">
-                  Vai trò này chưa được cấp quyền. Nhấn "Chỉnh sửa quyền" để
-                  thêm quyền.
+                  Vai trò này chưa được cấp quyền. Nhấn "Chỉnh sửa quyền" để thêm quyền.
                 </Text>
               )}
             </div>

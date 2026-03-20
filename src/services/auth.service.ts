@@ -1,19 +1,11 @@
-import type {
-  AuthResponse,
-  LoginRequest,
-  UserInfo,
-  UserProfile,
-} from "@/dto/auth.dto";
+import type { AuthResponse, LoginRequest, UserInfo, UserProfile } from "@/dto/auth.dto";
 import { API_ENDPOINTS } from "@/services/api-route";
 import { apiRequest } from "@/utils/api-client";
 import rootApiService from "./api.service";
 
 export const authService = {
   login: async (credentials: LoginRequest): Promise<AuthResponse> => {
-    const response = await apiRequest.post<AuthResponse>(
-      API_ENDPOINTS.AUTH.LOGIN,
-      credentials
-    );
+    const response = await apiRequest.post<AuthResponse>(API_ENDPOINTS.AUTH.LOGIN, credentials);
     return response.data;
   },
 
@@ -24,9 +16,7 @@ export const authService = {
   },
 
   getProfile: async (): Promise<UserProfile> => {
-    const response = await apiRequest.get<UserProfile>(
-      API_ENDPOINTS.AUTH.PROFILE
-    );
+    const response = await apiRequest.get<UserProfile>(API_ENDPOINTS.AUTH.PROFILE);
     return response.data;
   },
 
@@ -37,10 +27,9 @@ export const authService = {
   },
 
   refreshToken: async (refreshToken: string): Promise<{ token: string }> => {
-    const response = await apiRequest.post<{ token: string }>(
-      API_ENDPOINTS.AUTH.REFRESH,
-      { refreshToken }
-    );
+    const response = await apiRequest.post<{ token: string }>(API_ENDPOINTS.AUTH.REFRESH, {
+      refreshToken,
+    });
     return response.data;
   },
 

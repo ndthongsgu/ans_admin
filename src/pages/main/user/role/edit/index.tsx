@@ -9,9 +9,7 @@ export default function EditRoleScreen() {
 
   const { data, isLoading } = useDetailRole(id || "");
 
-  const { onUpdateRole, isLoading: isLoadingUpdate } = useUpdateRole(
-    id || ""
-  );
+  const { onUpdateRole, isLoading: isLoadingUpdate } = useUpdateRole(id || "");
 
   const handleUpdate = (values: RoleCreateUpdateDto) => {
     onUpdateRole(values);

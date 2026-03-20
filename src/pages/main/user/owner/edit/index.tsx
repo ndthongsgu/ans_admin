@@ -9,9 +9,7 @@ export default function EditOwnerScreen() {
 
   const { data, isLoading } = useDetailOwner(id || "");
 
-  const { onUpdateOwner, isLoading: isLoadingUpdate } = useUpdateOwner(
-    id || ""
-  );
+  const { onUpdateOwner, isLoading: isLoadingUpdate } = useUpdateOwner(id || "");
 
   const handleUpdate = (values: OwnerUpdateDto) => {
     onUpdateOwner(values);

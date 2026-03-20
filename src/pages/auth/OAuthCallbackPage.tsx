@@ -10,15 +10,15 @@ export default function OAuthCallbackPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = searchParams.get('accessToken');
-    const refreshToken = searchParams.get('refreshToken');
+    const accessToken = searchParams.get("accessToken");
+    const refreshToken = searchParams.get("refreshToken");
 
     if (accessToken && refreshToken) {
       setTokens(accessToken, refreshToken);
-      navigate('/');
+      navigate("/");
     } else {
-      setError('Đăng nhập thất bại. Vui lòng thử lại.');
-      setTimeout(() => navigate('/login'), 3000);
+      setError("Đăng nhập thất bại. Vui lòng thử lại.");
+      setTimeout(() => navigate("/login"), 3000);
     }
   }, [searchParams, navigate, setTokens]);
 
@@ -34,12 +34,7 @@ export default function OAuthCallbackPage() {
           backgroundSize: "cover",
         }}
       >
-        <Alert
-          message="Lỗi đăng nhập"
-          description={error}
-          type="error"
-          showIcon
-        />
+        <Alert message="Lỗi đăng nhập" description={error} type="error" showIcon />
       </div>
     );
   }

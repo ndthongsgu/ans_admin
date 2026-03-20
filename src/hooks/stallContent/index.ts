@@ -15,9 +15,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationStallContent = (
-  params: PaginationDto<StallContentFilter>
-) => {
+export const usePaginationStallContent = (params: PaginationDto<StallContentFilter>) => {
   const requestParams: StallContentPageRequest = {
     page: Math.floor(params.skip / params.take),
     size: params.take,
@@ -47,8 +45,7 @@ export const usePaginationStallContent = (
 export const useAllStallContents = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL_CONTENT.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<StallContentDto[]>(API_ENDPOINTS.STALL_CONTENT.GET_ALL),
+    queryFn: () => rootApiService.get<StallContentDto[]>(API_ENDPOINTS.STALL_CONTENT.GET_ALL),
   });
 
   return {
@@ -124,8 +121,7 @@ export const useUpdateStallContent = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateStallContent, isPending: isLoading } = useMutation({
-    mutationFn: (body: StallContentUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: StallContentUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.STALL_CONTENT.PAGINATION],
@@ -156,30 +152,29 @@ export const useDeActivateStallContent = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateStallContent, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<StallContentDto>>(
-          API_ENDPOINTS.STALL_CONTENT.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.STALL_CONTENT.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động nội dung thuyết minh thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động nội dung thuyết minh thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateStallContent, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<StallContentDto>>(
+        API_ENDPOINTS.STALL_CONTENT.DEACTIVATE(id)
+      ),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.STALL_CONTENT.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động nội dung thuyết minh thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động nội dung thuyết minh thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateStallContent, isLoading };
 };
@@ -188,31 +183,29 @@ export const useActivateStallContent = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateStallContent, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<StallContentDto>>(
-          API_ENDPOINTS.STALL_CONTENT.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.STALL_CONTENT.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt nội dung thuyết minh thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt nội dung thuyết minh thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateStallContent, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<StallContentDto>>(
+        API_ENDPOINTS.STALL_CONTENT.ACTIVATE(id)
+      ),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.STALL_CONTENT.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt nội dung thuyết minh thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt nội dung thuyết minh thất bại!",
+      });
+    },
+  });
 
   return { onActivateStallContent, isLoading };
 };

@@ -31,14 +31,16 @@ export default function DetailRoleScreen() {
           {
             label: "Chi tiết",
             key: "1",
-            children: data ? <DetailView data={data} id={id || ""} permissionModules={permissionModules} /> : <Loading />,
+            children: data ? (
+              <DetailView data={data} id={id || ""} permissionModules={permissionModules} />
+            ) : (
+              <Loading />
+            ),
           },
           {
             label: "Lịch sử thao tác",
             key: "2",
-            children: (
-              <ActionLogView functionType="Roles" functionId={id || ""} />
-            ),
+            children: <ActionLogView functionType="Roles" functionId={id || ""} />,
           },
         ]}
       />
@@ -46,15 +48,23 @@ export default function DetailRoleScreen() {
   );
 }
 
-const DetailView = ({ data, id, permissionModules }: { data: RoleDto; id: string; permissionModules: any[] }) => {
+const DetailView = ({
+  data,
+  id,
+  permissionModules,
+}: {
+  data: RoleDto;
+  id: string;
+  permissionModules: any[];
+}) => {
   const router = useRouter();
 
   const selectedPermissions = data?.permissions
     ? Array.isArray(data.permissions)
       ? data.permissions
       : typeof data.permissions === "string"
-      ? data.permissions.split(",")
-      : []
+        ? data.permissions.split(",")
+        : []
     : [];
 
   return (
@@ -70,10 +80,7 @@ const DetailView = ({ data, id, permissionModules }: { data: RoleDto; id: string
       >
         <Row gutter={[24, 24]}>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mã vai trò
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -81,10 +88,7 @@ const DetailView = ({ data, id, permissionModules }: { data: RoleDto; id: string
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Tên vai trò
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -92,10 +96,7 @@ const DetailView = ({ data, id, permissionModules }: { data: RoleDto; id: string
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -103,10 +104,7 @@ const DetailView = ({ data, id, permissionModules }: { data: RoleDto; id: string
             </Text>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mô tả
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -158,11 +156,7 @@ const DetailView = ({ data, id, permissionModules }: { data: RoleDto; id: string
 
       {/* Back button */}
       <Row justify="space-between" style={{ marginTop: "24px" }}>
-        <Button
-          type="default"
-          icon={<LeftCircleOutlined />}
-          onClick={() => router.back()}
-        >
+        <Button type="default" icon={<LeftCircleOutlined />} onClick={() => router.back()}>
           Quay lại
         </Button>
         <Button

@@ -27,9 +27,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
       rules.push({
         required: true,
         message: `Vui lòng ${
-          field.type === "select" || field.type === "multiselect"
-            ? "chọn"
-            : "nhập"
+          field.type === "select" || field.type === "multiselect" ? "chọn" : "nhập"
         } ${field.label.toLowerCase()}!`,
       });
     }
@@ -85,9 +83,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
               disabled={field.disabled}
               addonAfter={field.addonAfter}
               value={form.getFieldValue(field.name)}
-              formatter={(value) =>
-                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              }
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               parser={(value) => (value ? Number(value.replace(/,/g, "")) : 0)}
               onChange={(value) => {
                 form.setFieldsValue({ [field.name]: value });
@@ -152,9 +148,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
                 >
                   {option.node ||
                     option.name ||
-                    (field.optionLabel
-                      ? option[field.optionLabel as keyof typeof option]
-                      : "")}
+                    (field.optionLabel ? option[field.optionLabel as keyof typeof option] : "")}
                 </Option>
               ))}
             </Select>
@@ -172,10 +166,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
             style={{ gridColumn: field.gridColumn, ...field.style }}
             getValueProps={(value) => {
               return {
-                value:
-                  value && dayjs.isDayjs(value) && value.isValid()
-                    ? value
-                    : null,
+                value: value && dayjs.isDayjs(value) && value.isValid() ? value : null,
               };
             }}
           >
@@ -209,8 +200,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
             rules={rules}
             style={{ gridColumn: field.gridColumn, ...field.style }}
             getValueProps={(value) => ({
-              value:
-                value && dayjs.isDayjs(value) && value.isValid() ? value : null,
+              value: value && dayjs.isDayjs(value) && value.isValid() ? value : null,
             })}
           >
             <DatePicker
@@ -328,9 +318,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
             rules={rules}
             style={{ gridColumn: field.gridColumn, ...field.style }}
           >
-            <Checkbox
-              onChange={(e) => field?.onChange?.(e.target.checked, form)}
-            >
+            <Checkbox onChange={(e) => field?.onChange?.(e.target.checked, form)}>
               {field.label}
             </Checkbox>
           </Form.Item>
@@ -361,9 +349,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
                   }
                 >
                   {option.name ||
-                    (field.optionLabel
-                      ? option[field.optionLabel as keyof typeof option]
-                      : "")}
+                    (field.optionLabel ? option[field.optionLabel as keyof typeof option] : "")}
                 </Radio>
               ))}
             </Radio.Group>
@@ -378,9 +364,7 @@ function useRenderFormCustom(form: any, initialValues: any) {
             key={field.name}
             mode={field.isSingle ? "single" : "multi"}
             initValue={initialValues?.[field.name]}
-            onFileUploaded={(file) =>
-              form.setFieldsValue({ [field.name]: file })
-            }
+            onFileUploaded={(file) => form.setFieldsValue({ [field.name]: file })}
             style={{ gridColumn: field.gridColumn, ...field.style }}
             type={field.type === "image" ? "image" : "document"}
             label={field.label}

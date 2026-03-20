@@ -38,10 +38,7 @@ export const usePaginationUser = (params: PaginationDto<UserFilter>) => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.USER.PAGINATION, requestParams],
     queryFn: () =>
-      rootApiService.get<PaginationResponse<UserDto>>(
-        API_ENDPOINTS.USER.PAGINATION,
-        requestParams
-      ),
+      rootApiService.get<PaginationResponse<UserDto>>(API_ENDPOINTS.USER.PAGINATION, requestParams),
   });
 
   return {
@@ -104,8 +101,7 @@ export const useUpdateUser = (id: number) => {
   const url = API_ENDPOINTS.USER.UPDATE(id.toString());
 
   const { mutateAsync: onUpdateUser, isPending: isLoading } = useMutation({
-    mutationFn: (body: UserCreateUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: UserCreateUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.USER.PAGINATION],
@@ -155,9 +151,7 @@ export const useDeActivateUser = () => {
 
   const { mutateAsync: onDeActivateUser, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<UserDto>>(
-        API_ENDPOINTS.USER.DEACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<UserDto>>(API_ENDPOINTS.USER.DEACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.USER.PAGINATION],
@@ -186,9 +180,7 @@ export const useActivateUser = () => {
 
   const { mutateAsync: onActivateUser, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<UserDto>>(
-        API_ENDPOINTS.USER.ACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<UserDto>>(API_ENDPOINTS.USER.ACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.USER.PAGINATION],

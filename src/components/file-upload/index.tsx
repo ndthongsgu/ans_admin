@@ -115,28 +115,21 @@ function FileUpload({
     }
   }, [fileList, mode, onFileUploaded]);
 
-  const showUploadButton =
-    mode === "multi" || (mode === "single" && fileList.length === 0);
+  const showUploadButton = mode === "multi" || (mode === "single" && fileList.length === 0);
 
   return (
     <Form.Item
       label={label}
       name={name}
       style={style}
-      rules={
-        required
-          ? [{ required: true, message: `Vui lòng tải lên ${label}` }]
-          : []
-      }
+      rules={required ? [{ required: true, message: `Vui lòng tải lên ${label}` }] : []}
     >
       <Upload listType="picture-card" {...uploadProps}>
         {showUploadButton && <PlusOutlined />}
       </Upload>
       <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
-        {type === "image"
-          ? "Chấp nhận: Hình ảnh"
-          : "Chấp nhận: Tất cả các file"}{" "}
-        - Tối đa {maxSize}MB
+        {type === "image" ? "Chấp nhận: Hình ảnh" : "Chấp nhận: Tất cả các file"} - Tối đa {maxSize}
+        MB
       </div>
     </Form.Item>
   );

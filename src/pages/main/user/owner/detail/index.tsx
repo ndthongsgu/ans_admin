@@ -34,9 +34,7 @@ export default function DetailOwnerScreen() {
           {
             label: "Lịch sử thao tác",
             key: "2",
-            children: (
-              <ActionLogView functionType="Owners" functionId={id || ""} />
-            ),
+            children: <ActionLogView functionType="Owners" functionId={id || ""} />,
           },
         ]}
       />
@@ -60,10 +58,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
       >
         <Row gutter={[24, 24]}>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Tên chủ quán
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -71,10 +66,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -82,10 +74,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Số điện thoại
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -93,10 +82,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Tên doanh nghiệp
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -104,10 +90,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
             </Text>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Địa chỉ doanh nghiệp
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -119,11 +102,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
 
       {/* Back button */}
       <Row justify="start" style={{ marginTop: "24px" }}>
-        <Button
-          type="default"
-          icon={<LeftCircleOutlined />}
-          onClick={() => router.back()}
-        >
+        <Button type="default" icon={<LeftCircleOutlined />} onClick={() => router.back()}>
           Quay lại
         </Button>
       </Row>

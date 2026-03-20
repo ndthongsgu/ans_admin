@@ -1,9 +1,5 @@
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
-import type {
-  TripStopCreateUpdateDto,
-  TripStopDto,
-  TripStopPageRequest,
-} from "@/dto/tripStop.dto";
+import type { TripStopCreateUpdateDto, TripStopDto, TripStopPageRequest } from "@/dto/tripStop.dto";
 import { API_ENDPOINTS } from "@/services";
 import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -41,10 +37,7 @@ export const useCreateTripStop = () => {
   const showToast = useToast();
   const { mutateAsync: onCreateTripStop, isPending: isLoading } = useMutation({
     mutationFn: (body: TripStopCreateUpdateDto) =>
-      rootApiService.post<SuccessResponse>(
-        API_ENDPOINTS.TRIP_STOP.CREATE,
-        body
-      ),
+      rootApiService.post<SuccessResponse>(API_ENDPOINTS.TRIP_STOP.CREATE, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.TRIP_STOP.PAGINATION],
@@ -70,8 +63,7 @@ export const useUpdateTripStop = (id: string) => {
   const queryClient = useQueryClient();
   const url = API_ENDPOINTS.TRIP_STOP.UPDATE(id);
   const { mutateAsync: onUpdateTripStop, isPending: isLoading } = useMutation({
-    mutationFn: (body: TripStopCreateUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: TripStopCreateUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.TRIP_STOP.PAGINATION],
@@ -131,30 +123,27 @@ export const useDeActivateTripStop = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateTripStop, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<TripStopDto>>(
-          API_ENDPOINTS.TRIP_STOP.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.TRIP_STOP.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động điểm dừng thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động điểm dừng thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateTripStop, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<TripStopDto>>(API_ENDPOINTS.TRIP_STOP.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.TRIP_STOP.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động điểm dừng thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động điểm dừng thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateTripStop, isLoading };
 };
@@ -163,31 +152,27 @@ export const useActivateTripStop = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateTripStop, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<TripStopDto>>(
-          API_ENDPOINTS.TRIP_STOP.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.TRIP_STOP.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt điểm dừng thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt điểm dừng thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateTripStop, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<TripStopDto>>(API_ENDPOINTS.TRIP_STOP.ACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.TRIP_STOP.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt điểm dừng thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt điểm dừng thất bại!",
+      });
+    },
+  });
 
   return { onActivateTripStop, isLoading };
 };

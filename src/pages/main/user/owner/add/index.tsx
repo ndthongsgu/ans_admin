@@ -23,10 +23,12 @@ export default function AddOwnerScreen({
   const router = useRouter();
 
   // Transform initData to use full_name instead of name
-  const transformedInitData = initData ? {
-    ...initData,
-    full_name: initData.name
-  } : undefined;
+  const transformedInitData = initData
+    ? {
+        ...initData,
+        full_name: initData.name,
+      }
+    : undefined;
 
   const formFields = useMemo(() => {
     const fields: FormField[] = [

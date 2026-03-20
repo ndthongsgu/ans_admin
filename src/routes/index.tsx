@@ -44,55 +44,30 @@ export default function AppRoutes() {
     <Routes>
       {/* Route công khai */}
       <Route path={ROUTES.AUTH.LOGIN.path} element={<LoginPage />} />
-      <Route
-        path={ROUTES.AUTH.CHANGE_PASSWORD.path}
-        element={<ChangePasswordPage />}
-      />
-      <Route
-        path={ROUTES.AUTH.FORGOT_PASSWORD.path}
-        element={<ForgotPasswordPage />}
-      />
-      <Route
-        path={ROUTES.AUTH.RESET_PASSWORD.path}
-        element={<ResetPasswordPage />}
-      />
-      <Route
-        path={ROUTES.AUTH.OAUTH_CALLBACK.path}
-        element={<OAuthCallbackPage />}
-      />
+      <Route path={ROUTES.AUTH.CHANGE_PASSWORD.path} element={<ChangePasswordPage />} />
+      <Route path={ROUTES.AUTH.FORGOT_PASSWORD.path} element={<ForgotPasswordPage />} />
+      <Route path={ROUTES.AUTH.RESET_PASSWORD.path} element={<ResetPasswordPage />} />
+      <Route path={ROUTES.AUTH.OAUTH_CALLBACK.path} element={<OAuthCallbackPage />} />
       {/* Route bảo vệ */}
       <Route element={<PrivateRoute />}>
         <Route element={<AppLayout />}>
           {/* Trang chủ */}
-          <Route
-            index
-            path={ROUTES.MAIN.HOME.path}
-            element={<HomePage />}
-          />
+          <Route index path={ROUTES.MAIN.HOME.path} element={<HomePage />} />
           {/* Quản lý nhân viên */}
           <Route
             path={ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.path}
             element={<EmployeeManager />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children
-                .ADD_EMPLOYEE.path
-            }
+            path={ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children.ADD_EMPLOYEE.path}
             element={<AddEmployeeScreen />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children
-                .EDIT_EMPLOYEE.path
-            }
+            path={ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children.EDIT_EMPLOYEE.path}
             element={<EditEmployeeScreen />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children
-                .DETAIL_EMPLOYEE.path
-            }
+            path={ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.children.DETAIL_EMPLOYEE.path}
             element={<DetailEmployeeScreen />}
           />
           {/* Quản lý khách hàng */}
@@ -102,74 +77,56 @@ export default function AppRoutes() {
           />
           <Route
             path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_LIST.children.ADD_CUSTOMER.path
+              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.children
+                .ADD_CUSTOMER.path
             }
             element={<AddCustomerScreen />}
           />
           <Route
             path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_LIST.children.EDIT_CUSTOMER.path
+              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.children
+                .EDIT_CUSTOMER.path
             }
             element={<EditCustomerScreen />}
           />
           <Route
             path={
-              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children
-                .CUSTOMER_LIST.children.DETAIL_CUSTOMER.path
+              ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.children
+                .DETAIL_CUSTOMER.path
             }
             element={<DetailCustomerScreen />}
           />
           {/* Quản lý vai trò */}
+          <Route path={ROUTES.MAIN.ROLE_MANAGER.path} element={<RoleManager />} />
           <Route
-            path={ROUTES.MAIN.ROLE_MANAGER.path}
-            element={<RoleManager />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.ROLE_MANAGER.children.ADD_ROLE.path
-            }
+            path={ROUTES.MAIN.ROLE_MANAGER.children.ADD_ROLE.path}
             element={<AddRoleScreen />}
           />
           <Route
-            path={
-              ROUTES.MAIN.ROLE_MANAGER.children.EDIT_ROLE.path
-            }
+            path={ROUTES.MAIN.ROLE_MANAGER.children.EDIT_ROLE.path}
             element={<EditRoleScreen />}
           />
           <Route
-            path={
-              ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path
-            }
+            path={ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path}
             element={<DetailRoleScreen />}
           />
           {/* Quản lý phân quyền */}
-          <Route
-            path={ROUTES.MAIN.PERMISSION_MANAGER.path}
-            element={<PermissionManagement />}
-          />
+          <Route path={ROUTES.MAIN.PERMISSION_MANAGER.path} element={<PermissionManagement />} />
           {/* Quản lý chủ quán */}
           <Route
             path={ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.path}
             element={<OwnerManager />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.ADD_OWNER.path
-            }
+            path={ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.ADD_OWNER.path}
             element={<AddOwnerScreen />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.EDIT_OWNER.path
-            }
+            path={ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.EDIT_OWNER.path}
             element={<EditOwnerScreen />}
           />
           <Route
-            path={
-              ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.DETAIL_OWNER.path
-            }
+            path={ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.children.DETAIL_OWNER.path}
             element={<DetailOwnerScreen />}
           />
           {/* Quản lý quán ăn */}
@@ -202,19 +159,22 @@ export default function AppRoutes() {
           />
           <Route
             path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children.ADD_STALL_CONTENT.path
+              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children
+                .ADD_STALL_CONTENT.path
             }
             element={<AddStallContentScreen />}
           />
           <Route
             path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children.EDIT_STALL_CONTENT.path
+              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children
+                .EDIT_STALL_CONTENT.path
             }
             element={<EditStallContentScreen />}
           />
           <Route
             path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children.DETAIL_STALL_CONTENT.path
+              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children
+                .DETAIL_STALL_CONTENT.path
             }
             element={<DetailStallContentScreen />}
           />
@@ -225,19 +185,22 @@ export default function AppRoutes() {
           />
           <Route
             path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.ADD_SUBSCRIPTION_PACKAGE.path
+              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
+                .ADD_SUBSCRIPTION_PACKAGE.path
             }
             element={<AddSubscriptionPackageScreen />}
           />
           <Route
             path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.EDIT_SUBSCRIPTION_PACKAGE.path
+              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
+                .EDIT_SUBSCRIPTION_PACKAGE.path
             }
             element={<EditSubscriptionPackageScreen />}
           />
           <Route
             path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.DETAIL_SUBSCRIPTION_PACKAGE.path
+              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
+                .DETAIL_SUBSCRIPTION_PACKAGE.path
             }
             element={<DetailSubscriptionPackageScreen />}
           />

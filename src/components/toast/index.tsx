@@ -34,24 +34,20 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const useToastContext = () => {
   const ctx = useContext(ToastContext);
-  if (!ctx)
-    throw new Error("useToastContext must be used inside ToastProvider");
+  if (!ctx) throw new Error("useToastContext must be used inside ToastProvider");
   return ctx;
 };
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const showToast = useCallback(
-    ({ type, title, message, duration = 3000 }: Omit<Toast, "id">) => {
-      const id = Date.now().toString();
-      setToasts((prev) => [...prev, { id, type, title, message, duration }]);
-      setTimeout(() => {
-        setToasts((prev) => prev.filter((t) => t.id !== id));
-      }, duration);
-    },
-    []
-  );
+  const showToast = useCallback(({ type, title, message, duration = 3000 }: Omit<Toast, "id">) => {
+    const id = Date.now().toString();
+    setToasts((prev) => [...prev, { id, type, title, message, duration }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, duration);
+  }, []);
 
   const removeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
@@ -73,11 +69,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         }}
       >
         {toasts.map((toast) => (
-          <ToastItem
-            key={toast.id}
-            {...toast}
-            onClose={() => removeToast(toast.id)}
-          />
+          <ToastItem key={toast.id} {...toast} onClose={() => removeToast(toast.id)} />
         ))}
       </div>
     </ToastContext.Provider>
@@ -89,9 +81,7 @@ type ToastItemProps = Toast & { onClose: () => void };
 const iconMap: Record<ToastType, JSX.Element> = {
   success: <CheckCircleOutlined style={{ fontSize: 24, color: "#52c41a" }} />,
   error: <CloseCircleOutlined style={{ fontSize: 24, color: "#ff4d4f" }} />,
-  warning: (
-    <ExclamationCircleOutlined style={{ fontSize: 24, color: "#faad14" }} />
-  ),
+  warning: <ExclamationCircleOutlined style={{ fontSize: 24, color: "#faad14" }} />,
   info: <InfoCircleOutlined style={{ fontSize: 24, color: "#1890ff" }} />,
 };
 
@@ -116,13 +106,7 @@ const textColorMap: Record<ToastType, string> = {
   info: "#096dd9",
 };
 
-const ToastItem = ({
-  type,
-  title,
-  message,
-  duration = 3000,
-  onClose,
-}: ToastItemProps) => {
+const ToastItem = ({ type, title, message, duration = 3000, onClose }: ToastItemProps) => {
   const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

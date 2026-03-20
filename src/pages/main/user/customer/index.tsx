@@ -1,9 +1,7 @@
 import { ROUTES } from "@/common/constants/routes";
 import BaseView from "@/components/base-view/BaseView";
 import ActionConfirm from "@/components/confirm-action";
-import FilterComponent, {
-  type FilterField,
-} from "@/components/filter/FilterCustom";
+import FilterComponent, { type FilterField } from "@/components/filter/FilterCustom";
 import RowActions from "@/components/row-action";
 import { CommonActions } from "@/components/row-action/CommonAction";
 import TableCustom, { type TableAction } from "@/components/table/Table";
@@ -15,12 +13,7 @@ import {
   usePaginationCustomer,
 } from "@/hooks/customer";
 import { useRouter } from "@/routes/hooks";
-import {
-  EditOutlined,
-  EyeOutlined,
-  PlayCircleOutlined,
-  StopOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, EyeOutlined, PlayCircleOutlined, StopOutlined } from "@ant-design/icons";
 import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
@@ -96,8 +89,8 @@ export default function CustomerManager() {
 
   const handleCreate = () => {
     router.push(
-      ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST
-        .children.ADD_CUSTOMER.path
+      ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.children
+        .ADD_CUSTOMER.path
     );
   };
 
@@ -273,9 +266,7 @@ export default function CustomerManager() {
           showSizeChanger: true,
         }}
         onPageChange={handlePageChange}
-        customToolbar={
-          <RowActions actions={[CommonActions.create(() => handleCreate())]} />
-        }
+        customToolbar={<RowActions actions={[CommonActions.create(() => handleCreate())]} />}
       />
     </BaseView>
   );

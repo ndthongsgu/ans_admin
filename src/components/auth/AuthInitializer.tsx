@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function AuthInitializer() {
   const setHasHydrated = useAuthHydrationStore((state) => state.setHasHydrated);
-  
+
   // Load user info when authenticated
   useLoadUserInfo();
 

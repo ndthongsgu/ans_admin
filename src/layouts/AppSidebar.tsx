@@ -1,8 +1,4 @@
-import {
-  DashboardOutlined,
-  UserOutlined,
-  ShopOutlined,
-} from "@ant-design/icons";
+import { DashboardOutlined, UserOutlined, ShopOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -139,11 +135,7 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
           ))}
         </Menu.SubMenu>
       ) : (
-        <Menu.Item
-          key={item.key}
-          icon={item.icon}
-          onClick={() => item.path && navigate(item.path)}
-        >
+        <Menu.Item key={item.key} icon={item.icon} onClick={() => item.path && navigate(item.path)}>
           {item.label}
         </Menu.Item>
       )

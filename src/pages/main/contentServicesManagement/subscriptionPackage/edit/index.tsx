@@ -1,6 +1,9 @@
 import Loading from "@/components/loading/Loading";
 import type { SubscriptionPackageUpdateDto } from "@/dto/subscriptionPackage.dto";
-import { useDetailSubscriptionPackage, useUpdateSubscriptionPackage } from "@/hooks/subscriptionPackage";
+import {
+  useDetailSubscriptionPackage,
+  useUpdateSubscriptionPackage,
+} from "@/hooks/subscriptionPackage";
 import { useParams } from "react-router-dom";
 import AddSubscriptionPackageScreen from "../add";
 

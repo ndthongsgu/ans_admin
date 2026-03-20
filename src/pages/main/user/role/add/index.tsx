@@ -24,8 +24,7 @@ export default function AddRoleScreen({
   const { data: permissionModules } = useGetAllPermission();
   const { isLoading: isCreating, onCreateRole } = useCreateRole();
   const updateHook = isEdit && initData ? useUpdateRole(initData.id) : null;
-  const { onUpdateRole: updateFunc, isLoading: isUpdatingLoading } =
-    updateHook || {};
+  const { onUpdateRole: updateFunc, isLoading: isUpdatingLoading } = updateHook || {};
 
   const [code, setCode] = useState(initData?.code || "");
   const [name, setName] = useState(initData?.name || "");
@@ -35,8 +34,8 @@ export default function AddRoleScreen({
       ? Array.isArray(initData.permissions)
         ? initData.permissions
         : typeof initData.permissions === "string"
-        ? initData.permissions.split(",")
-        : []
+          ? initData.permissions.split(",")
+          : []
       : []
   );
 
@@ -48,19 +47,12 @@ export default function AddRoleScreen({
     }
   };
 
-  const handleModuleSelectAll = (
-    module: (typeof permissionModules)[0],
-    checked: boolean
-  ) => {
+  const handleModuleSelectAll = (module: (typeof permissionModules)[0], checked: boolean) => {
     const moduleCodes = module.permissions.map((p) => p.code);
     if (checked) {
-      setSelectedPermissions([
-        ...new Set([...selectedPermissions, ...moduleCodes]),
-      ]);
+      setSelectedPermissions([...new Set([...selectedPermissions, ...moduleCodes])]);
     } else {
-      setSelectedPermissions(
-        selectedPermissions.filter((p) => !moduleCodes.includes(p))
-      );
+      setSelectedPermissions(selectedPermissions.filter((p) => !moduleCodes.includes(p)));
     }
   };
 
@@ -74,8 +66,7 @@ export default function AddRoleScreen({
       code: code.trim(),
       name: name.trim(),
       description: description.trim(),
-      permissions:
-        selectedPermissions.length > 0 ? selectedPermissions : undefined,
+      permissions: selectedPermissions.length > 0 ? selectedPermissions : undefined,
     };
 
     try {
@@ -93,8 +84,7 @@ export default function AddRoleScreen({
     }
   };
 
-  const isLoading =
-    isCreating || isUpdatingLoading || isLoadingUpdate;
+  const isLoading = isCreating || isUpdatingLoading || isLoadingUpdate;
 
   return (
     <BaseView isLoading={isLoading}>
@@ -146,12 +136,8 @@ export default function AddRoleScreen({
           <Row gutter={[24, 24]}>
             {permissionModules.map((module) => {
               const modulePermissions = module.permissions.map((p) => p.code);
-              const allSelected = modulePermissions.every((p) =>
-                selectedPermissions.includes(p)
-              );
-              const someSelected = modulePermissions.some((p) =>
-                selectedPermissions.includes(p)
-              );
+              const allSelected = modulePermissions.every((p) => selectedPermissions.includes(p));
+              const someSelected = modulePermissions.some((p) => selectedPermissions.includes(p));
 
               return (
                 <Col span={12} key={module.module}>
@@ -176,9 +162,7 @@ export default function AddRoleScreen({
                             <Checkbox
                               key={perm.code}
                               checked={selectedPermissions.includes(perm.code)}
-                              onChange={(e) =>
-                                handlePermissionChange(perm.code, e.target.checked)
-                              }
+                              onChange={(e) => handlePermissionChange(perm.code, e.target.checked)}
                             >
                               {perm.label}
                             </Checkbox>
@@ -195,10 +179,7 @@ export default function AddRoleScreen({
 
         {/* Actions */}
         <Row justify="space-between">
-          <Button
-            icon={<LeftCircleOutlined />}
-            onClick={() => router.back()}
-          >
+          <Button icon={<LeftCircleOutlined />} onClick={() => router.back()}>
             Quay lại
           </Button>
           <Button

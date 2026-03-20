@@ -25,11 +25,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
 }) => {
   const menu = (
     <Menu>
-      <Menu.Item
-        key="change-password"
-        icon={<KeyOutlined />}
-        onClick={onChangePassword}
-      >
+      <Menu.Item key="change-password" icon={<KeyOutlined />} onClick={onChangePassword}>
         Đổi mật khẩu
       </Menu.Item>
       <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={onLogout}>
@@ -49,10 +45,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
     >
       <Row align="middle" justify="space-between" style={{ width: "100%" }}>
         <Row align="middle" gutter={16}>
-          <span
-            style={{ cursor: "pointer", fontSize: 18 }}
-            onClick={onToggleSidebar}
-          >
+          <span style={{ cursor: "pointer", fontSize: 18 }} onClick={onToggleSidebar}>
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </span>
           <Breadcrumbs />

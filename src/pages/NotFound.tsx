@@ -28,11 +28,7 @@ export default function NotFound(): JSX.Element {
           margin: "0 auto",
         }}
       >
-        <Lottie
-          animationData={error}
-          loop
-          style={{ width: "100%", height: "auto" }}
-        />
+        <Lottie animationData={error} loop style={{ width: "100%", height: "auto" }} />
 
         <p
           style={{
@@ -65,13 +61,11 @@ export default function NotFound(): JSX.Element {
             transition: "all 0.2s ease",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-              "#f3f4f6";
+            (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#f3f4f6";
             (e.currentTarget as HTMLAnchorElement).style.color = "#111827";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-              "#ffffff";
+            (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#ffffff";
             (e.currentTarget as HTMLAnchorElement).style.color = "#374151";
           }}
         >

@@ -5,13 +5,13 @@ import { usePasswordResetConfirm } from "@/hooks/auth/auth";
 
 export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
+  const token = searchParams.get("token");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const resetMutation = usePasswordResetConfirm();
 
   const onFinish = async (values: { newPassword: string; confirmPassword: string }) => {
     if (!token) {
-      throw new Error('Token không hợp lệ');
+      throw new Error("Token không hợp lệ");
     }
 
     await resetMutation.mutateAsync({
@@ -86,16 +86,8 @@ export default function ResetPasswordPage() {
         backgroundSize: "cover",
       }}
     >
-      <Card
-        title="Đặt lại mật khẩu"
-        style={{ width: 400 }}
-      >
-        <Form
-          name="resetPassword"
-          layout="vertical"
-          onFinish={onFinish}
-          autoComplete="off"
-        >
+      <Card title="Đặt lại mật khẩu" style={{ width: 400 }}>
+        <Form name="resetPassword" layout="vertical" onFinish={onFinish} autoComplete="off">
           <Form.Item
             label="Mật khẩu mới"
             name="newPassword"
@@ -110,15 +102,15 @@ export default function ResetPasswordPage() {
           <Form.Item
             label="Xác nhận mật khẩu"
             name="confirmPassword"
-            dependencies={['newPassword']}
+            dependencies={["newPassword"]}
             rules={[
               { required: true, message: "Vui lòng xác nhận mật khẩu!" },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue('newPassword') === value) {
+                  if (!value || getFieldValue("newPassword") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('Mật khẩu xác nhận không khớp!'));
+                  return Promise.reject(new Error("Mật khẩu xác nhận không khớp!"));
                 },
               }),
             ]}
@@ -127,10 +119,10 @@ export default function ResetPasswordPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
-              size="large" 
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
               style={{ width: "100%" }}
               loading={resetMutation.isPending}
             >

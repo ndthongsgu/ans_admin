@@ -74,12 +74,7 @@ export default function LoginForm({ adminMode = false }: LoginFormProps) {
 
       {/* Optional message banner from query params */}
       {message && (
-        <Alert
-          message={message}
-          type="warning"
-          showIcon
-          style={{ marginBottom: "1rem" }}
-        />
+        <Alert message={message} type="warning" showIcon style={{ marginBottom: "1rem" }} />
       )}
 
       {loginMutation.isError && (
@@ -157,20 +152,12 @@ export default function LoginForm({ adminMode = false }: LoginFormProps) {
           </Button>
           <div style={{ textAlign: "center", marginTop: "1rem" }}>
             {/* FIX: Use onClick and navigate instead of href for internal link */}
-            <Button
-              type="link"
-              onClick={() => navigate("/forgot-password")}
-              style={{ padding: 0 }}
-            >
+            <Button type="link" onClick={() => navigate("/forgot-password")} style={{ padding: 0 }}>
               Quên mật khẩu?
             </Button>
             {/* NEW: Conditionally show a separator and Register link */}
             <Divider type="vertical" />
-            <Button
-              type="link"
-              onClick={() => navigate("/register")}
-              style={{ padding: 0 }}
-            >
+            <Button type="link" onClick={() => navigate("/register")} style={{ padding: 0 }}>
               Đăng ký
             </Button>
           </div>

@@ -20,7 +20,7 @@ const ROUTE_MODULE_MAP: Record<string, ModuleCodeType> = {
 
 /**
  * Hook to check if a route is accessible based on user permissions
- * 
+ *
  * IMPORTANT: Admin users (isAdmin = true) can access ALL routes
  */
 export function useCanAccessRoute(routePath: string): boolean {
@@ -28,14 +28,12 @@ export function useCanAccessRoute(routePath: string): boolean {
 
   return useMemo(() => {
     if (!userInfo) return false;
-    
+
     // ⚠️ ADMIN BYPASS: Admin can access all routes
     if (isAdmin(userInfo)) return true;
 
     // Find matching module code for the route
-    const moduleCode = Object.keys(ROUTE_MODULE_MAP).find((path) =>
-      routePath.startsWith(path)
-    );
+    const moduleCode = Object.keys(ROUTE_MODULE_MAP).find((path) => routePath.startsWith(path));
 
     if (!moduleCode) {
       // If no module code found, allow access (for dashboard, profile, etc.)
@@ -48,7 +46,7 @@ export function useCanAccessRoute(routePath: string): boolean {
 
 /**
  * Hook to get all accessible route paths
- * 
+ *
  * IMPORTANT: Admin users get access to ALL routes
  */
 export function useAccessibleRoutes(): string[] {
@@ -70,7 +68,7 @@ export function useAccessibleRoutes(): string[] {
 
 /**
  * Hook to check if user can access a specific module
- * 
+ *
  * IMPORTANT: Admin users can access ALL modules
  */
 export function useCanAccessModule(moduleCode: ModuleCodeType): boolean {
@@ -78,10 +76,10 @@ export function useCanAccessModule(moduleCode: ModuleCodeType): boolean {
 
   return useMemo(() => {
     if (!userInfo) return false;
-    
+
     // ⚠️ ADMIN BYPASS: Admin can access all modules
     if (isAdmin(userInfo)) return true;
-    
+
     return canAccessModule(moduleCode, userInfo);
   }, [userInfo, moduleCode]);
 }

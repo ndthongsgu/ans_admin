@@ -34,9 +34,7 @@ export default function DetailStallContentScreen() {
           {
             label: "Lịch sử thao tác",
             key: "2",
-            children: (
-              <ActionLogView functionType="StallContents" functionId={id || ""} />
-            ),
+            children: <ActionLogView functionType="StallContents" functionId={id || ""} />,
           },
         ]}
       />
@@ -60,10 +58,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
       >
         <Row gutter={[24, 24]}>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Tiêu đề
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -71,10 +66,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Quán ăn
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -82,10 +74,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngôn ngữ
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -93,10 +82,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mô tả
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -104,10 +90,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mô tả ngắn
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -115,10 +98,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               URL Audio
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -132,10 +112,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Thời lượng (giây)
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -143,10 +120,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Kích thước file (byte)
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -154,10 +128,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Script TTS
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -165,36 +136,23 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
-              {data?.created_at
-                ? formatDate(new Date(data.created_at * 1000))
-                : "N/A"}
+              {data?.created_at ? formatDate(new Date(data.created_at * 1000)) : "N/A"}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Cập nhật lần cuối
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
-              {data?.updated_at
-                ? formatDate(new Date(data.updated_at * 1000))
-                : "Chưa cập nhật"}
+              {data?.updated_at ? formatDate(new Date(data.updated_at * 1000)) : "Chưa cập nhật"}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Trạng thái
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
@@ -206,11 +164,7 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
 
       {/* Back button */}
       <Row justify="start" style={{ marginTop: "24px" }}>
-        <Button
-          type="default"
-          icon={<LeftCircleOutlined />}
-          onClick={() => router.back()}
-        >
+        <Button type="default" icon={<LeftCircleOutlined />} onClick={() => router.back()}>
           Quay lại
         </Button>
       </Row>

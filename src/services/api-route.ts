@@ -155,8 +155,7 @@ export const API_ENDPOINTS = {
     SELECT: "/admin/bookings/select",
     CONFIRM: (id: string) => `/admin/bookings/confirm/${id}`,
     COMPLETE_TRIP: (id: string) => `/admin/bookings/complete-trip/${id}`,
-    UPDATE_STATUS_BY_DATE: (id: string) =>
-      `/admin/bookings/update-status-by-date/${id}`,
+    UPDATE_STATUS_BY_DATE: (id: string) => `/admin/bookings/update-status-by-date/${id}`,
   },
   BOOKING_SEAT: {
     GET_ALL: "/admin/booking-seats",

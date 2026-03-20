@@ -13,19 +13,19 @@ export type CanProps = {
 
 /**
  * Component to conditionally render based on user permissions
- * 
+ *
  * @example
  * // Hide button if user doesn't have create permission
  * <Can moduleCode="CUSTOMER" action="canCreate">
  *   <Button>Create Customer</Button>
  * </Can>
- * 
+ *
  * @example
  * // Disable button if user doesn't have update permission
  * <Can moduleCode="CUSTOMER" action="canUpdate" mode="disable">
  *   <Button>Edit Customer</Button>
  * </Can>
- * 
+ *
  * @example
  * // Check multiple actions (user needs at least one)
  * <Can moduleCode="CUSTOMER" action={["canCreate", "canUpdate"]}>

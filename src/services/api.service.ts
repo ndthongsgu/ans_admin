@@ -91,7 +91,7 @@ const request = async <T>(
   }).then(async (res) => {
     if (!res.ok) {
       // Handle 401 Unauthorized - try to refresh token
-      if (res.status === 401 && !skipAuth && !url.includes('/auth/refresh')) {
+      if (res.status === 401 && !skipAuth && !url.includes("/auth/refresh")) {
         try {
           const newToken = await refreshAccessToken();
           // Retry the original request with new token
@@ -105,10 +105,10 @@ const request = async <T>(
         } catch (refreshError) {
           // Refresh failed, redirect to login but only if we're not already on login page
           useAuthStore.getState().clearTokens();
-          if (!window.location.pathname.includes('/login')) {
-            window.location.href = `/login?message=${encodeURIComponent('Session expired. Please login again.')}`;
+          if (!window.location.pathname.includes("/login")) {
+            window.location.href = `/login?message=${encodeURIComponent("Session expired. Please login again.")}`;
           }
-          throw new Error('Session expired');
+          throw new Error("Session expired");
         }
       }
 
@@ -119,10 +119,10 @@ const request = async <T>(
     if (res.status === 204) {
       return {} as T;
     }
-    
+
     const text = await res.text();
     if (!text) return {} as T;
-    
+
     try {
       return JSON.parse(text) as T;
     } catch (_) {
@@ -141,54 +141,33 @@ export const rootApiServiceOld = {
     options?: RequestOptions
   ) => request<T>(url, "GET", { params, headers, ...options }),
 
-  post: <T>(
-    url: string,
-    body?: any,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => request<T>(url, "POST", { body, headers, ...options }),
+  post: <T>(url: string, body?: any, headers?: Record<string, string>, options?: RequestOptions) =>
+    request<T>(url, "POST", { body, headers, ...options }),
 
-  put: <T>(
-    url: string,
-    body?: any,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => request<T>(url, "PUT", { body, headers, ...options }),
+  put: <T>(url: string, body?: any, headers?: Record<string, string>, options?: RequestOptions) =>
+    request<T>(url, "PUT", { body, headers, ...options }),
 
-  delete: <T>(
-    url: string,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => request<T>(url, "DELETE", { headers, ...options }),
+  delete: <T>(url: string, headers?: Record<string, string>, options?: RequestOptions) =>
+    request<T>(url, "DELETE", { headers, ...options }),
 
-  patch: <T>(
-    url: string,
-    body?: any,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => request<T>(url, "PATCH", { body, headers, ...options }),
+  patch: <T>(url: string, body?: any, headers?: Record<string, string>, options?: RequestOptions) =>
+    request<T>(url, "PATCH", { body, headers, ...options }),
 };
 
 export const requestAxios = async <T>(
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
   url: string,
   options: RequestOptions = {}
 ): Promise<T> => {
-  const {
-    headers = {},
-    params,
-    body,
-    timeout = API_ROUTES.TIMEOUT,
-    skipAuth = false,
-  } = options;
+  const { headers = {}, params, body, timeout = API_ROUTES.TIMEOUT, skipAuth = false } = options;
 
   const finalHeaders = {
     ...headers,
-    ...(skipAuth ? { 'x-skip-auth': 'true' } : {}),
+    ...(skipAuth ? { "x-skip-auth": "true" } : {}),
   };
 
   // Determine if this is a payment endpoint
-  const isPaymentEndpoint = url.includes('/payments') || url.includes('/payment-methods');
+  const isPaymentEndpoint = url.includes("/payments") || url.includes("/payment-methods");
   const baseURL = isPaymentEndpoint ? API_ROUTES.PAYMENT_BASE_URL : API_ROUTES.BASE_URL;
 
   try {
@@ -207,20 +186,20 @@ export const requestAxios = async <T>(
     // Extract meaningful error message from response
     if (error.response?.data) {
       const errorData = error.response.data;
-      
+
       // Use the server-provided message if available
       if (errorData.message) {
         throw new Error(errorData.message);
       }
-      
+
       // Fallback to status text
       if (error.response.statusText) {
         throw new Error(error.response.statusText);
       }
     }
-    
+
     // Fallback to generic error
-    throw new Error(error.message || 'Request failed');
+    throw new Error(error.message || "Request failed");
   }
 };
 
@@ -230,34 +209,19 @@ const rootApiService = {
     params?: Record<string, any>,
     headers?: Record<string, string>,
     options?: RequestOptions
-  ) => requestAxios<T>('GET', url, { params, headers, ...options }),
+  ) => requestAxios<T>("GET", url, { params, headers, ...options }),
 
-  post: <T>(
-    url: string,
-    body?: any,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => requestAxios<T>('POST', url, { body, headers, ...options }),
+  post: <T>(url: string, body?: any, headers?: Record<string, string>, options?: RequestOptions) =>
+    requestAxios<T>("POST", url, { body, headers, ...options }),
 
-  put: <T>(
-    url: string,
-    body?: any,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => requestAxios<T>('PUT', url, { body, headers, ...options }),
+  put: <T>(url: string, body?: any, headers?: Record<string, string>, options?: RequestOptions) =>
+    requestAxios<T>("PUT", url, { body, headers, ...options }),
 
-  delete: <T>(
-    url: string,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => requestAxios<T>('DELETE', url, { headers, ...options }),
+  delete: <T>(url: string, headers?: Record<string, string>, options?: RequestOptions) =>
+    requestAxios<T>("DELETE", url, { headers, ...options }),
 
-  patch: <T>(
-    url: string,
-    body?: any,
-    headers?: Record<string, string>,
-    options?: RequestOptions
-  ) => requestAxios<T>('PATCH', url, { body, headers, ...options }),
+  patch: <T>(url: string, body?: any, headers?: Record<string, string>, options?: RequestOptions) =>
+    requestAxios<T>("PATCH", url, { body, headers, ...options }),
   postBlob: async (
     url: string,
     body?: any,
@@ -267,22 +231,22 @@ const rootApiService = {
     const { timeout = API_ROUTES.TIMEOUT, skipAuth = false } = options;
     const finalHeaders = {
       ...headers,
-      ...(skipAuth ? { 'x-skip-auth': 'true' } : {}),
-      Accept: 'application/pdf',
-      'Content-Type': 'application/json',
+      ...(skipAuth ? { "x-skip-auth": "true" } : {}),
+      Accept: "application/pdf",
+      "Content-Type": "application/json",
     } as Record<string, string>;
 
     // Determine if this is a payment endpoint
-    const isPaymentEndpoint = url.includes('/payments') || url.includes('/payment-methods');
+    const isPaymentEndpoint = url.includes("/payments") || url.includes("/payment-methods");
     const baseURL = isPaymentEndpoint ? API_ROUTES.PAYMENT_BASE_URL : API_ROUTES.BASE_URL;
 
     const response = await axiosInstance.request<Blob>({
       url,
-      method: 'POST',
+      method: "POST",
       headers: finalHeaders,
       data: body,
       timeout,
-      responseType: 'blob',
+      responseType: "blob",
       baseURL, // Override base URL for payment endpoints
     });
     return response.data as any;

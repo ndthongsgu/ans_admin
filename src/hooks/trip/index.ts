@@ -30,8 +30,7 @@ export const useGetAllTrips = () => {
 export const useSelectTrips = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.TRIP.SELECT],
-    queryFn: () =>
-      rootApiService.get<TripSelectDto[]>(API_ENDPOINTS.TRIP.SELECT),
+    queryFn: () => rootApiService.get<TripSelectDto[]>(API_ENDPOINTS.TRIP.SELECT),
   });
 
   return {
@@ -74,8 +73,7 @@ export const useCreateTrip = () => {
   const showToast = useToast();
   const router = useRouter();
   const { mutateAsync: onCreateTrip, isPending: isLoading } = useMutation({
-    mutationFn: (body: TripCreateUpdateDto) =>
-      rootApiService.post(API_ENDPOINTS.TRIP.CREATE, body),
+    mutationFn: (body: TripCreateUpdateDto) => rootApiService.post(API_ENDPOINTS.TRIP.CREATE, body),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.TRIP.PAGINATION],
@@ -170,9 +168,7 @@ export const useDeActivateTrip = () => {
 
   const { mutateAsync: onDeActivateTrip, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<TripDto>>(
-        API_ENDPOINTS.TRIP.DEACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<TripDto>>(API_ENDPOINTS.TRIP.DEACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.TRIP.PAGINATION],
@@ -202,9 +198,7 @@ export const useActivateTrip = () => {
 
   const { mutateAsync: onActivateTrip, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<TripDto>>(
-        API_ENDPOINTS.TRIP.ACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<TripDto>>(API_ENDPOINTS.TRIP.ACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.TRIP.PAGINATION],

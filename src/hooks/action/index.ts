@@ -34,9 +34,7 @@ export const useActionLogPagination = (params: ActionLogSearchDto) => {
     queryKey: [url, params],
     queryFn: async () => {
       try {
-        const response = await rootApiService.post<
-          PaginationResponse<ActionLogDto>
-        >(url, params);
+        const response = await rootApiService.post<PaginationResponse<ActionLogDto>>(url, params);
         return response;
       } catch (err) {
         console.error("API Error:", err);

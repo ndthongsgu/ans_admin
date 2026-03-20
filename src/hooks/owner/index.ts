@@ -15,9 +15,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationOwner = (
-  params: PaginationDto<OwnerFilter>
-) => {
+export const usePaginationOwner = (params: PaginationDto<OwnerFilter>) => {
   const requestParams: OwnerPageRequest = {
     page: Math.floor(params.skip / params.take),
     size: params.take,
@@ -47,8 +45,7 @@ export const usePaginationOwner = (
 export const useAllOwners = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.OWNER.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<OwnerDto[]>(API_ENDPOINTS.OWNER.GET_ALL),
+    queryFn: () => rootApiService.get<OwnerDto[]>(API_ENDPOINTS.OWNER.GET_ALL),
   });
 
   return {
@@ -61,8 +58,7 @@ export const useAllOwners = () => {
 export const useSelectOwners = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.OWNER.SELECT],
-    queryFn: () =>
-      rootApiService.get<OwnerSelectOption[]>(API_ENDPOINTS.OWNER.SELECT),
+    queryFn: () => rootApiService.get<OwnerSelectOption[]>(API_ENDPOINTS.OWNER.SELECT),
   });
 
   return {
@@ -124,8 +120,7 @@ export const useUpdateOwner = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateOwner, isPending: isLoading } = useMutation({
-    mutationFn: (body: OwnerUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: OwnerUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.OWNER.PAGINATION],
@@ -156,30 +151,27 @@ export const useDeActivateOwner = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateOwner, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<OwnerDto>>(
-          API_ENDPOINTS.OWNER.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.OWNER.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động chủ quán thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động chủ quán thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateOwner, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<OwnerDto>>(API_ENDPOINTS.OWNER.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.OWNER.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động chủ quán thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động chủ quán thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateOwner, isLoading };
 };
@@ -188,31 +180,27 @@ export const useActivateOwner = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateOwner, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<OwnerDto>>(
-          API_ENDPOINTS.OWNER.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.OWNER.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt chủ quán thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt chủ quán thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateOwner, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<OwnerDto>>(API_ENDPOINTS.OWNER.ACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.OWNER.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt chủ quán thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt chủ quán thất bại!",
+      });
+    },
+  });
 
   return { onActivateOwner, isLoading };
 };

@@ -15,9 +15,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationStall = (
-  params: PaginationDto<StallFilter>
-) => {
+export const usePaginationStall = (params: PaginationDto<StallFilter>) => {
   const requestParams: StallPageRequest = {
     page: Math.floor(params.skip / params.take),
     size: params.take,
@@ -47,8 +45,7 @@ export const usePaginationStall = (
 export const useAllStalls = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<StallDto[]>(API_ENDPOINTS.STALL.GET_ALL),
+    queryFn: () => rootApiService.get<StallDto[]>(API_ENDPOINTS.STALL.GET_ALL),
   });
 
   return {
@@ -61,8 +58,7 @@ export const useAllStalls = () => {
 export const useSelectStalls = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL.SELECT],
-    queryFn: () =>
-      rootApiService.get<StallSelectOption[]>(API_ENDPOINTS.STALL.SELECT),
+    queryFn: () => rootApiService.get<StallSelectOption[]>(API_ENDPOINTS.STALL.SELECT),
   });
 
   return {
@@ -124,8 +120,7 @@ export const useUpdateStall = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateStall, isPending: isLoading } = useMutation({
-    mutationFn: (body: StallUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: StallUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.STALL.PAGINATION],
@@ -156,30 +151,27 @@ export const useDeActivateStall = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateStall, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<StallDto>>(
-          API_ENDPOINTS.STALL.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.STALL.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động quán ăn thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động quán ăn thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateStall, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<StallDto>>(API_ENDPOINTS.STALL.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.STALL.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động quán ăn thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động quán ăn thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateStall, isLoading };
 };
@@ -188,31 +180,27 @@ export const useActivateStall = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateStall, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<StallDto>>(
-          API_ENDPOINTS.STALL.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.STALL.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt quán ăn thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt quán ăn thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateStall, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<StallDto>>(API_ENDPOINTS.STALL.ACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.STALL.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt quán ăn thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt quán ăn thất bại!",
+      });
+    },
+  });
 
   return { onActivateStall, isLoading };
 };

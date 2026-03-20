@@ -24,13 +24,13 @@ export default function AddCustomerScreen({
 
   const formFields = useMemo(() => {
     const fields: FormField[] = [
-    //   {
-    //     name: "code",
-    //     label: "Mã khách hàng",
-    //     type: "input",
-    //     required: true,
-    //     placeholder: "Nhập mã khách hàng",
-    //   },
+      //   {
+      //     name: "code",
+      //     label: "Mã khách hàng",
+      //     type: "input",
+      //     required: true,
+      //     placeholder: "Nhập mã khách hàng",
+      //   },
       {
         name: "name",
         label: "Tên khách hàng",
@@ -54,15 +54,15 @@ export default function AddCustomerScreen({
         placeholder: "Nhập số điện thoại",
         rules: [{ pattern: /^(0|\+84)\d{9,10}$/, message: "Số điện thoại không hợp lệ" }],
       },
-      
-    //   {
-    //     name: "description",
-    //     label: "Mô tả",
-    //     type: "textarea",
-    //     required: false,
-    //     placeholder: "Nhập mô tả",
-    //     gridColumn: "1 / -1",
-    //   },
+
+      //   {
+      //     name: "description",
+      //     label: "Mô tả",
+      //     type: "textarea",
+      //     required: false,
+      //     placeholder: "Nhập mô tả",
+      //     gridColumn: "1 / -1",
+      //   },
     ];
 
     // Only show password field when creating new customer

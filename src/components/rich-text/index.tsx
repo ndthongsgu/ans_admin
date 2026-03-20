@@ -16,12 +16,7 @@ function RichText({
   const [content, setContent] = useState(initialValue);
 
   return (
-    <Form.Item
-      key={field.name}
-      label={field.label}
-      name={field.name}
-      initialValue={initialValue}
-    >
+    <Form.Item key={field.name} label={field.label} name={field.name} initialValue={initialValue}>
       <div
         style={{
           borderRadius: "10px",

@@ -1,10 +1,5 @@
 import type { PaginationDto } from "@/dto/base.dto";
-import type {
-  CarCreateUpdateDto,
-  CarDto,
-  CarFilter,
-  CarPageRequest,
-} from "@/dto/car.dto";
+import type { CarCreateUpdateDto, CarDto, CarFilter, CarPageRequest } from "@/dto/car.dto";
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
 import { useRouter } from "@/routes/hooks";
 import { API_ENDPOINTS } from "@/services";
@@ -52,10 +47,7 @@ export const usePaginationCar = (params: PaginationDto<CarFilter>) => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.CAR.PAGINATION, requestParams],
     queryFn: async () =>
-      rootApiService.post<PaginationResponse<CarDto>>(
-        API_ENDPOINTS.CAR.PAGINATION,
-        requestParams
-      ),
+      rootApiService.post<PaginationResponse<CarDto>>(API_ENDPOINTS.CAR.PAGINATION, requestParams),
   });
 
   return {
@@ -120,8 +112,7 @@ export const useUpdateCar = (id: string) => {
 
   const showToast = useToast();
   const { mutateAsync: onUpdateCar, isPending: isLoading } = useMutation({
-    mutationFn: (body: CarCreateUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: CarCreateUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.CAR.PAGINATION],
@@ -155,9 +146,7 @@ export const useDeActivateCar = () => {
 
   const { mutateAsync: onDeActivateCar, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<CarDto>>(
-        API_ENDPOINTS.CAR.DEACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<CarDto>>(API_ENDPOINTS.CAR.DEACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.CAR.PAGINATION],
@@ -187,9 +176,7 @@ export const useActivateCar = () => {
 
   const { mutateAsync: onActivateCar, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<CarDto>>(
-        API_ENDPOINTS.CAR.ACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<CarDto>>(API_ENDPOINTS.CAR.ACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.CAR.PAGINATION],

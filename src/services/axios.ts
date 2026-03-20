@@ -51,12 +51,7 @@ axiosInstance.interceptors.response.use(
     const isAuthEndpoint = originalRequest.url?.includes("/auth/");
     const skipAuth = originalRequest.headers?.["x-skip-auth"] === "true";
 
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      !isAuthEndpoint &&
-      !skipAuth
-    ) {
+    if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint && !skipAuth) {
       originalRequest._retry = true;
 
       if (!isRefreshing) {

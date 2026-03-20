@@ -19,7 +19,7 @@ interface PermissionToolbarProps {
 /**
  * Component toolbar với các action buttons có kiểm tra quyền
  * Thường được đặt phía trên Table
- * 
+ *
  * @example
  * ```tsx
  * <PermissionToolbar
@@ -44,21 +44,19 @@ export default function PermissionToolbar({
   extra,
 }: PermissionToolbarProps) {
   return (
-    <div style={{ 
-      marginBottom: 16, 
-      display: "flex", 
-      justifyContent: "space-between",
-      alignItems: "center" 
-    }}>
+    <div
+      style={{
+        marginBottom: 16,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <Space>
         {/* Add button - requires isCanCreate permission */}
         {onAdd && (
           <Can moduleCode={moduleCode} action="isCanCreate">
-            <Button 
-              type="primary" 
-              icon={<PlusOutlined />}
-              onClick={onAdd}
-            >
+            <Button type="primary" icon={<PlusOutlined />} onClick={onAdd}>
               {addLabel}
             </Button>
           </Can>
@@ -67,10 +65,7 @@ export default function PermissionToolbar({
         {/* Import button - requires isCanImport permission */}
         {onImport && (
           <Can moduleCode={moduleCode} action="isCanImport">
-            <Button 
-              icon={<ImportOutlined />}
-              onClick={onImport}
-            >
+            <Button icon={<ImportOutlined />} onClick={onImport}>
               {importLabel}
             </Button>
           </Can>
@@ -79,10 +74,7 @@ export default function PermissionToolbar({
         {/* Export button - requires isCanExport permission */}
         {onExport && (
           <Can moduleCode={moduleCode} action="isCanExport">
-            <Button 
-              icon={<ExportOutlined />}
-              onClick={onExport}
-            >
+            <Button icon={<ExportOutlined />} onClick={onExport}>
               {exportLabel}
             </Button>
           </Can>
@@ -90,10 +82,7 @@ export default function PermissionToolbar({
 
         {/* Refresh button - always visible */}
         {onRefresh && (
-          <Button 
-            icon={<ReloadOutlined />}
-            onClick={onRefresh}
-          >
+          <Button icon={<ReloadOutlined />} onClick={onRefresh}>
             {refreshLabel}
           </Button>
         )}

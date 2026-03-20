@@ -49,16 +49,8 @@ export default function ForgotPasswordPage() {
         backgroundSize: "cover",
       }}
     >
-      <Card
-        title="Quên mật khẩu"
-        style={{ width: 400 }}
-      >
-        <Form
-          name="forgotPassword"
-          layout="vertical"
-          onFinish={onFinish}
-          autoComplete="off"
-        >
+      <Card title="Quên mật khẩu" style={{ width: 400 }}>
+        <Form name="forgotPassword" layout="vertical" onFinish={onFinish} autoComplete="off">
           <Form.Item
             label="Email"
             name="email"
@@ -71,10 +63,10 @@ export default function ForgotPasswordPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
-              size="large" 
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
               style={{ width: "100%" }}
               loading={resetMutation.isPending}
             >

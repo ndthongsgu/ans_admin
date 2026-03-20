@@ -8,9 +8,7 @@ export default function EditEmployeeScreen() {
 
   const { data, isLoading } = useDetailEmployee(id || "");
 
-  const { onUpdateEmployee, isLoading: isLoadingUpdate } = useUpdateEmployee(
-    id || ""
-  );
+  const { onUpdateEmployee, isLoading: isLoadingUpdate } = useUpdateEmployee(id || "");
 
   const handleUpdate = (values: any) => {
     onUpdateEmployee({

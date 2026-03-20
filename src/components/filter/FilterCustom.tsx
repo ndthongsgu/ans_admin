@@ -71,12 +71,7 @@ function FilterComponent({
     onFiltersChange({ ...filters, [key]: value });
   };
 
-  const handleRangeChange = (
-    fromKey: string,
-    toKey: string,
-    fromValue: any,
-    toValue: any
-  ) => {
+  const handleRangeChange = (fromKey: string, toKey: string, fromValue: any, toValue: any) => {
     onFiltersChange({
       ...filters,
       [fromKey]: fromValue,
@@ -140,12 +135,7 @@ function FilterComponent({
               style={{ width: "50%" }}
               min={0}
               onChange={(val) =>
-                handleRangeChange(
-                  field.rangeKeys!.from,
-                  field.rangeKeys!.to,
-                  val,
-                  toValue
-                )
+                handleRangeChange(field.rangeKeys!.from, field.rangeKeys!.to, val, toValue)
               }
             />
             <InputNumber
@@ -155,12 +145,7 @@ function FilterComponent({
               style={{ width: "50%" }}
               min={fromValue || 0}
               onChange={(val) =>
-                handleRangeChange(
-                  field.rangeKeys!.from,
-                  field.rangeKeys!.to,
-                  fromValue,
-                  val
-                )
+                handleRangeChange(field.rangeKeys!.from, field.rangeKeys!.to, fromValue, val)
               }
             />
           </Space.Compact>
@@ -203,9 +188,7 @@ function FilterComponent({
         );
       case "switch":
         return (
-          <div
-            style={{ ...fullWidth, display: "flex", justifyContent: "center" }}
-          >
+          <div style={{ ...fullWidth, display: "flex", justifyContent: "center" }}>
             <Switch
               checked={!!value}
               disabled={field.disabled}
@@ -220,10 +203,7 @@ function FilterComponent({
             disabled={field.disabled}
             style={fullWidth}
             onChange={(date) =>
-              handleFilterChange(
-                field.key,
-                date ? date.format("YYYY-MM-DD") : null
-              )
+              handleFilterChange(field.key, date ? date.format("YYYY-MM-DD") : null)
             }
           />
         );
@@ -241,10 +221,7 @@ function FilterComponent({
               handleFilterChange(
                 field.key,
                 dates && dates[0] && dates[1]
-                  ? [
-                      dates[0].format("YYYY-MM-DD"),
-                      dates[1].format("YYYY-MM-DD"),
-                    ]
+                  ? [dates[0].format("YYYY-MM-DD"), dates[1].format("YYYY-MM-DD")]
                   : null
               )
             }
@@ -258,9 +235,7 @@ function FilterComponent({
             disabled={field.disabled}
             style={{ width: "100%" }}
             format="YYYY-MM-DD HH:mm"
-            onChange={(date) =>
-              handleFilterChange(field.key, date ? date.toISOString() : null)
-            }
+            onChange={(date) => handleFilterChange(field.key, date ? date.toISOString() : null)}
           />
         );
 
@@ -299,9 +274,7 @@ function FilterComponent({
           </Button>
         );
       case "custom":
-        return field.render
-          ? field.render(value, (v) => handleFilterChange(field.key, v))
-          : null;
+        return field.render ? field.render(value, (v) => handleFilterChange(field.key, v)) : null;
       default:
         return null;
     }
@@ -325,9 +298,7 @@ function FilterComponent({
               xl={field.col || 6}
             >
               <div>
-                <label style={{ display: "block", marginBottom: 4 }}>
-                  {field.label}
-                </label>
+                <label style={{ display: "block", marginBottom: 4 }}>{field.label}</label>
                 {renderField(field)}
               </div>
             </Col>
@@ -338,11 +309,7 @@ function FilterComponent({
           <Row justify="center" style={{ marginTop: 16 }}>
             <Space>
               {showSearchButton && (
-                <Button
-                  type="primary"
-                  icon={<SearchOutlined />}
-                  onClick={handleSearch}
-                >
+                <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
                   Tìm kiếm
                 </Button>
               )}

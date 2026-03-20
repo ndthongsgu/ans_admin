@@ -24,10 +24,7 @@ export default function ChangePasswordPage() {
 
   return (
     <div style={{ padding: "24px" }}>
-      <Card
-        title="Đổi mật khẩu"
-        style={{ maxWidth: 500, margin: "0 auto" }}
-      >
+      <Card title="Đổi mật khẩu" style={{ maxWidth: 500, margin: "0 auto" }}>
         {changePasswordMutation.isError && (
           <Alert
             message={changePasswordMutation.error.message}
@@ -47,9 +44,7 @@ export default function ChangePasswordPage() {
           <Form.Item
             label="Mật khẩu hiện tại"
             name="currentPassword"
-            rules={[
-              { required: true, message: "Vui lòng nhập mật khẩu hiện tại!" },
-            ]}
+            rules={[{ required: true, message: "Vui lòng nhập mật khẩu hiện tại!" }]}
           >
             <Input.Password size="large" placeholder="Nhập mật khẩu hiện tại" />
           </Form.Item>
@@ -68,15 +63,15 @@ export default function ChangePasswordPage() {
           <Form.Item
             label="Xác nhận mật khẩu mới"
             name="confirmPassword"
-            dependencies={['newPassword']}
+            dependencies={["newPassword"]}
             rules={[
               { required: true, message: "Vui lòng xác nhận mật khẩu mới!" },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue('newPassword') === value) {
+                  if (!value || getFieldValue("newPassword") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('Mật khẩu xác nhận không khớp!'));
+                  return Promise.reject(new Error("Mật khẩu xác nhận không khớp!"));
                 },
               }),
             ]}
@@ -85,10 +80,10 @@ export default function ChangePasswordPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
-              size="large" 
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
               style={{ width: "100%" }}
               loading={changePasswordMutation.isPending}
             >
@@ -97,9 +92,9 @@ export default function ChangePasswordPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button 
-              type="default" 
-              size="large" 
+            <Button
+              type="default"
+              size="large"
               style={{ width: "100%" }}
               onClick={() => navigate(-1)}
             >

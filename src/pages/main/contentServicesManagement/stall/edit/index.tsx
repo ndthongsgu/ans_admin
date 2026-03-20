@@ -9,9 +9,7 @@ export default function EditStallScreen() {
 
   const { data, isLoading } = useDetailStall(id || "");
 
-  const { onUpdateStall, isLoading: isLoadingUpdate } = useUpdateStall(
-    id || ""
-  );
+  const { onUpdateStall, isLoading: isLoadingUpdate } = useUpdateStall(id || "");
 
   const handleUpdate = (values: StallUpdateDto) => {
     onUpdateStall(values);

@@ -13,9 +13,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationEmployee = (
-  params: PaginationDto<EmployeeFilter>
-) => {
+export const usePaginationEmployee = (params: PaginationDto<EmployeeFilter>) => {
   const requestParams: EmployeePageRequest = {
     page: Math.floor(params.skip / params.take),
     size: params.take,
@@ -45,8 +43,7 @@ export const usePaginationEmployee = (
 export const useAllEmployees = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.EMPLOYEE.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<EmployeeDto[]>(API_ENDPOINTS.EMPLOYEE.GET_ALL),
+    queryFn: () => rootApiService.get<EmployeeDto[]>(API_ENDPOINTS.EMPLOYEE.GET_ALL),
   });
 
   return {
@@ -107,8 +104,7 @@ export const useUpdateEmployee = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateEmployee, isPending: isLoading } = useMutation({
-    mutationFn: (body: EmployeeUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: EmployeeUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.EMPLOYEE.PAGINATION],
@@ -139,30 +135,27 @@ export const useDeActivateEmployee = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateEmployee, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<EmployeeDto>>(
-          API_ENDPOINTS.EMPLOYEE.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.EMPLOYEE.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động nhân viên thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động nhân viên thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateEmployee, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<EmployeeDto>>(API_ENDPOINTS.EMPLOYEE.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.EMPLOYEE.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động nhân viên thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động nhân viên thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateEmployee, isLoading };
 };
@@ -172,31 +165,27 @@ export const useActivateEmployee = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateEmployee, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<EmployeeDto>>(
-          API_ENDPOINTS.EMPLOYEE.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.EMPLOYEE.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt nhân viên thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt nhân viên thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateEmployee, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<EmployeeDto>>(API_ENDPOINTS.EMPLOYEE.ACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.EMPLOYEE.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt nhân viên thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt nhân viên thất bại!",
+      });
+    },
+  });
 
   return { onActivateEmployee, isLoading };
 };

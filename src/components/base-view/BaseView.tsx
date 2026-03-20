@@ -15,9 +15,7 @@ interface BaseViewProps {
 }
 
 const BaseView: React.FC<BaseViewProps> = ({ children, isLoading, tabs }) => {
-  const [activeTabKey, setActiveTabKey] = useState(
-    tabs && tabs.length > 0 ? tabs[0].key : ""
-  );
+  const [activeTabKey, setActiveTabKey] = useState(tabs && tabs.length > 0 ? tabs[0].key : "");
 
   if (isLoading) {
     return (
@@ -41,8 +39,7 @@ const BaseView: React.FC<BaseViewProps> = ({ children, isLoading, tabs }) => {
               role="button"
               tabIndex={0}
               onKeyPress={(e) => {
-                if (e.key === "Enter" || e.key === " ")
-                  setActiveTabKey(tab.key);
+                if (e.key === "Enter" || e.key === " ") setActiveTabKey(tab.key);
               }}
             >
               {tab.title}

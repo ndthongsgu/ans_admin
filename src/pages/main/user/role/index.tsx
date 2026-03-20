@@ -6,18 +6,9 @@ import { CommonActions } from "@/components/row-action/CommonAction";
 import TableCustom, { type TableAction } from "@/components/table/Table";
 import type { PaginationDto } from "@/dto/base.dto";
 import type { RoleDto } from "@/dto/role.dto";
-import {
-  useActivateRole,
-  useDeActivateRole,
-  usePaginationRole,
-} from "@/hooks/role";
+import { useActivateRole, useDeActivateRole, usePaginationRole } from "@/hooks/role";
 import { useRouter } from "@/routes/hooks";
-import {
-  EditOutlined,
-  EyeOutlined,
-  PlayCircleOutlined,
-  StopOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, EyeOutlined, PlayCircleOutlined, StopOutlined } from "@ant-design/icons";
 import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
@@ -35,9 +26,7 @@ export default function RoleManager() {
   const { onActivateRole } = useActivateRole();
 
   const handleCreate = () => {
-    router.push(
-      ROUTES.MAIN.ROLE_MANAGER.children.ADD_ROLE.path
-    );
+    router.push(ROUTES.MAIN.ROLE_MANAGER.children.ADD_ROLE.path);
   };
 
   const [columnWidths] = useState<Record<string, number>>({
@@ -101,12 +90,7 @@ export default function RoleManager() {
       type: "default",
       tooltip: "Xem chi tiết",
       onClick: (record) => {
-        router.push(
-          ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path.replace(
-            ":id",
-            record.id
-          )
-        );
+        router.push(ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path.replace(":id", record.id));
       },
     },
     {
@@ -118,12 +102,7 @@ export default function RoleManager() {
       tooltip: "Chỉnh sửa",
       hidden: (record) => record.is_deleted,
       onClick: (record) => {
-        router.push(
-          ROUTES.MAIN.ROLE_MANAGER.children.EDIT_ROLE.path.replace(
-            ":id",
-            record.id
-          )
-        );
+        router.push(ROUTES.MAIN.ROLE_MANAGER.children.EDIT_ROLE.path.replace(":id", record.id));
       },
     },
     {
@@ -191,9 +170,7 @@ export default function RoleManager() {
           showSizeChanger: true,
         }}
         onPageChange={handlePageChange}
-        customToolbar={
-          <RowActions actions={[CommonActions.create(() => handleCreate())]} />
-        }
+        customToolbar={<RowActions actions={[CommonActions.create(() => handleCreate())]} />}
       />
     </BaseView>
   );

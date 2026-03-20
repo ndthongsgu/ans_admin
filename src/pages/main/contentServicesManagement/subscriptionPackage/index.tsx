@@ -1,26 +1,22 @@
 import { ROUTES } from "@/common/constants/routes";
 import BaseView from "@/components/base-view/BaseView";
 import ActionConfirm from "@/components/confirm-action";
-import FilterComponent, {
-  type FilterField,
-} from "@/components/filter/FilterCustom";
+import FilterComponent, { type FilterField } from "@/components/filter/FilterCustom";
 import RowActions from "@/components/row-action";
 import { CommonActions } from "@/components/row-action/CommonAction";
 import TableCustom, { type TableAction } from "@/components/table/Table";
 import type { PaginationDto } from "@/dto/base.dto";
-import type { SubscriptionPackageDto, SubscriptionPackageFilter } from "@/dto/subscriptionPackage.dto";
+import type {
+  SubscriptionPackageDto,
+  SubscriptionPackageFilter,
+} from "@/dto/subscriptionPackage.dto";
 import {
   useActivateSubscriptionPackage,
   useDeActivateSubscriptionPackage,
   usePaginationSubscriptionPackage,
 } from "@/hooks/subscriptionPackage";
 import { useRouter } from "@/routes/hooks";
-import {
-  EditOutlined,
-  EyeOutlined,
-  PlayCircleOutlined,
-  StopOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, EyeOutlined, PlayCircleOutlined, StopOutlined } from "@ant-design/icons";
 import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
@@ -79,7 +75,8 @@ export default function SubscriptionPackageManager() {
 
   const handleCreate = () => {
     router.push(
-      ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.ADD_SUBSCRIPTION_PACKAGE.path
+      ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
+        .ADD_SUBSCRIPTION_PACKAGE.path
     );
   };
 
@@ -255,9 +252,7 @@ export default function SubscriptionPackageManager() {
           showSizeChanger: true,
         }}
         onPageChange={handlePageChange}
-        customToolbar={
-          <RowActions actions={[CommonActions.create(() => handleCreate())]} />
-        }
+        customToolbar={<RowActions actions={[CommonActions.create(() => handleCreate())]} />}
       />
     </BaseView>
   );

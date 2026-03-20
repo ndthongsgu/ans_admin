@@ -110,9 +110,7 @@ const RowActions = ({
 
     if (!action.subActions || action.subActions.length === 0) return button;
 
-    const uploadFileAction = action.subActions.find(
-      (sub) => sub.key === "upload-file"
-    );
+    const uploadFileAction = action.subActions.find((sub) => sub.key === "upload-file");
     const inputId = `file-input-${action.key}`;
 
     const menuItems = action.subActions.map((subAction) => ({
@@ -132,9 +130,7 @@ const RowActions = ({
           trigger="click"
           placement={action.popoverPlacement || "bottomLeft"}
           open={openPopovers[action.key] || false}
-          onOpenChange={(visible) =>
-            handlePopoverVisibleChange(visible, action.key)
-          }
+          onOpenChange={(visible) => handlePopoverVisibleChange(visible, action.key)}
         >
           {button}
         </Popover>
@@ -155,13 +151,7 @@ const RowActions = ({
   };
 
   return (
-    <Space
-      style={{ ...style }}
-      size={size}
-      direction={direction}
-      align={align}
-      wrap={wrap}
-    >
+    <Space style={{ ...style }} size={size} direction={direction} align={align} wrap={wrap}>
       {actions.map(renderButton)}
     </Space>
   );

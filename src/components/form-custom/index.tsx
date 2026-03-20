@@ -1,12 +1,7 @@
 import { CloseCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Spin, type FormInstance } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  type ReactNode,
-} from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, type ReactNode } from "react";
 import Title from "../title";
 import useRenderFormCustom from "./renderFiled";
 
@@ -55,10 +50,7 @@ export interface FormField {
   rangePlaceholder?: [string, string];
   style?: React.CSSProperties;
   inputStyle?: React.CSSProperties;
-  render?: (fieldProps: {
-    value: any;
-    onChange: (val: any) => void;
-  }) => React.ReactNode;
+  render?: (fieldProps: { value: any; onChange: (val: any) => void }) => React.ReactNode;
   onChange?: (value: any, form?: any) => void;
   onClear?: () => void;
   disabledDate?: (current: Dayjs) => boolean;
@@ -217,15 +209,12 @@ const FormCustom = forwardRef<FormRef, FormCustomProps>(function FormCustom(
       }
 
       if (field.type === "datetimepicker") {
-        if (dayjs.isDayjs(val))
-          values[field.name] = val.format("YYYY-MM-DDTHH:mm:ss");
+        if (dayjs.isDayjs(val)) values[field.name] = val.format("YYYY-MM-DDTHH:mm:ss");
       }
 
       if (field.type === "daterangepicker") {
         if (Array.isArray(val) && val.length === 2) {
-          values[field.name] = val.map((d) =>
-            dayjs.isDayjs(d) ? d.format("YYYY-MM-DD") : d
-          );
+          values[field.name] = val.map((d) => (dayjs.isDayjs(d) ? d.format("YYYY-MM-DD") : d));
         }
       }
     });
@@ -237,9 +226,7 @@ const FormCustom = forwardRef<FormRef, FormCustomProps>(function FormCustom(
     handleSubmitButton();
   };
 
-  const gridFields = fields.filter(
-    (field) => field.type !== "richtext" && field.type !== "file"
-  );
+  const gridFields = fields.filter((field) => field.type !== "richtext" && field.type !== "file");
   const fullWidthFields = fields.filter(
     (field) => field.type === "richtext" || field.type === "file"
   );
@@ -299,16 +286,9 @@ const FormCustom = forwardRef<FormRef, FormCustomProps>(function FormCustom(
             display: !onCancel && !onSubmit ? "none" : "block",
           }}
         >
-          <div
-            style={{ display: "flex", gap: "12px", justifyContent: "center" }}
-          >
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
             {onCancel && (
-              <Button
-                size="large"
-                danger
-                style={{ minWidth: "100px" }}
-                onClick={onCancel}
-              >
+              <Button size="large" danger style={{ minWidth: "100px" }} onClick={onCancel}>
                 <CloseCircleOutlined />
                 {cancelText}
               </Button>

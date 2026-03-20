@@ -34,9 +34,7 @@ export default function DetailSubscriptionPackageScreen() {
           {
             label: "Lịch sử thao tác",
             key: "2",
-            children: (
-              <ActionLogView functionType="SubscriptionPackages" functionId={id || ""} />
-            ),
+            children: <ActionLogView functionType="SubscriptionPackages" functionId={id || ""} />,
           },
         ]}
       />
@@ -60,10 +58,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
       >
         <Row gutter={[24, 24]}>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mã gói
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -71,10 +66,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Tên gói
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -82,10 +74,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -93,10 +82,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Giá
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -104,10 +90,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Thời hạn (ngày)
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -115,10 +98,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
             </Text>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mô tả
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -130,11 +110,7 @@ const DetailView = ({ data }: { data: SubscriptionPackageDto }) => {
 
       {/* Back button */}
       <Row justify="start" style={{ marginTop: "24px" }}>
-        <Button
-          type="default"
-          icon={<LeftCircleOutlined />}
-          onClick={() => router.back()}
-        >
+        <Button type="default" icon={<LeftCircleOutlined />} onClick={() => router.back()}>
           Quay lại
         </Button>
       </Row>

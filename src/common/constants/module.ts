@@ -1,5 +1,5 @@
 export const module_show_map: any = {
-  'CUSTOMER': {
+  CUSTOMER: {
     name: "Quản lý khách hàng",
     description: "Quản lý thông tin khách hàng",
     urlPageView: "/customer",
@@ -12,7 +12,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'USER': {
+  USER: {
     name: "Quản lý người dùng",
     description: "Quản lý tài khoản và thông tin người dùng",
     urlPageView: "/user",
@@ -25,7 +25,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'CAR': {
+  CAR: {
     name: "Quản lý xe",
     description: "Quản lý thông tin phương tiện vận chuyển",
     urlPageView: "/car",
@@ -38,7 +38,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'CAR_TYPE': {
+  CAR_TYPE: {
     name: "Quản lý xe",
     description: "Quản lý thông tin loại phương tiện vận chuyển",
     urlPageView: "/car-type",
@@ -51,7 +51,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'ROUTE': {
+  ROUTE: {
     name: "Quản lý tuyến",
     description: "Quản lý tuyến đường và lộ trình",
     urlPageView: "/route",
@@ -64,7 +64,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'TRIP': {
+  TRIP: {
     name: "Quản lý chuyến đi",
     description: "Quản lý chuyến đi, lịch trình, tài xế và xe",
     urlPageView: "/trip",
@@ -77,7 +77,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'BOOKING': {
+  BOOKING: {
     name: "Quản lý đặt xe",
     description: "Quản lý đơn đặt vé xe của khách hàng",
     urlPageView: "/booking",
@@ -90,7 +90,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'PAYMENT': {
+  PAYMENT: {
     name: "Quản lý giao dịch",
     description: "Quản lý các giao dịch và thanh toán",
     urlPageView: "/transaction",
@@ -103,7 +103,7 @@ export const module_show_map: any = {
     isCanImport: false,
     isCanExport: false,
   },
-  'PAYMENT_METHOD': {
+  PAYMENT_METHOD: {
     name: "Quản lý phương thức thanh toán",
     description: "Quản lý các hình thức thanh toán",
     urlPageView: "/payment-method",
@@ -116,7 +116,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'ROLE': {
+  ROLE: {
     name: "Quản lý vai trò",
     description: "Quản lý vai trò trong hệ thống",
     urlPageView: "/role",
@@ -129,7 +129,7 @@ export const module_show_map: any = {
     isCanImport: true,
     isCanExport: true,
   },
-  'PERMISSION': {
+  PERMISSION: {
     name: "Phân quyền",
     description: "Phân quyền",
     urlPageView: "/permission",

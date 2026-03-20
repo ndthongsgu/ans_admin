@@ -1,9 +1,4 @@
-import type {
-  ModuleCodeType,
-  ModulePermission,
-  PermissionAction,
-  UserInfo,
-} from "@/dto/auth.dto";
+import type { ModuleCodeType, ModulePermission, PermissionAction, UserInfo } from "@/dto/auth.dto";
 
 /**
  * Check if user is admin
@@ -15,7 +10,7 @@ export function isAdmin(userInfo: UserInfo | null): boolean {
 
 /**
  * Check if user has permission for a specific module and action
- * 
+ *
  * IMPORTANT: Admin users (isAdmin = true) automatically have ALL permissions
  * and this function will always return true for them.
  */
@@ -43,29 +38,24 @@ export function hasPermission(
 
 /**
  * Check if user can access a module (has canRead permission)
- * 
+ *
  * IMPORTANT: Admin users (isAdmin = true) can access ALL modules
  */
-export function canAccessModule(
-  moduleCode: ModuleCodeType,
-  userInfo: UserInfo | null
-): boolean {
+export function canAccessModule(moduleCode: ModuleCodeType, userInfo: UserInfo | null): boolean {
   // ⚠️ ADMIN BYPASS: Admin can access all modules
   if (isAdmin(userInfo)) {
     return true;
   }
-  
+
   return hasPermission(moduleCode, "isCanRead", userInfo);
 }
 
 /**
  * Get all accessible modules for user
- * 
+ *
  * IMPORTANT: Admin users get access to ALL modules in their permissions object
  */
-export function getAccessibleModules(
-  userInfo: UserInfo | null
-): ModulePermission[] {
+export function getAccessibleModules(userInfo: UserInfo | null): ModulePermission[] {
   if (!userInfo) {
     return [];
   }
@@ -75,9 +65,7 @@ export function getAccessibleModules(
     return Object.values(userInfo.permissions || {});
   }
 
-  return Object.values(userInfo.permissions || {}).filter(
-    (permission) => permission.isCanRead
-  );
+  return Object.values(userInfo.permissions || {}).filter((permission) => permission.isCanRead);
 }
 
 /**
@@ -90,7 +78,7 @@ export function getAccessibleRoutes(userInfo: UserInfo | null): string[] {
 
 /**
  * Check if user can perform multiple actions (at least one)
- * 
+ *
  * IMPORTANT: Admin users automatically pass this check
  */
 export function hasAnyPermission(
@@ -102,13 +90,13 @@ export function hasAnyPermission(
   if (isAdmin(userInfo)) {
     return true;
   }
-  
+
   return actions.some((action) => hasPermission(moduleCode, action, userInfo));
 }
 
 /**
  * Check if user has all specified permissions
- * 
+ *
  * IMPORTANT: Admin users automatically pass this check
  */
 export function hasAllPermissions(
@@ -120,7 +108,7 @@ export function hasAllPermissions(
   if (isAdmin(userInfo)) {
     return true;
   }
-  
+
   return actions.every((action) => hasPermission(moduleCode, action, userInfo));
 }
 

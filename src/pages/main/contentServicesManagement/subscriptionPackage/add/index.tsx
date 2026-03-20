@@ -1,7 +1,11 @@
 import BaseView from "@/components/base-view/BaseView";
 import type { FormField } from "@/components/form-custom";
 import FormCustom from "@/components/form-custom";
-import type { SubscriptionPackageCreateDto, SubscriptionPackageDto, SubscriptionPackageUpdateDto } from "@/dto/subscriptionPackage.dto";
+import type {
+  SubscriptionPackageCreateDto,
+  SubscriptionPackageDto,
+  SubscriptionPackageUpdateDto,
+} from "@/dto/subscriptionPackage.dto";
 import { useCreateSubscriptionPackage } from "@/hooks/subscriptionPackage";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";

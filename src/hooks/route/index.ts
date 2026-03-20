@@ -123,8 +123,7 @@ export const useUpdateRoute = (id: string) => {
   const showToast = useToast();
   const router = useRouter();
   const { mutateAsync: onUpdateRoute, isPending: isLoading } = useMutation({
-    mutationFn: (body: RouteCreateUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: RouteCreateUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.ROUTE.PAGINATION],
@@ -174,9 +173,7 @@ export const useDeActivateRoute = () => {
 
   const { mutateAsync: onDeActivateRoute, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<RouteDto>>(
-        API_ENDPOINTS.ROUTE.DEACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<RouteDto>>(API_ENDPOINTS.ROUTE.DEACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.ROUTE.PAGINATION],
@@ -205,9 +202,7 @@ export const useActivateRoute = () => {
 
   const { mutateAsync: onActivateRoute, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<RouteDto>>(
-        API_ENDPOINTS.ROUTE.ACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<RouteDto>>(API_ENDPOINTS.ROUTE.ACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.ROUTE.PAGINATION],

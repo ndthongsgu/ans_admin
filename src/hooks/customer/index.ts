@@ -15,9 +15,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationCustomer = (
-  params: PaginationDto<CustomerFilter>
-) => {
+export const usePaginationCustomer = (params: PaginationDto<CustomerFilter>) => {
   const requestParams: CustomerPageRequest = {
     page: Math.floor(params.skip / params.take),
     size: params.take,
@@ -47,8 +45,7 @@ export const usePaginationCustomer = (
 export const useAllCustomers = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.CUSTOMER.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<CustomerDto[]>(API_ENDPOINTS.CUSTOMER.GET_ALL),
+    queryFn: () => rootApiService.get<CustomerDto[]>(API_ENDPOINTS.CUSTOMER.GET_ALL),
   });
 
   return {
@@ -61,8 +58,7 @@ export const useAllCustomers = () => {
 export const useSelectCustomers = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.CUSTOMER.SELECT],
-    queryFn: () =>
-      rootApiService.get<CustomerSelectOption[]>(API_ENDPOINTS.CUSTOMER.SELECT),
+    queryFn: () => rootApiService.get<CustomerSelectOption[]>(API_ENDPOINTS.CUSTOMER.SELECT),
   });
 
   return {
@@ -123,8 +119,7 @@ export const useUpdateCustomer = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateCustomer, isPending: isLoading } = useMutation({
-    mutationFn: (body: CustomerUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: CustomerUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.CUSTOMER.PAGINATION],
@@ -155,30 +150,27 @@ export const useDeActivateCustomer = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateCustomer, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<CustomerDto>>(
-          API_ENDPOINTS.CUSTOMER.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.CUSTOMER.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động khách hàng thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động khách hàng thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateCustomer, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<CustomerDto>>(API_ENDPOINTS.CUSTOMER.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.CUSTOMER.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động khách hàng thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động khách hàng thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateCustomer, isLoading };
 };
@@ -187,31 +179,27 @@ export const useActivateCustomer = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivateCustomer, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<CustomerDto>>(
-          API_ENDPOINTS.CUSTOMER.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.CUSTOMER.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt khách hàng thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt khách hàng thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivateCustomer, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<CustomerDto>>(API_ENDPOINTS.CUSTOMER.ACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.CUSTOMER.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt khách hàng thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt khách hàng thất bại!",
+      });
+    },
+  });
 
   return { onActivateCustomer, isLoading };
 };

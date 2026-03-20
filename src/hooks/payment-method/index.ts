@@ -12,9 +12,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationPaymentMethod = (
-  params: PaginationDto<PaymentMethodFilter>
-) => {
+export const usePaginationPaymentMethod = (params: PaginationDto<PaymentMethodFilter>) => {
   const requestParams: PaymentMethodPageRequest = {
     page: Math.floor(params.skip / params.take),
     size: params.take,
@@ -44,8 +42,7 @@ export const usePaginationPaymentMethod = (
 export const useAllPaymentMethods = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PAYMENT_METHOD.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<PaymentMethodDto[]>(API_ENDPOINTS.PAYMENT_METHOD.GET_ALL),
+    queryFn: () => rootApiService.get<PaymentMethodDto[]>(API_ENDPOINTS.PAYMENT_METHOD.GET_ALL),
   });
 
   return {
@@ -103,8 +100,7 @@ export const useUpdatePaymentMethod = (id: string) => {
   const url = API_ENDPOINTS.PAYMENT_METHOD.UPDATE(id);
   const showToast = useToast();
   const { mutateAsync: onUpdatePaymentMethod, isPending: isLoading } = useMutation({
-    mutationFn: (body: PaymentMethodUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: PaymentMethodUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.PAYMENT_METHOD.PAGINATION],
@@ -134,30 +130,27 @@ export const useDeActivatePaymentMethod = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivatePaymentMethod, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.patch<SuccessResponse>(
-          API_ENDPOINTS.PAYMENT_METHOD.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.PAYMENT_METHOD.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động phương thức thanh toán thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động phương thức thanh toán thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivatePaymentMethod, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.patch<SuccessResponse>(API_ENDPOINTS.PAYMENT_METHOD.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.PAYMENT_METHOD.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động phương thức thanh toán thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động phương thức thanh toán thất bại!",
+      });
+    },
+  });
 
   return { onDeActivatePaymentMethod, isLoading };
 };
@@ -167,31 +160,27 @@ export const useActivatePaymentMethod = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onActivatePaymentMethod, isPending: isLoading } = useMutation(
-    {
-      mutationFn: (id: string) =>
-        rootApiService.patch<SuccessResponse>(
-          API_ENDPOINTS.PAYMENT_METHOD.ACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.PAYMENT_METHOD.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Kích hoạt phương thức thanh toán thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Kích hoạt phương thức thanh toán thất bại!",
-        });
-      },
-    }
-  );
+  const { mutateAsync: onActivatePaymentMethod, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.patch<SuccessResponse>(API_ENDPOINTS.PAYMENT_METHOD.ACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.PAYMENT_METHOD.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Kích hoạt phương thức thanh toán thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Kích hoạt phương thức thanh toán thất bại!",
+      });
+    },
+  });
 
   return { onActivatePaymentMethod, isLoading };
 };
@@ -199,8 +188,7 @@ export const useActivatePaymentMethod = () => {
 export const useSelectPaymentMethods = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PAYMENT_METHOD.SELECT],
-    queryFn: () =>
-      rootApiService.get<PaymentMethodDto[]>(API_ENDPOINTS.PAYMENT_METHOD.SELECT),
+    queryFn: () => rootApiService.get<PaymentMethodDto[]>(API_ENDPOINTS.PAYMENT_METHOD.SELECT),
   });
 
   return {

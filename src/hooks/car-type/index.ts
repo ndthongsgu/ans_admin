@@ -42,8 +42,7 @@ export const usePaginationCarType = (params: PaginationDto<CarTypeFilter>) => {
 export const useAllCarTypes = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.CAR_TYPE.GET_ALL],
-    queryFn: () =>
-      rootApiService.get<CarTypeDto[]>(API_ENDPOINTS.CAR_TYPE.GET_ALL),
+    queryFn: () => rootApiService.get<CarTypeDto[]>(API_ENDPOINTS.CAR_TYPE.GET_ALL),
   });
 
   return {
@@ -56,8 +55,7 @@ export const useAllCarTypes = () => {
 export const useSelectCarTypes = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.CAR_TYPE.SELECT],
-    queryFn: () =>
-      rootApiService.get<CarTypeDto[]>(API_ENDPOINTS.CAR_TYPE.SELECT),
+    queryFn: () => rootApiService.get<CarTypeDto[]>(API_ENDPOINTS.CAR_TYPE.SELECT),
   });
 
   return {
@@ -123,8 +121,7 @@ export const useUpdateCarType = (id: string) => {
 
   const router = useRouter();
   const { mutateAsync: onUpdateCarType, isPending: isLoading } = useMutation({
-    mutationFn: (body: CarTypeCreateUpdateDto) =>
-      rootApiService.put<CarTypeDto>(url, body),
+    mutationFn: (body: CarTypeCreateUpdateDto) => rootApiService.put<CarTypeDto>(url, body),
     onSuccess: (_res: CarTypeDto) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.CAR_TYPE.PAGINATION],
@@ -158,30 +155,27 @@ export const useDeActivateCarType = () => {
   const queryClient = useQueryClient();
   const showToast = useToast();
 
-  const { mutateAsync: onDeActivateCarType, isPending: isLoading } =
-    useMutation({
-      mutationFn: (id: string) =>
-        rootApiService.post<PaginationResponse<CarTypeDto>>(
-          API_ENDPOINTS.CAR_TYPE.DEACTIVATE(id)
-        ),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.CAR_TYPE.PAGINATION],
-        });
-        showToast({
-          type: "success",
-          title: "Thành công",
-          message: res.message || "Ngưng hoạt động loại xe thành công!",
-        });
-      },
-      onError: (error: any) => {
-        showToast({
-          type: "error",
-          title: "Lỗi",
-          message: error?.message || "Ngưng hoạt động loại xe thất bại!",
-        });
-      },
-    });
+  const { mutateAsync: onDeActivateCarType, isPending: isLoading } = useMutation({
+    mutationFn: (id: string) =>
+      rootApiService.post<PaginationResponse<CarTypeDto>>(API_ENDPOINTS.CAR_TYPE.DEACTIVATE(id)),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.CAR_TYPE.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: res.message || "Ngưng hoạt động loại xe thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Ngưng hoạt động loại xe thất bại!",
+      });
+    },
+  });
 
   return { onDeActivateCarType, isLoading };
 };
@@ -193,9 +187,7 @@ export const useActivateCarType = () => {
 
   const { mutateAsync: onActivateCarType, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<PaginationResponse<CarTypeDto>>(
-        API_ENDPOINTS.CAR_TYPE.ACTIVATE(id)
-      ),
+      rootApiService.post<PaginationResponse<CarTypeDto>>(API_ENDPOINTS.CAR_TYPE.ACTIVATE(id)),
     onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.CAR_TYPE.PAGINATION],

@@ -14,7 +14,7 @@ interface PermissionActionButtonsProps {
 /**
  * Component hiển thị các action buttons có kiểm tra quyền
  * Sử dụng trong cột "Thao tác" của Table
- * 
+ *
  * @example
  * ```tsx
  * <Table
@@ -46,12 +46,7 @@ export default function PermissionActionButtons({
       {/* View button - requires isCanRead permission */}
       {onView && (
         <Can moduleCode={moduleCode} action="isCanRead">
-          <Button 
-            type="link" 
-            size="small" 
-            icon={<EyeOutlined />}
-            onClick={onView}
-          >
+          <Button type="link" size="small" icon={<EyeOutlined />} onClick={onView}>
             Xem
           </Button>
         </Can>
@@ -60,12 +55,7 @@ export default function PermissionActionButtons({
       {/* Edit button - requires isCanUpdate permission */}
       {onEdit && (
         <Can moduleCode={moduleCode} action="isCanUpdate">
-          <Button 
-            type="link" 
-            size="small" 
-            icon={<EditOutlined />}
-            onClick={onEdit}
-          >
+          <Button type="link" size="small" icon={<EditOutlined />} onClick={onEdit}>
             Sửa
           </Button>
         </Can>
@@ -81,12 +71,7 @@ export default function PermissionActionButtons({
             okText="Xóa"
             cancelText="Hủy"
           >
-            <Button 
-              type="link" 
-              danger 
-              size="small" 
-              icon={<DeleteOutlined />}
-            >
+            <Button type="link" danger size="small" icon={<DeleteOutlined />}>
               Xóa
             </Button>
           </Popconfirm>

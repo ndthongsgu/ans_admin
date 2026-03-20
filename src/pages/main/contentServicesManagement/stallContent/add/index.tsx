@@ -1,7 +1,11 @@
 import BaseView from "@/components/base-view/BaseView";
 import type { FormField } from "@/components/form-custom";
 import FormCustom from "@/components/form-custom";
-import type { StallContentCreateDto, StallContentDto, StallContentUpdateDto } from "@/dto/stallContent.dto";
+import type {
+  StallContentCreateDto,
+  StallContentDto,
+  StallContentUpdateDto,
+} from "@/dto/stallContent.dto";
 import { useCreateStallContent } from "@/hooks/stallContent";
 import { useSelectStalls } from "@/hooks/stall";
 import { useRouter } from "@/routes/hooks";

@@ -31,15 +31,14 @@ export const useAuthStore = create<AuthState>()(
       setTokens: (accessToken: string, refreshToken: string) =>
         set({ accessToken, refreshToken, isAuthenticated: true }),
 
-      setUserInfo: (userInfo: UserInfo) =>
-        set({ userInfo }),
+      setUserInfo: (userInfo: UserInfo) => set({ userInfo }),
 
       clearTokens: () =>
-        set({ 
-          accessToken: null, 
-          refreshToken: null, 
+        set({
+          accessToken: null,
+          refreshToken: null,
           isAuthenticated: false,
-          userInfo: null 
+          userInfo: null,
         }),
 
       getAccessToken: () => get().accessToken,

@@ -34,9 +34,7 @@ export default function DetailEmployeeScreen() {
           {
             label: "Lịch sử thao tác",
             key: "2",
-            children: (
-              <ActionLogView functionType="Employees" functionId={id || ""} />
-            ),
+            children: <ActionLogView functionType="Employees" functionId={id || ""} />,
           },
         ]}
       />
@@ -60,10 +58,7 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
       >
         <Row gutter={[24, 24]}>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mã nhân viên
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -71,10 +66,7 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Tên nhân viên
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -82,10 +74,7 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -93,10 +82,7 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Email
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -104,10 +90,7 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Số điện thoại
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
@@ -115,29 +98,19 @@ const DetailView = ({ data }: { data: EmployeeDto }) => {
             </Text>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Vai trò
             </Text>
             <div style={{ marginTop: "8px" }}>
               {data?.roles?.map((role: RoleDto) => (
-                <Tag
-                  key={role.id}
-                  color="blue"
-                  style={{ marginBottom: "4px", fontSize: "14px" }}
-                >
+                <Tag key={role.id} color="blue" style={{ marginBottom: "4px", fontSize: "14px" }}>
                   {role.name}
                 </Tag>
               )) || <Text type="secondary">Không có vai trò</Text>}
             </div>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Mô tả
             </Text>
             <Text strong style={{ fontSize: "18px" }}>

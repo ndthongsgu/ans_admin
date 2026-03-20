@@ -1,10 +1,6 @@
 import { formatDateTime } from "@/common/helpers/format";
 import type { PaginationDto } from "@/dto/base.dto";
-import {
-  ActionType,
-  useActionLogPagination,
-  type ActionLogFilter,
-} from "@/hooks/action";
+import { ActionType, useActionLogPagination, type ActionLogFilter } from "@/hooks/action";
 import { Tag } from "antd";
 import { useMemo, useState } from "react";
 import TableCustom from "../table/Table";
@@ -31,8 +27,7 @@ export default function ActionLogView({
     [functionType, functionId, type, createdBy]
   );
 
-  const [pagination, setPagination] =
-    useState<PaginationDto<ActionLogFilter>>(initialPagination);
+  const [pagination, setPagination] = useState<PaginationDto<ActionLogFilter>>(initialPagination);
 
   const { data, total, isLoading } = useActionLogPagination(pagination);
 

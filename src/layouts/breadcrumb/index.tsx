@@ -39,9 +39,7 @@ const Breadcrumbs = () => {
       const isLast = idx === breadcrumbChain.length - 1;
       return {
         title: isLast ? (
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            {node.label}
-          </span>
+          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{node.label}</span>
         ) : (
           <Link
             to={node.path}

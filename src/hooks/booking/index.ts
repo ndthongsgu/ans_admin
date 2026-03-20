@@ -13,9 +13,7 @@ import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
-export const usePaginationBooking = (
-  pagination: PaginationDto<BookingFilter>
-) => {
+export const usePaginationBooking = (pagination: PaginationDto<BookingFilter>) => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.BOOKING.PAGINATION, pagination],
     queryFn: () =>
@@ -56,8 +54,7 @@ export const useCreateBooking = () => {
     onError: (error: any) =>
       showToast({
         title: "Thất bại",
-        message:
-          "Thêm đặt xe thất bại: " + (error?.message || "Lỗi không xác định"),
+        message: "Thêm đặt xe thất bại: " + (error?.message || "Lỗi không xác định"),
         type: "error",
       }),
   });
@@ -72,8 +69,7 @@ export const useUpdateBooking = (id: string) => {
   const router = useRouter();
 
   const { mutate: updateBooking, isPending: isLoading } = useMutation({
-    mutationFn: (body: BookingUpdateDto) =>
-      rootApiService.put<BookingDto>(url, body),
+    mutationFn: (body: BookingUpdateDto) => rootApiService.put<BookingDto>(url, body),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.BOOKING.PAGINATION],
@@ -91,9 +87,7 @@ export const useUpdateBooking = (id: string) => {
     onError: (error: any) =>
       showToast({
         title: "Thất bại",
-        message:
-          "Cập nhật đặt xe thất bại: " +
-          (error?.message || "Lỗi không xác định"),
+        message: "Cập nhật đặt xe thất bại: " + (error?.message || "Lỗi không xác định"),
         type: "error",
       }),
   });
@@ -115,8 +109,7 @@ export const useDetailBooking = (id: string) => {
 export const useSelectBookings = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.BOOKING.SELECT],
-    queryFn: () =>
-      rootApiService.get<BookingDto[]>(API_ENDPOINTS.BOOKING.SELECT),
+    queryFn: () => rootApiService.get<BookingDto[]>(API_ENDPOINTS.BOOKING.SELECT),
   });
 
   return {
@@ -132,8 +125,7 @@ export const useConfirmBooking = () => {
   const showToast = useToast();
 
   const { mutate: confirmBooking, isPending: isLoading } = useMutation({
-    mutationFn: (id: string) =>
-      rootApiService.post<BookingDto>(API_ENDPOINTS.BOOKING.CONFIRM(id)),
+    mutationFn: (id: string) => rootApiService.post<BookingDto>(API_ENDPOINTS.BOOKING.CONFIRM(id)),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.BOOKING.PAGINATION],
@@ -144,8 +136,7 @@ export const useConfirmBooking = () => {
       showToast({
         title: "Xác nhận đặt xe thành công!",
         type: "success",
-        message:
-          "Đặt xe đã được xác nhận và chuyển sang trạng thái chờ thanh toán.",
+        message: "Đặt xe đã được xác nhận và chuyển sang trạng thái chờ thanh toán.",
       });
     },
     onError: (error: any) => {
@@ -184,8 +175,7 @@ export const useCompleteTrip = () => {
       showToast({
         title: "Lỗi hoàn thành chuyến đi!",
         type: "error",
-        message:
-          error.response?.data?.message || "Không thể hoàn thành chuyến đi.",
+        message: error.response?.data?.message || "Không thể hoàn thành chuyến đi.",
       });
     },
   });
@@ -199,9 +189,7 @@ export const useUpdateBookingStatusByDate = () => {
 
   const { mutate: updateStatusByDate, isPending: isLoading } = useMutation({
     mutationFn: (id: string) =>
-      rootApiService.post<BookingDto>(
-        API_ENDPOINTS.BOOKING.UPDATE_STATUS_BY_DATE(id)
-      ),
+      rootApiService.post<BookingDto>(API_ENDPOINTS.BOOKING.UPDATE_STATUS_BY_DATE(id)),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.BOOKING.PAGINATION],
@@ -219,9 +207,7 @@ export const useUpdateBookingStatusByDate = () => {
       showToast({
         title: "Lỗi cập nhật trạng thái!",
         type: "error",
-        message:
-          error.response?.data?.message ||
-          "Không thể cập nhật trạng thái đặt xe.",
+        message: error.response?.data?.message || "Không thể cập nhật trạng thái đặt xe.",
       });
     },
   });
