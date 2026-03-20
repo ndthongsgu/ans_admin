@@ -1,33 +1,31 @@
 import type { BaseDto } from "./base.dto";
 
 export interface OwnerDto extends BaseDto {
-  user_id: string;
-  full_name: string;
+  name: string;
+  email: string;
   phone?: string;
-  subscription_package_id?: string;
-  subscription_expires_at?: number;
   business_name?: string;
   business_address?: string;
-  user?: any; // Assuming UserDto
-  subscription_package?: any; // Assuming SubscriptionPackageDto
+  is_deleted: boolean;
+  roles?: string[];
+  created_at?: number;
 }
 
 export interface OwnerCreateDto {
-  user_id: string;
   full_name: string;
+  email: string;
   phone?: string;
+  password: string;
   subscription_package_id?: string;
-  subscription_expires_at?: number;
   business_name?: string;
   business_address?: string;
 }
 
 export interface OwnerUpdateDto {
-  user_id: string;
   full_name: string;
+  email: string;
   phone?: string;
   subscription_package_id?: string;
-  subscription_expires_at?: number;
   business_name?: string;
   business_address?: string;
 }

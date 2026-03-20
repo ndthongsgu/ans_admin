@@ -1,4 +1,3 @@
-import { formatDate } from "@/common/helpers/format";
 import ActionLogView from "@/components/action-log";
 import BaseView from "@/components/base-view/BaseView";
 import Loading from "@/components/loading/Loading";
@@ -64,20 +63,9 @@ const DetailView = ({ data }: { data: StallDto }) => {
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Mã quán ăn
-            </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.id}
-            </Text>
-          </Col>
-          <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
               Tên quán ăn
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
+            <Text strong style={{ fontSize: "16px" }}>
               {data?.name}
             </Text>
           </Col>
@@ -86,10 +74,43 @@ const DetailView = ({ data }: { data: StallDto }) => {
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Ngày thêm vào
+              Chủ quán
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {formatDate(data?.createdDate)}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.owner?.full_name || data?.owner_id || "N/A"}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Vĩ độ
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.latitude}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Kinh độ
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.longitude}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Bán kính (m)
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.radius ?? "Chưa cập nhật"}
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
@@ -99,8 +120,19 @@ const DetailView = ({ data }: { data: StallDto }) => {
             >
               Danh mục
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
+            <Text strong style={{ fontSize: "16px" }}>
               {data?.category || "Chưa cập nhật"}
+            </Text>
+          </Col>
+          <Col span={12} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Khoảng giá
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.price_range || "Chưa cập nhật"}
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
@@ -110,8 +142,19 @@ const DetailView = ({ data }: { data: StallDto }) => {
             >
               Số điện thoại
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
+            <Text strong style={{ fontSize: "16px" }}>
               {data?.contact_phone || "Chưa cập nhật"}
+            </Text>
+          </Col>
+          <Col span={12} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Website
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.website || "Chưa có website"}
             </Text>
           </Col>
           <Col span={24} style={{ padding: "20px" }}>
@@ -119,10 +162,32 @@ const DetailView = ({ data }: { data: StallDto }) => {
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Website
+              Giờ mở cửa
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.website || "Chưa có website"}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.opening_hours || "Chưa cập nhật"}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Đánh giá trung bình
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.average_rating ?? 0} / 5
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Tổng lượt đánh giá
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.total_reviews ?? 0}
             </Text>
           </Col>
         </Row>

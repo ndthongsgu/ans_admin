@@ -10,7 +10,7 @@ export interface StallContentDto extends BaseDto {
   audio_duration?: number;
   audio_file_size?: number;
   tts_script?: string;
-  is_active: boolean;
+  is_deleted: boolean;
   created_at: number;
   updated_at?: number;
   stall?: any; // Assuming StallDto
@@ -27,7 +27,7 @@ export interface StallContentCreateDto {
   audio_file_size?: number;
   tts_script?: string;
   version?: number;
-  is_active?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface StallContentUpdateDto {
@@ -41,15 +41,14 @@ export interface StallContentUpdateDto {
   audio_file_size?: number;
   tts_script?: string;
   version?: number;
-  is_active?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface StallContentFilter {
   title?: string;
   stall_id?: string;
   language_code?: string;
-  is_active?: boolean;
-  isDeleted?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface StallContentPageRequest extends StallContentFilter {

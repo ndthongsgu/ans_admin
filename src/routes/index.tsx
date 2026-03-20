@@ -10,26 +10,27 @@ import CustomerManager from "@/pages/main/user/customer";
 import AddCustomerScreen from "@/pages/main/user/customer/add";
 import DetailCustomerScreen from "@/pages/main/user/customer/detail";
 import EditCustomerScreen from "@/pages/main/user/customer/edit";
-import RoleManager from "@/pages/main/role";
-import AddRoleScreen from "@/pages/main/role/add";
-import DetailRoleScreen from "@/pages/main/role/detail";
-import EditRoleScreen from "@/pages/main/role/edit";
+import RoleManager from "@/pages/main/user/role";
+import AddRoleScreen from "@/pages/main/user/role/add";
+import DetailRoleScreen from "@/pages/main/user/role/detail";
+import EditRoleScreen from "@/pages/main/user/role/edit";
+import PermissionManagement from "@/pages/main/user/permission";
 import OwnerManager from "@/pages/main/user/owner";
 import AddOwnerScreen from "@/pages/main/user/owner/add";
 import DetailOwnerScreen from "@/pages/main/user/owner/detail";
 import EditOwnerScreen from "@/pages/main/user/owner/edit";
-import StallManager from "@/pages/main/stall";
-import AddStallScreen from "@/pages/main/stall/add";
-import DetailStallScreen from "@/pages/main/stall/detail";
-import EditStallScreen from "@/pages/main/stall/edit";
-import StallContentManager from "@/pages/main/stallContent";
-import AddStallContentScreen from "@/pages/main/stallContent/add";
-import DetailStallContentScreen from "@/pages/main/stallContent/detail";
-import EditStallContentScreen from "@/pages/main/stallContent/edit";
-import SubscriptionPackageManager from "@/pages/main/subscriptionPackage";
-import AddSubscriptionPackageScreen from "@/pages/main/subscriptionPackage/add";
-import DetailSubscriptionPackageScreen from "@/pages/main/subscriptionPackage/detail";
-import EditSubscriptionPackageScreen from "@/pages/main/subscriptionPackage/edit";
+import StallManager from "@/pages/main/contentServicesManagement/stall";
+import AddStallScreen from "@/pages/main/contentServicesManagement/stall/add";
+import DetailStallScreen from "@/pages/main/contentServicesManagement/stall/detail";
+import EditStallScreen from "@/pages/main/contentServicesManagement/stall/edit";
+import StallContentManager from "@/pages/main/contentServicesManagement/stallContent";
+import AddStallContentScreen from "@/pages/main/contentServicesManagement/stallContent/add";
+import DetailStallContentScreen from "@/pages/main/contentServicesManagement/stallContent/detail";
+import EditStallContentScreen from "@/pages/main/contentServicesManagement/stallContent/edit";
+import SubscriptionPackageManager from "@/pages/main/contentServicesManagement/subscriptionPackage";
+import AddSubscriptionPackageScreen from "@/pages/main/contentServicesManagement/subscriptionPackage/add";
+import DetailSubscriptionPackageScreen from "@/pages/main/contentServicesManagement/subscriptionPackage/detail";
+import EditSubscriptionPackageScreen from "@/pages/main/contentServicesManagement/subscriptionPackage/edit";
 import NotFound from "@/pages/NotFound";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
@@ -142,6 +143,11 @@ export default function AppRoutes() {
               ROUTES.MAIN.ROLE_MANAGER.children.DETAIL_ROLE.path
             }
             element={<DetailRoleScreen />}
+          />
+          {/* Quản lý phân quyền */}
+          <Route
+            path={ROUTES.MAIN.PERMISSION_MANAGER.path}
+            element={<PermissionManagement />}
           />
           {/* Quản lý chủ quán */}
           <Route

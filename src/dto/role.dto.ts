@@ -4,6 +4,7 @@ export interface RoleCreateUpdateDto {
   code: string;
   name: string;
   description?: string;
+  permissions?: string | string[];
 }
 
 export interface RoleUpdateDto {
@@ -24,6 +25,7 @@ export interface RoleDto extends BaseDto {
   code: string;
   name: string;
   description: string;
+  permissions?: string | string[];
 }
 
 export interface RolePermissionCreateDto {

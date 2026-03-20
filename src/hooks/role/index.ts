@@ -5,6 +5,7 @@ import API_ENDPOINTS from "@/services/api-route";
 import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
+import { useRouter } from "@/routes/hooks/use-router";
 
 export const usePaginationRole = (params: PaginationDto<object>) => {
   const requestParams = {
@@ -62,6 +63,7 @@ export const useDetailRole = (id: string) => {
 };
 
 export const useCreateRole = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const showToast = useToast();
   const { mutateAsync: onCreateRole, isPending: isLoading } = useMutation({
@@ -79,6 +81,7 @@ export const useCreateRole = () => {
         message: res.message || "Tạo vai trò thành công!",
         type: "success",
       });
+      router.back();
     },
     onError: (error: any) => {
       showToast({
@@ -93,6 +96,7 @@ export const useCreateRole = () => {
 };
 
 export const useUpdateRole = (id: string) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const url = API_ENDPOINTS.ROLE.UPDATE(id.toString());
   const showToast = useToast();
@@ -111,6 +115,7 @@ export const useUpdateRole = (id: string) => {
         message: res.message || "Cập nhật vai trò thành công!",
         type: "success",
       });
+      router.back();
     },
     onError: (error: any) => {
       showToast({

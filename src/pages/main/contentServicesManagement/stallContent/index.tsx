@@ -28,8 +28,7 @@ const initFilter: StallContentFilter = {
   title: "",
   stall_id: "",
   language_code: "",
-  is_active: undefined,
-  isDeleted: undefined,
+  is_deleted: undefined,
 };
 
 export default function StallContentManager() {
@@ -74,26 +73,14 @@ export default function StallContentManager() {
       col: 6,
     },
     {
-      key: "is_active",
+      key: "is_deleted",
       label: "Trạng thái",
       type: "select",
       placeholder: "Chọn trạng thái",
       options: [
         { label: "Tất cả", value: undefined },
-        { label: "Hoạt động", value: true },
-        { label: "Không hoạt động", value: false },
-      ],
-      col: 6,
-    },
-    {
-      key: "isDeleted",
-      label: "Xóa",
-      type: "select",
-      placeholder: "Chọn trạng thái xóa",
-      options: [
-        { label: "Tất cả", value: undefined },
-        { label: "Chưa xóa", value: false },
-        { label: "Đã xóa", value: true },
+        { label: "Hoạt động", value: false },
+        { label: "Ngưng hoạt động", value: true },
       ],
       col: 6,
     },
@@ -101,7 +88,7 @@ export default function StallContentManager() {
 
   const handleCreate = () => {
     router.push(
-      ROUTES.MAIN.USER_MANAGER.children.STALL_CONTENT_MANAGER
+      ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER
         .children.ADD_STALL_CONTENT.path
     );
   };
@@ -110,7 +97,7 @@ export default function StallContentManager() {
     title: 200,
     language_code: 100,
     audio_duration: 120,
-    is_active: 120,
+    is_deleted: 120,
     actions: 120,
   });
 
@@ -135,22 +122,22 @@ export default function StallContentManager() {
     },
     {
       title: "Trạng thái",
-      dataIndex: "is_active",
-      key: "is_active",
-      width: columnWidths.is_active,
-      render: (isActive: boolean) => {
+      dataIndex: "is_deleted",
+      key: "is_deleted",
+      width: columnWidths.is_deleted,
+      render: (isDeleted: boolean) => {
         const colorMap = {
-          true: "green",
-          false: "red",
+          true: "red",
+          false: "green",
         };
         const textMap = {
-          true: "Hoạt động",
-          false: "Không hoạt động",
+          true: "Ngưng hoạt động",
+          false: "Hoạt động",
         };
         return (
           <Row justify={"center"}>
-            <Tag color={colorMap[String(isActive) as keyof typeof colorMap]}>
-              {textMap[String(isActive) as keyof typeof textMap]}
+            <Tag color={colorMap[String(isDeleted) as keyof typeof colorMap]}>
+              {textMap[String(isDeleted) as keyof typeof textMap]}
             </Tag>
           </Row>
         );
@@ -168,7 +155,7 @@ export default function StallContentManager() {
       tooltip: "Xem chi tiết",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.USER_MANAGER.children.STALL_CONTENT_MANAGER.children.DETAIL_STALL_CONTENT.path.replace(
+          ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children.DETAIL_STALL_CONTENT.path.replace(
             ":id",
             record.id
           )
@@ -180,11 +167,12 @@ export default function StallContentManager() {
       label: "",
       icon: <EditOutlined />,
       showKey: "isCanEdit",
+      hidden: (record) => record.is_deleted,
       type: "default",
       tooltip: "Chỉnh sửa",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.USER_MANAGER.children.STALL_CONTENT_MANAGER.children.EDIT_STALL_CONTENT.path.replace(
+          ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_CONTENT_MANAGER.children.EDIT_STALL_CONTENT.path.replace(
             ":id",
             record.id
           )
@@ -195,6 +183,7 @@ export default function StallContentManager() {
       key: "deActivate",
       tooltip: "Ngưng hoạt động",
       showKey: "isCanDeactivate",
+      hidden: (record) => record.is_deleted,
       type: "default",
       render: (record) => (
         <ActionConfirm
@@ -213,6 +202,7 @@ export default function StallContentManager() {
       key: "activate",
       tooltip: "Kích hoạt",
       showKey: "isCanActivate",
+      hidden: (record) => !record.is_deleted,
       label: "",
       type: "default",
       render: (record) => (

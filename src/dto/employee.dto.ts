@@ -7,6 +7,7 @@ export interface EmployeeDto extends BaseDto {
   email: string;
   phone: string;
   description?: string;
+  is_deleted: boolean;
   roles: RoleDto[];
 }
 

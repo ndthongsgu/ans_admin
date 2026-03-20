@@ -64,21 +64,10 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Mã chủ quán
-            </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.id}
-            </Text>
-          </Col>
-          <Col span={8} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
               Tên chủ quán
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.full_name}
+              {data?.name}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
@@ -89,7 +78,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
               Ngày thêm vào
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {formatDate(data?.createdDate)}
+              {data?.created_at ? formatDate(new Date(data.created_at * 1000)) : "N/A"}
             </Text>
           </Col>
           <Col span={12} style={{ padding: "20px" }}>

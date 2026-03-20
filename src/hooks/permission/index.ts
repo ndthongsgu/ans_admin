@@ -1,4 +1,4 @@
-import type { ModulePermission } from "@/dto/auth.dto";
+import type { ModulePermission, PermissionModule } from "@/dto/auth.dto";
 import type { RolePermissionCreateDto } from "@/dto/role.dto";
 import { API_ENDPOINTS } from "@/services";
 import rootApiService from "@/services/api.service";
@@ -8,7 +8,7 @@ export const useGetAllPermission = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PERMISSION.GET_ALL],
     queryFn: () =>
-      rootApiService.get<ModulePermission[]>(API_ENDPOINTS.PERMISSION.GET_ALL),
+      rootApiService.get<PermissionModule[]>(API_ENDPOINTS.PERMISSION.GET_ALL),
   });
 
   return {

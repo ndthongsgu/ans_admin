@@ -64,10 +64,10 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Mã nội dung
+              Tiêu đề
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.id}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.title}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
@@ -75,10 +75,93 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Tiêu đề
+              Quán ăn
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.title}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.stall?.name || "N/A"}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Ngôn ngữ
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.language_code || "Chưa cập nhật"}
+            </Text>
+          </Col>
+          <Col span={12} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Mô tả
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.description || "Chưa có mô tả"}
+            </Text>
+          </Col>
+          <Col span={12} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Mô tả ngắn
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.short_description || "Chưa có"}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              URL Audio
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.audio_url ? (
+                <a href={data.audio_url} target="_blank" rel="noopener noreferrer">
+                  Nghe
+                </a>
+              ) : (
+                "Chưa có"
+              )}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Thời lượng (giây)
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.audio_duration ?? "N/A"}
+            </Text>
+          </Col>
+          <Col span={8} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Kích thước file (byte)
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.audio_file_size ?? "N/A"}
+            </Text>
+          </Col>
+          <Col span={24} style={{ padding: "20px" }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
+            >
+              Script TTS
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.tts_script || "Chưa có script"}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
@@ -88,41 +171,34 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
             >
               Ngày thêm vào
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {formatDate(data?.createdDate)}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.created_at
+                ? formatDate(new Date(data.created_at * 1000))
+                : "N/A"}
             </Text>
           </Col>
-          <Col span={12} style={{ padding: "20px" }}>
+          <Col span={8} style={{ padding: "20px" }}>
             <Text
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Ngôn ngữ
+              Cập nhật lần cuối
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.language_code || "Chưa cập nhật"}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.updated_at
+                ? formatDate(new Date(data.updated_at * 1000))
+                : "Chưa cập nhật"}
             </Text>
           </Col>
-          <Col span={12} style={{ padding: "20px" }}>
+          <Col span={8} style={{ padding: "20px" }}>
             <Text
               type="secondary"
               style={{ fontSize: "14px", display: "block", color: "#06498B" }}
             >
-              Thời lượng (giây)
+              Trạng thái
             </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.audio_duration || "Chưa cập nhật"}
-            </Text>
-          </Col>
-          <Col span={24} style={{ padding: "20px" }}>
-            <Text
-              type="secondary"
-              style={{ fontSize: "14px", display: "block", color: "#06498B" }}
-            >
-              Mô tả
-            </Text>
-            <Text strong style={{ fontSize: "18px" }}>
-              {data?.description || "Chưa có mô tả"}
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.is_deleted ? "Đã xóa" : "Hoạt động"}
             </Text>
           </Col>
         </Row>

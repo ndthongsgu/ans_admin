@@ -8,12 +8,12 @@ import RowActions from "@/components/row-action";
 import { CommonActions } from "@/components/row-action/CommonAction";
 import TableCustom, { type TableAction } from "@/components/table/Table";
 import type { PaginationDto } from "@/dto/base.dto";
-import type { SubscriptionPackageDto, SubscriptionPackageFilter } from "@/dto/subscriptionPackage.dto";
+import type { StallDto, StallFilter } from "@/dto/stall.dto";
 import {
-  useActivateSubscriptionPackage,
-  useDeActivateSubscriptionPackage,
-  usePaginationSubscriptionPackage,
-} from "@/hooks/subscriptionPackage";
+  useActivateStall,
+  useDeActivateStall,
+  usePaginationStall,
+} from "@/hooks/stall";
 import { useRouter } from "@/routes/hooks";
 import {
   EditOutlined,
@@ -24,25 +24,26 @@ import {
 import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
-const initFilter: SubscriptionPackageFilter = {
+const initFilter: StallFilter = {
   name: "",
-  is_active: undefined,
-  isDeleted: undefined,
+  category: "",
+  owner_id: "",
+  is_deleted: undefined,
 };
 
-export default function SubscriptionPackageManager() {
+export default function StallManager() {
   const router = useRouter();
-  const [filter, setFilter] = useState<SubscriptionPackageFilter>(initFilter);
-  const [pagination, setPagination] = useState<PaginationDto<SubscriptionPackageFilter>>({
+  const [filter, setFilter] = useState<StallFilter>(initFilter);
+  const [pagination, setPagination] = useState<PaginationDto<StallFilter>>({
     skip: 0,
     take: 10,
     where: initFilter,
   });
 
-  const { data, total, isLoading, refetch } = usePaginationSubscriptionPackage(pagination);
+  const { data, total, isLoading, refetch } = usePaginationStall(pagination);
 
-  const { onDeActivateSubscriptionPackage } = useDeActivateSubscriptionPackage();
-  const { onActivateSubscriptionPackage } = useActivateSubscriptionPackage();
+  const { onDeActivateStall } = useDeActivateStall();
+  const { onActivateStall } = useActivateStall();
 
   const handleSearch = (isReset?: boolean) => {
     setPagination((prev) => ({
@@ -59,32 +60,27 @@ export default function SubscriptionPackageManager() {
   const filterFields: FilterField[] = [
     {
       key: "name",
-      label: "Tên gói",
+      label: "Tên quán ăn",
       type: "input",
-      placeholder: "Nhập tên gói",
+      placeholder: "Nhập tên quán ăn",
       col: 6,
     },
     {
-      key: "is_active",
+      key: "category",
+      label: "Danh mục",
+      type: "input",
+      placeholder: "Nhập danh mục",
+      col: 6,
+    },
+    {
+      key: "is_deleted",
       label: "Trạng thái",
       type: "select",
       placeholder: "Chọn trạng thái",
       options: [
         { label: "Tất cả", value: undefined },
-        { label: "Hoạt động", value: true },
-        { label: "Không hoạt động", value: false },
-      ],
-      col: 6,
-    },
-    {
-      key: "isDeleted",
-      label: "Xóa",
-      type: "select",
-      placeholder: "Chọn trạng thái xóa",
-      options: [
-        { label: "Tất cả", value: undefined },
-        { label: "Chưa xóa", value: false },
-        { label: "Đã xóa", value: true },
+        { label: "Hoạt động", value: false },
+        { label: "Không hoạt động", value: true },
       ],
       col: 6,
     },
@@ -92,62 +88,55 @@ export default function SubscriptionPackageManager() {
 
   const handleCreate = () => {
     router.push(
-      ROUTES.MAIN.USER_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.ADD_SUBSCRIPTION_PACKAGE.path
+      ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_MANAGER.children.ADD_STALL.path
     );
   };
 
   const [columnWidths] = useState<Record<string, number>>({
     name: 200,
-    price: 120,
-    duration: 120,
-    max_stalls: 120,
-    is_active: 120,
+    category: 150,
+    contact_phone: 150,
+    is_deleted: 120,
     actions: 120,
   });
 
   const columns = [
     {
-      title: "Tên gói",
+      title: "Tên quán ăn",
       dataIndex: "name",
       key: "name",
       width: columnWidths.name,
     },
     {
-      title: "Giá",
-      dataIndex: "price",
-      key: "price",
-      width: columnWidths.price,
+      title: "Danh mục",
+      dataIndex: "category",
+      key: "category",
+      width: columnWidths.category,
     },
     {
-      title: "Thời hạn (ngày)",
-      dataIndex: "duration",
-      key: "duration",
-      width: columnWidths.duration,
-    },
-    {
-      title: "Số quán tối đa",
-      dataIndex: "max_stalls",
-      key: "max_stalls",
-      width: columnWidths.max_stalls,
+      title: "Số điện thoại",
+      dataIndex: "contact_phone",
+      key: "contact_phone",
+      width: columnWidths.contact_phone,
     },
     {
       title: "Trạng thái",
-      dataIndex: "is_active",
-      key: "is_active",
-      width: columnWidths.is_active,
-      render: (isActive: boolean) => {
+      dataIndex: "is_deleted",
+      key: "is_deleted",
+      width: columnWidths.is_deleted,
+      render: (is_deleted: boolean) => {
         const colorMap = {
-          true: "green",
-          false: "red",
+          false: "green",
+          true: "red",
         };
         const textMap = {
-          true: "Hoạt động",
-          false: "Không hoạt động",
+          false: "Hoạt động",
+          true: "Không hoạt động",
         };
         return (
           <Row justify={"center"}>
-            <Tag color={colorMap[String(isActive) as keyof typeof colorMap]}>
-              {textMap[String(isActive) as keyof typeof textMap]}
+            <Tag color={colorMap[String(is_deleted) as keyof typeof colorMap]}>
+              {textMap[String(is_deleted) as keyof typeof textMap]}
             </Tag>
           </Row>
         );
@@ -165,7 +154,7 @@ export default function SubscriptionPackageManager() {
       tooltip: "Xem chi tiết",
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.USER_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.DETAIL_SUBSCRIPTION_PACKAGE.path.replace(
+          ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_MANAGER.children.DETAIL_STALL.path.replace(
             ":id",
             record.id
           )
@@ -179,9 +168,10 @@ export default function SubscriptionPackageManager() {
       showKey: "isCanEdit",
       type: "default",
       tooltip: "Chỉnh sửa",
+      hidden: (record: StallDto) => record.is_deleted,
       onClick: (record) => {
         router.push(
-          ROUTES.MAIN.USER_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children.EDIT_SUBSCRIPTION_PACKAGE.path.replace(
+          ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.STALL_MANAGER.children.EDIT_STALL.path.replace(
             ":id",
             record.id
           )
@@ -193,12 +183,13 @@ export default function SubscriptionPackageManager() {
       tooltip: "Ngưng hoạt động",
       showKey: "isCanDeactivate",
       type: "default",
+      hidden: (record: StallDto) => record.is_deleted,
       render: (record) => (
         <ActionConfirm
-          title="Bạn có chắc muốn ngưng hoạt động gói đăng ký này?"
+          title="Bạn có chắc muốn ngưng hoạt động quán ăn này?"
           confirmText="Ngưng hoạt động"
           onConfirm={async () => {
-            await onDeActivateSubscriptionPackage(record.id);
+            await onDeActivateStall(record.id);
             refetch();
           }}
         >
@@ -212,12 +203,13 @@ export default function SubscriptionPackageManager() {
       showKey: "isCanActivate",
       label: "",
       type: "default",
+      hidden: (record: StallDto) => !record.is_deleted,
       render: (record) => (
         <ActionConfirm
-          title="Bạn có chắc muốn kích hoạt gói đăng ký này?"
+          title="Bạn có chắc muốn kích hoạt quán ăn này?"
           confirmText="Kích hoạt"
           onConfirm={async () => {
-            await onActivateSubscriptionPackage(record.id);
+            await onActivateStall(record.id);
             refetch();
           }}
         >
@@ -236,7 +228,7 @@ export default function SubscriptionPackageManager() {
   };
 
   const handleFiltersChange = (newFilters: Record<string, unknown>) => {
-    setFilter(newFilters as SubscriptionPackageFilter);
+    setFilter(newFilters as StallFilter);
   };
 
   return (
@@ -251,7 +243,7 @@ export default function SubscriptionPackageManager() {
         }}
       />
 
-      <TableCustom<SubscriptionPackageDto>
+      <TableCustom<StallDto>
         columns={columns}
         columnWidths={columnWidths}
         data={data}

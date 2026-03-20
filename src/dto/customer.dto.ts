@@ -7,6 +7,7 @@ export interface CustomerDto extends BaseDto {
   email: string;
   phone: string;
   password: string;
+  is_deleted: boolean;
   // description?: string;
   customerType?: CustomerTypeDto;
 }
@@ -34,7 +35,7 @@ export interface CustomerFilter {
   email?: string;
   phone?: string;
   customerTypeId?: string;
-  isDeleted?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface CustomerPageRequest extends CustomerFilter {

@@ -28,7 +28,7 @@ const initFilter: CustomerFilter = {
   name: "",
   email: "",
   phone: "",
-  isDeleted: undefined,
+  is_deleted: undefined,
   customerTypeId: undefined,
 };
 
@@ -81,7 +81,7 @@ export default function CustomerManager() {
       col: 6,
     },
     {
-      key: "isDeleted",
+      key: "is_deleted",
       label: "Trạng thái",
       type: "select",
       placeholder: "Chọn trạng thái",
@@ -106,7 +106,7 @@ export default function CustomerManager() {
     name: 200,
     email: 200,
     phone: 150,
-    isDeleted: 120,
+    is_deleted: 120,
     actions: 120,
   });
 
@@ -137,22 +137,22 @@ export default function CustomerManager() {
     },
     {
       title: "Trạng thái",
-      dataIndex: "is_active",
-      key: "is_active",
-      width: columnWidths.isDeleted,
-      render: (isActive: boolean) => {
+      dataIndex: "is_deleted",
+      key: "is_deleted",
+      width: columnWidths.is_deleted,
+      render: (is_deleted: boolean) => {
         const colorMap = {
-          true: "green",
-          false: "red",
+          true: "red",
+          false: "green",
         };
         const textMap = {
-          true: "Hoạt động",
-          false: "Không hoạt động",
+          false: "Hoạt động",
+          true: "Không hoạt động",
         };
         return (
           <Row justify={"center"}>
-            <Tag color={colorMap[String(isActive) as keyof typeof colorMap]}>
-              {textMap[String(isActive) as keyof typeof textMap]}
+            <Tag color={colorMap[String(is_deleted) as keyof typeof colorMap]}>
+              {textMap[String(is_deleted) as keyof typeof textMap]}
             </Tag>
           </Row>
         );
@@ -184,6 +184,7 @@ export default function CustomerManager() {
       showKey: "isCanEdit",
       type: "default",
       tooltip: "Chỉnh sửa",
+      hidden: (record: CustomerDto) => record.is_deleted,
       onClick: (record) => {
         router.push(
           ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.children.CUSTOMER_LIST.children.EDIT_CUSTOMER.path.replace(
@@ -198,6 +199,7 @@ export default function CustomerManager() {
       tooltip: "Ngưng hoạt động",
       showKey: "isCanDeactivate",
       type: "default",
+      hidden: (record: CustomerDto) => record.is_deleted,
       render: (record) => (
         <ActionConfirm
           title="Bạn có chắc muốn ngưng hoạt động khách hàng này?"
@@ -217,6 +219,7 @@ export default function CustomerManager() {
       showKey: "isCanActivate",
       label: "",
       type: "default",
+      hidden: (record: CustomerDto) => !record.is_deleted,
       render: (record) => (
         <ActionConfirm
           title="Bạn có chắc muốn kích hoạt khách hàng này?"

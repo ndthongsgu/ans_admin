@@ -111,8 +111,14 @@ export default function OwnerManager() {
   const columns = [
     {
       title: "Tên chủ quán",
-      dataIndex: "full_name",
-      key: "full_name",
+      dataIndex: "name",
+      key: "name",
+      width: columnWidths.full_name,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
       width: columnWidths.full_name,
     },
     {
@@ -129,22 +135,22 @@ export default function OwnerManager() {
     },
     {
       title: "Trạng thái",
-      dataIndex: "is_active",
-      key: "is_active",
+      dataIndex: "is_deleted",
+      key: "is_deleted",
       width: columnWidths.isDeleted,
-      render: (isActive: boolean) => {
+      render: (isDeleted: boolean) => {
         const colorMap = {
-          true: "green",
-          false: "red",
+          true: "red",
+          false: "green",
         };
         const textMap = {
-          true: "Hoạt động",
-          false: "Không hoạt động",
+          true: "Ngưng hoạt động",
+          false: "Hoạt động",
         };
         return (
           <Row justify={"center"}>
-            <Tag color={colorMap[String(isActive) as keyof typeof colorMap]}>
-              {textMap[String(isActive) as keyof typeof textMap]}
+            <Tag color={colorMap[String(isDeleted) as keyof typeof colorMap]}>
+              {textMap[String(isDeleted) as keyof typeof textMap]}
             </Tag>
           </Row>
         );
@@ -190,6 +196,7 @@ export default function OwnerManager() {
       tooltip: "Ngưng hoạt động",
       showKey: "isCanDeactivate",
       type: "default",
+      hidden: (record) => record.is_deleted,
       render: (record) => (
         <ActionConfirm
           title="Bạn có chắc muốn ngưng hoạt động chủ quán này?"
@@ -209,6 +216,7 @@ export default function OwnerManager() {
       showKey: "isCanActivate",
       label: "",
       type: "default",
+      hidden: (record) => !record.is_deleted,
       render: (record) => (
         <ActionConfirm
           title="Bạn có chắc muốn kích hoạt chủ quán này?"

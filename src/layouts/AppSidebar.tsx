@@ -54,14 +54,19 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
           label: ROUTES.MAIN.USER_MANAGER.children.CUSTOMER_MANAGER.label,
         },
         {
+          key: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.key,
+          path: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.path,
+          label: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.label,
+        },
+        {
           key: ROUTES.MAIN.ROLE_MANAGER.key,
           path: ROUTES.MAIN.ROLE_MANAGER.path,
           label: ROUTES.MAIN.ROLE_MANAGER.label,
         },
         {
-          key: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.key,
-          path: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.path,
-          label: ROUTES.MAIN.USER_MANAGER.children.OWNER_MANAGER.label,
+          key: ROUTES.MAIN.PERMISSION_MANAGER.key,
+          path: ROUTES.MAIN.PERMISSION_MANAGER.path,
+          label: ROUTES.MAIN.PERMISSION_MANAGER.label,
         },
       ],
     },

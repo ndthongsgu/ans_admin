@@ -16,7 +16,11 @@ export interface StallDto extends BaseDto {
   total_reviews?: number;
   created_at: number;
   updated_at?: number;
-  owner?: any; // Assuming OwnerDto
+  is_deleted: boolean;
+  owner?: {
+    id: string;
+    full_name: string;
+  };
 }
 
 export interface StallCreateDto {
@@ -35,7 +39,7 @@ export interface StallCreateDto {
 }
 
 export interface StallUpdateDto {
-  owner_id: string;
+  owner_id?: string;
   name: string;
   latitude: number;
   longitude: number;
@@ -54,7 +58,7 @@ export interface StallFilter {
   category?: string;
   owner_id?: string;
   status?: boolean;
-  isDeleted?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface StallPageRequest extends StallFilter {

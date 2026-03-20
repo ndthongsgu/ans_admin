@@ -8,7 +8,7 @@ export interface SubscriptionPackageDto extends BaseDto {
   max_stalls: number;
   max_audio_storage?: number;
   features?: string;
-  is_active: boolean;
+  is_deleted: boolean;
 }
 
 export interface SubscriptionPackageCreateDto {
@@ -19,7 +19,7 @@ export interface SubscriptionPackageCreateDto {
   max_stalls: number;
   max_audio_storage?: number;
   features?: string;
-  is_active?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface SubscriptionPackageUpdateDto {
@@ -30,13 +30,12 @@ export interface SubscriptionPackageUpdateDto {
   max_stalls: number;
   max_audio_storage?: number;
   features?: string;
-  is_active?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface SubscriptionPackageFilter {
   name?: string;
-  is_active?: boolean;
-  isDeleted?: boolean;
+  is_deleted?: boolean;
 }
 
 export interface SubscriptionPackagePageRequest extends SubscriptionPackageFilter {

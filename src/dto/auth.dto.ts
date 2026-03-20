@@ -51,6 +51,18 @@ export interface ModulePermission {
   isCanExport: boolean;
 }
 
+// Permission Module Interface (for permission configuration)
+export interface PermissionModule {
+  module: string;
+  label: string;
+  description: string;
+  urlPageView: string;
+  permissions: Array<{
+    code: string;
+    label: string;
+  }>;
+}
+
 // User Info with Permissions
 export interface UserInfo {
   userId: string;

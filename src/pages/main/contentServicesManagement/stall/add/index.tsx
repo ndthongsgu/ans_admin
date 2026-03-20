@@ -3,6 +3,7 @@ import type { FormField } from "@/components/form-custom";
 import FormCustom from "@/components/form-custom";
 import type { StallCreateDto, StallDto, StallUpdateDto } from "@/dto/stall.dto";
 import { useCreateStall } from "@/hooks/stall";
+import { useAllOwners } from "@/hooks/owner";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";
 
@@ -20,16 +21,21 @@ export default function AddStallScreen({
   isLoadingUpdate?: boolean;
 }) {
   const { isLoading, onCreateStall } = useCreateStall();
+  const { data: owners } = useAllOwners();
   const router = useRouter();
 
   const formFields = useMemo(() => {
     const fields: FormField[] = [
       {
         name: "owner_id",
-        label: "ID Chủ quán",
-        type: "input",
+        label: "Chủ quán",
+        type: "select",
         required: true,
-        placeholder: "Nhập ID chủ quán",
+        placeholder: "Chọn chủ quán",
+        options: owners.map((owner) => ({
+          name: owner.name,
+          id: owner.id,
+        })),
       },
       {
         name: "name",
@@ -41,23 +47,26 @@ export default function AddStallScreen({
       {
         name: "latitude",
         label: "Vĩ độ",
-        type: "input",
+        type: "number",
         required: true,
         placeholder: "Nhập vĩ độ",
+        step: 0.0001,
       },
       {
         name: "longitude",
         label: "Kinh độ",
-        type: "input",
+        type: "number",
         required: true,
         placeholder: "Nhập kinh độ",
+        step: 0.0001,
       },
       {
         name: "radius",
         label: "Bán kính (m)",
-        type: "input",
+        type: "number",
         required: false,
         placeholder: "Nhập bán kính",
+        min: 0,
       },
       {
         name: "cover_image",

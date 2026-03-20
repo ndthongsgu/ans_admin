@@ -22,21 +22,28 @@ export default function AddOwnerScreen({
   const { isLoading, onCreateOwner } = useCreateOwner();
   const router = useRouter();
 
+  // Transform initData to use full_name instead of name
+  const transformedInitData = initData ? {
+    ...initData,
+    full_name: initData.name
+  } : undefined;
+
   const formFields = useMemo(() => {
     const fields: FormField[] = [
-      {
-        name: "user_id",
-        label: "ID Người dùng",
-        type: "input",
-        required: true,
-        placeholder: "Nhập ID người dùng",
-      },
       {
         name: "full_name",
         label: "Tên chủ quán",
         type: "input",
         required: true,
         placeholder: "Nhập tên chủ quán",
+      },
+      {
+        name: "email",
+        label: "Email",
+        type: "input",
+        required: true,
+        placeholder: "Nhập email",
+        rules: [{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Email không hợp lệ" }],
       },
       {
         name: "phone",
@@ -97,7 +104,7 @@ export default function AddOwnerScreen({
       <FormCustom
         title={title}
         fields={formFields}
-        initialValues={initData}
+        initialValues={transformedInitData}
         loading={isLoading || isLoadingUpdate}
         onSubmit={handleSubmit}
         onCancel={goBack}
