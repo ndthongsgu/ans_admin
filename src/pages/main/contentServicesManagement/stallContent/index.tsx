@@ -87,14 +87,21 @@ export default function StallContentManager() {
   };
 
   const [columnWidths] = useState<Record<string, number>>({
-    title: 200,
+    stall_name: 180,
+    title: 180,
     language_code: 100,
-    audio_duration: 120,
+    audio_duration: 100,
     is_deleted: 120,
     actions: 120,
   });
 
   const columns = [
+    {
+      title: "Quán ăn",
+      dataIndex: "stall_name",
+      key: "stall_name",
+      width: columnWidths.stall_name,
+    },
     {
       title: "Tiêu đề",
       dataIndex: "title",

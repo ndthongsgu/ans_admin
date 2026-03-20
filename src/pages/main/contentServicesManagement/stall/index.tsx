@@ -80,9 +80,10 @@ export default function StallManager() {
   };
 
   const [columnWidths] = useState<Record<string, number>>({
-    name: 200,
-    category: 150,
-    contact_phone: 150,
+    name: 180,
+    category: 120,
+    owner_name: 150,
+    contact_phone: 130,
     is_deleted: 120,
     actions: 120,
   });
@@ -93,6 +94,12 @@ export default function StallManager() {
       dataIndex: "name",
       key: "name",
       width: columnWidths.name,
+    },
+    {
+      title: "Chủ quán",
+      dataIndex: "owner_name",
+      key: "owner_name",
+      width: columnWidths.owner_name,
     },
     {
       title: "Danh mục",
