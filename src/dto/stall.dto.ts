@@ -1,5 +1,15 @@
 import type { BaseDto } from "./base.dto";
 
+export interface StallTranslationDto {
+  id?: string;
+  stall_id?: string;
+  language_code: string;
+  name: string;
+  category?: string;
+  created_at?: number;
+  updated_at?: number;
+}
+
 export interface StallDto extends BaseDto {
   owner_id: string;
   name: string;
@@ -21,6 +31,8 @@ export interface StallDto extends BaseDto {
     id: string;
     full_name: string;
   };
+  translations?: StallTranslationDto[]; // All language translations
+  vi_trans?: StallTranslationDto; // Vietnamese translation for display
 }
 
 export interface StallCreateDto {

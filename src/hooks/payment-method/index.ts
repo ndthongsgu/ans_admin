@@ -31,8 +31,8 @@ export const usePaginationPaymentMethod = (params: PaginationDto<PaymentMethodFi
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -42,11 +42,11 @@ export const usePaginationPaymentMethod = (params: PaginationDto<PaymentMethodFi
 export const useAllPaymentMethods = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PAYMENT_METHOD.GET_ALL],
-    queryFn: () => rootApiService.get<PaymentMethodDto[]>(API_ENDPOINTS.PAYMENT_METHOD.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.PAYMENT_METHOD.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -55,12 +55,12 @@ export const useDetailPaymentMethod = (id: string) => {
   const url = API_ENDPOINTS.PAYMENT_METHOD.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<PaymentMethodDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,
@@ -188,11 +188,11 @@ export const useActivatePaymentMethod = () => {
 export const useSelectPaymentMethods = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PAYMENT_METHOD.SELECT],
-    queryFn: () => rootApiService.get<PaymentMethodDto[]>(API_ENDPOINTS.PAYMENT_METHOD.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.PAYMENT_METHOD.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };

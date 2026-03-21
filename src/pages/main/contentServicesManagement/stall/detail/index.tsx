@@ -1,12 +1,12 @@
-import ActionLogView from "@/components/action-log";
 import BaseView from "@/components/base-view/BaseView";
 import Loading from "@/components/loading/Loading";
 import Title from "@/components/title";
 import type { StallDto } from "@/dto/stall.dto";
 import { useDetailStall } from "@/hooks/stall";
 import { useRouter } from "@/routes/hooks";
+import { LANGUAGE_MAP } from "@/common/constants/language";
 import { LeftCircleOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row, Tabs, Typography } from "antd";
+import { Button, Card, Col, Row, Table, Tabs, Tag, Typography } from "antd";
 import { useParams } from "react-router-dom";
 
 const { Text } = Typography;
@@ -31,9 +31,9 @@ export default function DetailStallScreen() {
             children: data ? <DetailView data={data} /> : <Loading />,
           },
           {
-            label: "Lịch sử thao tác",
+            label: "Bản dịch",
             key: "2",
-            children: <ActionLogView functionType="Stalls" functionId={id || ""} />,
+            children: data ? <TranslationsView data={data} /> : <Loading />,
           },
         ]}
       />
@@ -153,6 +153,63 @@ const DetailView = ({ data }: { data: StallDto }) => {
             </Text>
           </Col>
         </Row>
+      </Card>
+
+      {/* Back button */}
+      <Row justify="start" style={{ marginTop: "24px" }}>
+        <Button type="default" icon={<LeftCircleOutlined />} onClick={() => router.back()}>
+          Quay lại
+        </Button>
+      </Row>
+    </div>
+  );
+};
+
+const TranslationsView = ({ data }: { data: StallDto }) => {
+  const router = useRouter();
+
+  const columns = [
+    {
+      title: "Ngôn ngữ",
+      dataIndex: "language_code",
+      key: "language_code",
+      width: 150,
+      render: (lang: string) => (
+        <Tag color={lang === "vi" ? "blue" : "default"}>{LANGUAGE_MAP[lang] || lang}</Tag>
+      ),
+    },
+    {
+      title: "Tên quán ăn",
+      dataIndex: "name",
+      key: "name",
+      width: 250,
+    },
+    {
+      title: "Danh mục",
+      dataIndex: "category",
+      key: "category",
+      width: 200,
+      render: (text: string) => text || "Chưa cập nhật",
+    },
+  ];
+
+  return (
+    <div style={{ padding: "16px 0" }}>
+      <Card
+        title={
+          <Text strong style={{ fontSize: "16px", color: "#06498B" }}>
+            Bản dịch theo ngôn ngữ
+          </Text>
+        }
+        style={{ marginBottom: "24px" }}
+      >
+        <Table
+          columns={columns}
+          dataSource={data?.translations || []}
+          rowKey="language_code"
+          pagination={false}
+          bordered
+        />
       </Card>
 
       {/* Back button */}

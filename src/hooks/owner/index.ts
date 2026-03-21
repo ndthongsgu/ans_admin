@@ -5,7 +5,6 @@ import type {
   OwnerDto,
   OwnerFilter,
   OwnerPageRequest,
-  OwnerSelectOption,
   OwnerUpdateDto,
 } from "@/dto/owner.dto";
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
@@ -34,8 +33,8 @@ export const usePaginationOwner = (params: PaginationDto<OwnerFilter>) => {
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -45,11 +44,11 @@ export const usePaginationOwner = (params: PaginationDto<OwnerFilter>) => {
 export const useAllOwners = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.OWNER.GET_ALL],
-    queryFn: () => rootApiService.get<OwnerDto[]>(API_ENDPOINTS.OWNER.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.OWNER.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -58,11 +57,11 @@ export const useAllOwners = () => {
 export const useSelectOwners = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.OWNER.SELECT],
-    queryFn: () => rootApiService.get<OwnerSelectOption[]>(API_ENDPOINTS.OWNER.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.OWNER.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -72,12 +71,12 @@ export const useDetailOwner = (id: string) => {
   const url = API_ENDPOINTS.OWNER.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<OwnerDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,

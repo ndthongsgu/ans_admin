@@ -32,8 +32,8 @@ export const usePaginationEmployee = (params: PaginationDto<EmployeeFilter>) => 
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -43,11 +43,11 @@ export const usePaginationEmployee = (params: PaginationDto<EmployeeFilter>) => 
 export const useAllEmployees = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.EMPLOYEE.GET_ALL],
-    queryFn: () => rootApiService.get<EmployeeDto[]>(API_ENDPOINTS.EMPLOYEE.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.EMPLOYEE.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -56,12 +56,12 @@ export const useDetailEmployee = (id: string) => {
   const url = API_ENDPOINTS.EMPLOYEE.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<EmployeeDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,

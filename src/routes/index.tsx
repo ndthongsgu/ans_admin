@@ -27,10 +27,6 @@ import StallContentManager from "@/pages/main/contentServicesManagement/stallCon
 import AddStallContentScreen from "@/pages/main/contentServicesManagement/stallContent/add";
 import DetailStallContentScreen from "@/pages/main/contentServicesManagement/stallContent/detail";
 import EditStallContentScreen from "@/pages/main/contentServicesManagement/stallContent/edit";
-import SubscriptionPackageManager from "@/pages/main/contentServicesManagement/subscriptionPackage";
-import AddSubscriptionPackageScreen from "@/pages/main/contentServicesManagement/subscriptionPackage/add";
-import DetailSubscriptionPackageScreen from "@/pages/main/contentServicesManagement/subscriptionPackage/detail";
-import EditSubscriptionPackageScreen from "@/pages/main/contentServicesManagement/subscriptionPackage/edit";
 import NotFound from "@/pages/NotFound";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
@@ -177,32 +173,6 @@ export default function AppRoutes() {
                 .DETAIL_STALL_CONTENT.path
             }
             element={<DetailStallContentScreen />}
-          />
-          {/* Quản lý gói đăng ký */}
-          <Route
-            path={ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.path}
-            element={<SubscriptionPackageManager />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
-                .ADD_SUBSCRIPTION_PACKAGE.path
-            }
-            element={<AddSubscriptionPackageScreen />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
-                .EDIT_SUBSCRIPTION_PACKAGE.path
-            }
-            element={<EditSubscriptionPackageScreen />}
-          />
-          <Route
-            path={
-              ROUTES.MAIN.CONTENT_SERVICE_MANAGER.children.SUBSCRIPTION_PACKAGE_MANAGER.children
-                .DETAIL_SUBSCRIPTION_PACKAGE.path
-            }
-            element={<DetailSubscriptionPackageScreen />}
           />
         </Route>
       </Route>{" "}

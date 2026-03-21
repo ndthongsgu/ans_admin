@@ -5,7 +5,6 @@ import type {
   StallDto,
   StallFilter,
   StallPageRequest,
-  StallSelectOption,
   StallUpdateDto,
 } from "@/dto/stall.dto";
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
@@ -34,8 +33,8 @@ export const usePaginationStall = (params: PaginationDto<StallFilter>) => {
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -45,11 +44,11 @@ export const usePaginationStall = (params: PaginationDto<StallFilter>) => {
 export const useAllStalls = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL.GET_ALL],
-    queryFn: () => rootApiService.get<StallDto[]>(API_ENDPOINTS.STALL.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.STALL.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -58,11 +57,11 @@ export const useAllStalls = () => {
 export const useSelectStalls = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL.SELECT],
-    queryFn: () => rootApiService.get<StallSelectOption[]>(API_ENDPOINTS.STALL.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.STALL.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -72,12 +71,12 @@ export const useDetailStall = (id: string) => {
   const url = API_ENDPOINTS.STALL.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<StallDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,

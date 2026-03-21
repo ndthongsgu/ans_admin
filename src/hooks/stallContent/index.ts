@@ -5,7 +5,6 @@ import type {
   StallContentDto,
   StallContentFilter,
   StallContentPageRequest,
-  StallContentSelectOption,
   StallContentUpdateDto,
 } from "@/dto/stallContent.dto";
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
@@ -34,8 +33,8 @@ export const usePaginationStallContent = (params: PaginationDto<StallContentFilt
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -45,11 +44,11 @@ export const usePaginationStallContent = (params: PaginationDto<StallContentFilt
 export const useAllStallContents = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL_CONTENT.GET_ALL],
-    queryFn: () => rootApiService.get<StallContentDto[]>(API_ENDPOINTS.STALL_CONTENT.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.STALL_CONTENT.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -58,12 +57,11 @@ export const useAllStallContents = () => {
 export const useSelectStallContents = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.STALL_CONTENT.SELECT],
-    queryFn: () =>
-      rootApiService.get<StallContentSelectOption[]>(API_ENDPOINTS.STALL_CONTENT.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.STALL_CONTENT.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -73,12 +71,12 @@ export const useDetailStallContent = (id: string) => {
   const url = API_ENDPOINTS.STALL_CONTENT.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<StallContentDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,

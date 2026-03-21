@@ -65,7 +65,7 @@ function PermissionsByRoleTab({ modules }: { modules: any[] }) {
                   ? parsed
                   : Object.keys(parsed).filter((key) => parsed[key as keyof typeof parsed]);
               } catch {
-                return role.permissions.split(",").map((p) => p.trim());
+                return role.permissions.split(",").map((p: string) => p.trim());
               }
             })()
           : Array.isArray(role.permissions)

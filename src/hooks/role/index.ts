@@ -25,8 +25,8 @@ export const usePaginationRole = (params: PaginationDto<object>) => {
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -36,11 +36,11 @@ export const usePaginationRole = (params: PaginationDto<object>) => {
 export const useAllRoles = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.ROLE.GET_ALL],
-    queryFn: () => rootApiService.get<RoleDto[]>(API_ENDPOINTS.ROLE.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.ROLE.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
     error,
@@ -50,12 +50,12 @@ export const useAllRoles = () => {
 export const useDetailRole = (id: string) => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.ROLE.FIND_BY_ID(id)],
-    queryFn: () => rootApiService.get<RoleDto>(API_ENDPOINTS.ROLE.FIND_BY_ID(id)),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.ROLE.FIND_BY_ID(id)),
     enabled: !!id,
   });
 
   return {
-    data,
+    data: data?.data,
     isLoading,
     refetch,
     error,
@@ -131,10 +131,10 @@ export const useUpdateRole = (id: string) => {
 export const useSelectBoxRoles = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.ROLE.SELECT],
-    queryFn: () => rootApiService.get<RoleDto[]>(API_ENDPOINTS.ROLE.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.ROLE.SELECT),
   });
 
-  return { data, isLoading, refetch };
+  return { data: data?.data || [], isLoading, refetch };
 };
 
 export const useDeActivateRole = () => {

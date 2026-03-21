@@ -36,45 +36,18 @@ export default function AddStallContentScreen({
         type: "select",
         required: true,
         placeholder: "Chọn quán ăn",
-        options: stalls.map((stall) => ({
+        options: stalls.map((stall: any) => ({
           name: stall.name,
           id: stall.id,
         })),
       },
       {
-        name: "title",
-        label: "Tiêu đề",
-        type: "input",
-        required: true,
-        placeholder: "Nhập tiêu đề",
-      },
-      {
-        name: "language_code",
-        label: "Mã ngôn ngữ",
-        type: "input",
-        required: false,
-        placeholder: "Nhập mã ngôn ngữ",
-      },
-      {
-        name: "description",
-        label: "Mô tả",
-        type: "textarea",
-        required: false,
-        placeholder: "Nhập mô tả",
-      },
-      {
-        name: "short_description",
-        label: "Mô tả ngắn",
-        type: "textarea",
-        required: false,
-        placeholder: "Nhập mô tả ngắn",
-      },
-      {
         name: "tts_script",
-        label: "Script TTS",
+        label: "Script TTS (dùng để tự động generate audio)",
         type: "textarea",
         required: false,
-        placeholder: "Nhập script TTS",
+        placeholder:
+          "Nhập script để tự động tạo file âm thanh. Nếu không điền sẽ cần upload audio_url",
       },
     ];
 

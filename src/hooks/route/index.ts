@@ -16,11 +16,11 @@ import { useToast } from "../layout/useToast";
 export const useGetAllRoutes = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.ROUTE.GET_ALL],
-    queryFn: () => rootApiService.get<RouteDto[]>(API_ENDPOINTS.ROUTE.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.ROUTE.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
     error,
@@ -30,11 +30,11 @@ export const useGetAllRoutes = () => {
 export const useSelectRoutes = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.ROUTE.SELECT],
-    queryFn: () => rootApiService.get<RouteDto[]>(API_ENDPOINTS.ROUTE.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.ROUTE.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
     error,
@@ -60,8 +60,8 @@ export const usePaginationRoute = (params: PaginationDto<RouteFilter>) => {
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -72,12 +72,12 @@ export const useDetailRoute = (id: string) => {
   const url = API_ENDPOINTS.ROUTE.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<RouteDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,
@@ -156,11 +156,11 @@ export const useUpdateRoute = (id: string) => {
 export const useAllRoutes = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["/admin/routes", "all"],
-    queryFn: () => rootApiService.get<RouteDto[]>("/admin/routes"),
+    queryFn: () => rootApiService.get<SuccessResponse>("/admin/routes"),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     total: 0,
     isLoading,
     refetch,

@@ -1,12 +1,6 @@
 import type { PaginationDto } from "@/dto/base.dto";
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
-import type {
-  UserCreateUpdateDto,
-  UserDto,
-  UserFilter,
-  UserPageRequest,
-  UserSelectDto,
-} from "@/dto/user.dto";
+import type { UserCreateUpdateDto, UserDto, UserFilter, UserPageRequest } from "@/dto/user.dto";
 import API_ENDPOINTS from "@/services/api-route";
 import rootApiService from "@/services/api.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,11 +9,11 @@ import { useToast } from "../layout/useToast";
 export const useGetAllUsers = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.USER.GET_ALL],
-    queryFn: () => rootApiService.get<UserDto[]>(API_ENDPOINTS.USER.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.USER.GET_ALL),
   });
 
   return {
-    data: data ?? [],
+    data: data?.data ?? [],
     isLoading,
     refetch,
     error,
@@ -42,8 +36,8 @@ export const usePaginationUser = (params: PaginationDto<UserFilter>) => {
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -54,12 +48,12 @@ export const useDetailUser = (id: number) => {
   const url = API_ENDPOINTS.USER.FIND_BY_ID(id.toString());
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<UserDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,
@@ -131,14 +125,14 @@ export const useUserSelect = (searchTerm?: string) => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.USER.SELECT, searchTerm],
     queryFn: () =>
-      rootApiService.get<UserSelectDto[]>(
+      rootApiService.get<SuccessResponse>(
         API_ENDPOINTS.USER.SELECT,
         searchTerm ? { search: searchTerm } : {}
       ),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
     error,

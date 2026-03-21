@@ -18,7 +18,6 @@ import { Button, Row, Tag } from "antd";
 import { useState } from "react";
 
 const initFilter: StallContentFilter = {
-  title: "",
   stall_id: "",
   language_code: "",
   is_deleted: undefined,
@@ -52,20 +51,6 @@ export default function StallContentManager() {
 
   const filterFields: FilterField[] = [
     {
-      key: "title",
-      label: "Tiêu đề",
-      type: "input",
-      placeholder: "Nhập tiêu đề",
-      col: 6,
-    },
-    {
-      key: "language_code",
-      label: "Mã ngôn ngữ",
-      type: "input",
-      placeholder: "Nhập mã ngôn ngữ",
-      col: 6,
-    },
-    {
       key: "is_deleted",
       label: "Trạng thái",
       type: "select",
@@ -88,7 +73,6 @@ export default function StallContentManager() {
 
   const [columnWidths] = useState<Record<string, number>>({
     stall_name: 180,
-    title: 180,
     language_code: 100,
     audio_duration: 100,
     is_deleted: 120,
@@ -101,24 +85,6 @@ export default function StallContentManager() {
       dataIndex: "stall_name",
       key: "stall_name",
       width: columnWidths.stall_name,
-    },
-    {
-      title: "Tiêu đề",
-      dataIndex: "title",
-      key: "title",
-      width: columnWidths.title,
-    },
-    {
-      title: "Ngôn ngữ",
-      dataIndex: "language_code",
-      key: "language_code",
-      width: columnWidths.language_code,
-    },
-    {
-      title: "Thời lượng (giây)",
-      dataIndex: "audio_duration",
-      key: "audio_duration",
-      width: columnWidths.audio_duration,
     },
     {
       title: "Trạng thái",

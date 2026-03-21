@@ -5,7 +5,6 @@ import type {
   CustomerDto,
   CustomerFilter,
   CustomerPageRequest,
-  CustomerSelectOption,
   CustomerUpdateDto,
 } from "@/dto/customer.dto";
 import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
@@ -34,8 +33,8 @@ export const usePaginationCustomer = (params: PaginationDto<CustomerFilter>) => 
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -45,11 +44,11 @@ export const usePaginationCustomer = (params: PaginationDto<CustomerFilter>) => 
 export const useAllCustomers = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.CUSTOMER.GET_ALL],
-    queryFn: () => rootApiService.get<CustomerDto[]>(API_ENDPOINTS.CUSTOMER.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.CUSTOMER.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -58,11 +57,11 @@ export const useAllCustomers = () => {
 export const useSelectCustomers = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.CUSTOMER.SELECT],
-    queryFn: () => rootApiService.get<CustomerSelectOption[]>(API_ENDPOINTS.CUSTOMER.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.CUSTOMER.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
   };
@@ -72,12 +71,12 @@ export const useDetailCustomer = (id: string) => {
   const url = API_ENDPOINTS.CUSTOMER.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<CustomerDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,

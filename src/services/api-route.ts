@@ -1,7 +1,7 @@
 export const API_ROUTES: ApiRoutes = {
   BASE_URL: import.meta.env.VITE_BE_API,
   PAYMENT_BASE_URL: import.meta.env.VITE_API_PAYMENT_URL,
-  TIMEOUT: 10000,
+  TIMEOUT: 60000, // 60 seconds
   HEADERS: {
     "Content-Type": "application/json",
     Accept: "application/json",

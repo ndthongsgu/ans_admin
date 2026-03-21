@@ -44,8 +44,8 @@ export const useActionLogPagination = (params: ActionLogSearchDto) => {
   });
 
   return {
-    data: data?.content ?? [],
-    total: data?.totalElements ?? 0,
+    data: data?.data?.content ?? [],
+    total: data?.data?.totalElements ?? 0,
     isLoading,
     refetch,
     error,

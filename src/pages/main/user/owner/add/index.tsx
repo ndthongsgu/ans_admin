@@ -26,7 +26,7 @@ export default function AddOwnerScreen({
   const transformedInitData = initData
     ? {
         ...initData,
-        full_name: initData.name,
+        full_name: initData.full_name,
       }
     : undefined;
 

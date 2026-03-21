@@ -48,7 +48,7 @@ export default function AddRoleScreen({
   };
 
   const handleModuleSelectAll = (module: (typeof permissionModules)[0], checked: boolean) => {
-    const moduleCodes = module.permissions.map((p) => p.code);
+    const moduleCodes = module.permissions.map((p: any) => p.code);
     if (checked) {
       setSelectedPermissions([...new Set([...selectedPermissions, ...moduleCodes])]);
     } else {
@@ -134,10 +134,14 @@ export default function AddRoleScreen({
         {/* Permissions */}
         <Card title="Phân quyền" style={{ marginBottom: "24px" }}>
           <Row gutter={[24, 24]}>
-            {permissionModules.map((module) => {
-              const modulePermissions = module.permissions.map((p) => p.code);
-              const allSelected = modulePermissions.every((p) => selectedPermissions.includes(p));
-              const someSelected = modulePermissions.some((p) => selectedPermissions.includes(p));
+            {permissionModules.map((module: any) => {
+              const modulePermissions = module.permissions.map((p: any) => p.code);
+              const allSelected = modulePermissions.every((p: any) =>
+                selectedPermissions.includes(p)
+              );
+              const someSelected = modulePermissions.some((p: any) =>
+                selectedPermissions.includes(p)
+              );
 
               return (
                 <Col span={12} key={module.module}>
@@ -158,7 +162,7 @@ export default function AddRoleScreen({
                       </Checkbox>
                       <div style={{ paddingLeft: "24px" }}>
                         <Space direction="vertical" style={{ width: "100%" }}>
-                          {module.permissions.map((perm) => (
+                          {module.permissions.map((perm: any) => (
                             <Checkbox
                               key={perm.code}
                               checked={selectedPermissions.includes(perm.code)}

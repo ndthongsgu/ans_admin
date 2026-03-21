@@ -1,5 +1,4 @@
 import { formatDate } from "@/common/helpers/format";
-import ActionLogView from "@/components/action-log";
 import BaseView from "@/components/base-view/BaseView";
 import Loading from "@/components/loading/Loading";
 import Title from "@/components/title";
@@ -30,11 +29,6 @@ export default function DetailEmployeeScreen() {
             label: "Chi tiết",
             key: "1",
             children: data ? <DetailView data={data} /> : <Loading />,
-          },
-          {
-            label: "Lịch sử thao tác",
-            key: "2",
-            children: <ActionLogView functionType="Employees" functionId={id || ""} />,
           },
         ]}
       />

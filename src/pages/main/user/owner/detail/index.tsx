@@ -1,5 +1,4 @@
 import { formatDate } from "@/common/helpers/format";
-import ActionLogView from "@/components/action-log";
 import BaseView from "@/components/base-view/BaseView";
 import Loading from "@/components/loading/Loading";
 import Title from "@/components/title";
@@ -31,11 +30,6 @@ export default function DetailOwnerScreen() {
             key: "1",
             children: data ? <DetailView data={data} /> : <Loading />,
           },
-          {
-            label: "Lịch sử thao tác",
-            key: "2",
-            children: <ActionLogView functionType="Owners" functionId={id || ""} />,
-          },
         ]}
       />
     </BaseView>
@@ -62,7 +56,7 @@ const DetailView = ({ data }: { data: OwnerDto }) => {
               Tên chủ quán
             </Text>
             <Text strong style={{ fontSize: "18px" }}>
-              {data?.name}
+              {data?.full_name}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>

@@ -1,7 +1,7 @@
 import type { BaseDto } from "./base.dto";
 
 export interface OwnerDto extends BaseDto {
-  name: string;
+  full_name: string;
   email: string;
   phone?: string;
   business_name?: string;

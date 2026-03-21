@@ -60,7 +60,7 @@ export default function AddEmployeeScreen({
         type: "multiselect",
         required: false,
         placeholder: "Chọn vai trò",
-        options: roles.map((role) => ({
+        options: roles.map((role: any) => ({
           label: role.name,
           name: role.name,
           value: role.id,

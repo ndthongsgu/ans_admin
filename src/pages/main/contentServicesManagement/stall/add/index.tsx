@@ -3,7 +3,7 @@ import type { FormField } from "@/components/form-custom";
 import FormCustom from "@/components/form-custom";
 import type { StallCreateDto, StallDto, StallUpdateDto } from "@/dto/stall.dto";
 import { useCreateStall } from "@/hooks/stall";
-import { useAllOwners } from "@/hooks/owner";
+import { useSelectOwners } from "@/hooks/owner";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";
 
@@ -21,7 +21,7 @@ export default function AddStallScreen({
   isLoadingUpdate?: boolean;
 }) {
   const { isLoading, onCreateStall } = useCreateStall();
-  const { data: owners } = useAllOwners();
+  const { data: owners } = useSelectOwners();
   const router = useRouter();
 
   const formFields = useMemo(() => {
@@ -32,8 +32,8 @@ export default function AddStallScreen({
         type: "select",
         required: true,
         placeholder: "Chọn chủ quán",
-        options: owners.map((owner) => ({
-          name: owner.name,
+        options: owners.map((owner: any) => ({
+          name: owner.full_name,
           id: owner.id,
         })),
       },

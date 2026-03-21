@@ -25,7 +25,7 @@ export const useTripStopsByTrip = (tripId: string) => {
   });
 
   return {
-    data: data?.content || [],
+    data: data?.data?.content || [],
     isLoading,
     refetch,
     error,

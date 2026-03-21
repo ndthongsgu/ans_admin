@@ -1,5 +1,6 @@
-import type { ModulePermission, PermissionModule } from "@/dto/auth.dto";
+import type { ModulePermission } from "@/dto/auth.dto";
 import type { RolePermissionCreateDto } from "@/dto/role.dto";
+import type { SuccessResponse } from "@/dto/pagination.dto";
 import { API_ENDPOINTS } from "@/services";
 import rootApiService from "@/services/api.service";
 import { useQuery } from "@tanstack/react-query";
@@ -7,11 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 export const useGetAllPermission = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [API_ENDPOINTS.PERMISSION.GET_ALL],
-    queryFn: () => rootApiService.get<PermissionModule[]>(API_ENDPOINTS.PERMISSION.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.PERMISSION.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data?.contents || [],
     isLoading,
     refetch,
   };

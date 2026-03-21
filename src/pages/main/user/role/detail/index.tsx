@@ -1,5 +1,4 @@
 import { formatDate } from "@/common/helpers/format";
-import ActionLogView from "@/components/action-log";
 import BaseView from "@/components/base-view/BaseView";
 import Loading from "@/components/loading/Loading";
 import Title from "@/components/title";
@@ -36,11 +35,6 @@ export default function DetailRoleScreen() {
             ) : (
               <Loading />
             ),
-          },
-          {
-            label: "Lịch sử thao tác",
-            key: "2",
-            children: <ActionLogView functionType="Roles" functionId={id || ""} />,
           },
         ]}
       />

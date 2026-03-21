@@ -4,10 +4,25 @@ export interface PaginationDto<T> {
   where: T;
 }
 
-export interface PaginationResponse<T> {
+/**
+ * Pagination data structure - the inner data from API response
+ * This is what comes inside the "data" field of the API response
+ */
+export interface PaginationData<T> {
   content: T[];
   totalElements: number;
-  message?: string;
+}
+
+/**
+ * Full API response for pagination requests
+ * This is what the API endpoint returns
+ */
+export interface PaginationResponse<T> {
+  success: boolean;
+  message: string;
+  data: PaginationData<T>;
+  error: null | string;
+  statusCode: number;
 }
 
 export interface PaginationParams {
@@ -16,9 +31,15 @@ export interface PaginationParams {
   [key: string]: any;
 }
 
+/**
+ * Full API response for non-pagination requests
+ */
 export interface SuccessResponse {
+  success: boolean;
   message?: string;
   data?: any;
+  error: null | string;
+  statusCode?: number;
 }
 
 export interface ErrorResponse {

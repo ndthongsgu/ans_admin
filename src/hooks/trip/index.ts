@@ -1,5 +1,5 @@
 import type { PaginationDto } from "@/dto/base.dto";
-import type { PaginationResponse } from "@/dto/pagination.dto";
+import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
 import type {
   TripCreateUpdateDto,
   TripDto,
@@ -16,11 +16,11 @@ import { useToast } from "../layout/useToast";
 export const useGetAllTrips = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.TRIP.GET_ALL],
-    queryFn: () => rootApiService.get<TripDto[]>(API_ENDPOINTS.TRIP.GET_ALL),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.TRIP.GET_ALL),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
     error,
@@ -30,11 +30,11 @@ export const useGetAllTrips = () => {
 export const useSelectTrips = () => {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [API_ENDPOINTS.TRIP.SELECT],
-    queryFn: () => rootApiService.get<TripSelectDto[]>(API_ENDPOINTS.TRIP.SELECT),
+    queryFn: () => rootApiService.get<SuccessResponse>(API_ENDPOINTS.TRIP.SELECT),
   });
 
   return {
-    data: data || [],
+    data: data?.data || [],
     isLoading,
     refetch,
     error,
@@ -60,8 +60,8 @@ export const usePaginationTrip = (params: PaginationDto<TripFilter>) => {
   });
 
   return {
-    data: data?.content || [],
-    total: data?.totalElements || 0,
+    data: data?.data?.content || [],
+    total: data?.data?.totalElements || 0,
     isLoading,
     refetch,
     error,
@@ -150,12 +150,12 @@ export const useDetailTrip = (id: string) => {
   const url = API_ENDPOINTS.TRIP.FIND_BY_ID(id);
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: [url],
-    queryFn: () => rootApiService.get<TripDto>(url),
+    queryFn: () => rootApiService.get<SuccessResponse>(url),
     enabled: !!id,
   });
 
   return {
-    data: data,
+    data: data?.data,
     isLoading,
     refetch,
     error,
