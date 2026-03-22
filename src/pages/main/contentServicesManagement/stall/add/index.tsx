@@ -6,6 +6,7 @@ import { useCreateStall } from "@/hooks/stall";
 import { useSelectOwners } from "@/hooks/owner";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";
+import { API_ENDPOINTS } from "@/services";
 
 export default function AddStallScreen({
   initData,
@@ -47,18 +48,16 @@ export default function AddStallScreen({
       {
         name: "latitude",
         label: "Vĩ độ",
-        type: "number",
+        type: "input",
         required: true,
         placeholder: "Nhập vĩ độ",
-        step: 0.0001,
       },
       {
         name: "longitude",
         label: "Kinh độ",
-        type: "number",
         required: true,
+        type: "input",
         placeholder: "Nhập kinh độ",
-        step: 0.0001,
       },
       {
         name: "radius",
@@ -71,7 +70,8 @@ export default function AddStallScreen({
       {
         name: "cover_image",
         label: "Ảnh bìa",
-        type: "input",
+        type: "image",
+        uploadEndpoint: `${API_ENDPOINTS.STALL.UPLOADIMAGE(initData?.id || "temp")}`,
         required: false,
         placeholder: "Nhập URL ảnh bìa",
       },

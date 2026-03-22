@@ -368,6 +368,8 @@ function useRenderFormCustom(form: any, initialValues: any) {
             style={{ gridColumn: field.gridColumn, ...field.style }}
             type={field.type === "image" ? "image" : "document"}
             label={field.label}
+            uploadParams={field.uploadParams}
+            uploadEndpoint={field.uploadEndpoint}
             name={field.name}
           />
         );

@@ -75,8 +75,19 @@ export const useDetailStall = (id: string) => {
     enabled: !!id,
   });
 
+  const result = data?.data
+    ? {
+        ...data.data,
+        cover_image: data.data?.cover_image
+          ? import.meta.env.VITE_BE_API + data.data.cover_image
+          : "",
+      }
+    : undefined;
+
+  console.log("Stall details:", result); // Debug log for stall details
+
   return {
-    data: data?.data,
+    data: result,
     isLoading,
     refetch,
     error,

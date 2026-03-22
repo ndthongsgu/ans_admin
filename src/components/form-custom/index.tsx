@@ -79,6 +79,8 @@ export interface FormField {
   showTime?: boolean;
   optionFilterProp?: string;
   filterOption?: (input: string, option: any) => boolean;
+  uploadParams?: Record<string, any>;
+  uploadEndpoint?: string;
 }
 
 export interface FormCustomProps {

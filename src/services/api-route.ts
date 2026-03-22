@@ -223,6 +223,8 @@ export const API_ENDPOINTS = {
     SELECT: "/admin/stalls/select",
     DEACTIVATE: (id: string) => `/admin/stalls/deactivate/${id}`,
     ACTIVATE: (id: string) => `/admin/stalls/activate/${id}`,
+    UPLOADIMAGE: (stallId: string) => `/admin/stalls/${stallId}/image`,
+    DELETEIMAGE: (stallId: string) => `/admin/stalls/${stallId}/image`,
   },
   STALL_CONTENT: {
     PAGINATION: "/admin/stall-contents/pagination",

@@ -2,6 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Form, Upload, message } from "antd";
 import type { UploadFile, UploadProps } from "antd/es/upload/interface";
 import { useEffect, useState } from "react";
+import { FileUploadService } from "@/services/file-upload.service";
 
 export interface FileDto {
   id?: string;
@@ -19,6 +20,10 @@ interface FileUploadProps {
   initValue?: FileDto[] | FileDto;
   mode?: "single" | "multi";
   style?: React.CSSProperties;
+  // Upload configuration
+  uploadEndpoint?: string;
+  uploadParams?: Record<string, any>;
+  autoUpload?: boolean;
 }
 
 /* ---------------- Helper ---------------- */
@@ -70,15 +75,60 @@ function FileUpload({
   initValue,
   mode = "single",
   style,
+  uploadEndpoint,
+  uploadParams,
+  autoUpload = true,
 }: FileUploadProps) {
   const [fileList, setFileList] = useState<UploadFile[]>(() =>
     mapInitValueToFileList(initValue, mode)
   );
+  const [uploading, setUploading] = useState(false);
+
+  /**
+   * Custom upload handler for Ant Design Upload component
+   * This is called instead of the default upload behavior
+   */
+  const customUpload: UploadProps["customRequest"] = async (options) => {
+    if (!uploadEndpoint) {
+      message.error("Upload endpoint not configured");
+      options.onError?.(new Error("Upload endpoint not configured"));
+      return;
+    }
+
+    const { file, onSuccess, onError } = options;
+    const fileObj = file as File;
+
+    try {
+      setUploading(true);
+      const response = await FileUploadService.uploadFile(fileObj, uploadEndpoint, uploadParams);
+
+      onSuccess?.(
+        {
+          uid: response.id || fileObj.name,
+          name: response.fileName,
+          status: "done" as const,
+          url: response.fileUrl,
+          response: response,
+        },
+        new XMLHttpRequest()
+      );
+
+      message.success(`${fileObj.name} tải lên thành công`);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : "Upload failed";
+      console.error("Upload error:", error);
+      message.error(errorMsg);
+      onError?.(new Error(errorMsg));
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const uploadProps: UploadProps = {
     fileList,
     multiple: mode === "multi",
     accept: getAcceptType(type),
+    customRequest: autoUpload && uploadEndpoint ? customUpload : undefined,
     beforeUpload: (file) => {
       if (file.size / 1024 / 1024 > maxSize) {
         message.error(`File phải nhỏ hơn ${maxSize}MB`);
@@ -102,16 +152,22 @@ function FileUpload({
     onRemove: (file) => {
       setFileList((prev) => prev.filter((f) => f.uid !== file.uid));
     },
+    disabled: uploading,
   };
 
   useEffect(() => {
     if (onFileUploaded) {
-      const files = fileList.map((f) => ({
-        id: f.uid,
-        fileUrl: f.response || f.url || "",
-        fileName: f.name,
-      }));
-      onFileUploaded(mode === "single" ? files[0] : files);
+      const files = fileList
+        .filter((f) => f.status === "done" || f.url)
+        .map((f) => ({
+          id: f.uid,
+          fileUrl: f.response?.fileUrl || f.response?.url || f.url || "",
+          fileName: f.name,
+        }));
+
+      if (files.length > 0) {
+        onFileUploaded(mode === "single" ? files[0] : files);
+      }
     }
   }, [fileList, mode, onFileUploaded]);
 
@@ -130,6 +186,7 @@ function FileUpload({
       <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
         {type === "image" ? "Chấp nhận: Hình ảnh" : "Chấp nhận: Tất cả các file"} - Tối đa {maxSize}
         MB
+        {uploading && <span style={{ marginLeft: 8, color: "#1890ff" }}>Đang tải lên...</span>}
       </div>
     </Form.Item>
   );
