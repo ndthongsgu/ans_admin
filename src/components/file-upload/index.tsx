@@ -17,6 +17,7 @@ interface FileUploadProps {
   type?: "document" | "image" | "all";
   maxSize?: number;
   onFileUploaded?: (files: FileDto[] | FileDto) => void;
+  onFileRemove?: (fileUrl: string) => Promise<void>;
   initValue?: FileDto[] | FileDto;
   mode?: "single" | "multi";
   style?: React.CSSProperties;
@@ -39,10 +40,24 @@ const getAcceptType = (type: FileUploadProps["type"]) => {
 };
 
 const mapInitValueToFileList = (
-  initValue?: FileDto[] | FileDto,
+  initValue?: FileDto[] | FileDto | string,
   mode: "single" | "multi" = "single"
 ): UploadFile[] => {
   if (!initValue) return [];
+
+  // Handle string (URL) case
+  if (typeof initValue === "string") {
+    return [
+      {
+        uid: initValue,
+        name: initValue.split("/").pop() || "image",
+        status: "done" as const,
+        url: initValue,
+        response: { fileUrl: initValue },
+      },
+    ] as UploadFile[];
+  }
+
   if (mode === "multi" && Array.isArray(initValue)) {
     return initValue.map((f) => ({
       uid: f.id || f.fileName,
@@ -72,6 +87,7 @@ function FileUpload({
   type = "all",
   maxSize = 10,
   onFileUploaded,
+  onFileRemove,
   initValue,
   mode = "single",
   style,
@@ -149,8 +165,18 @@ function FileUpload({
       if (mode === "single") newList = newList.slice(-1);
       setFileList(newList);
     },
-    onRemove: (file) => {
-      setFileList((prev) => prev.filter((f) => f.uid !== file.uid));
+    onRemove: async (file) => {
+      try {
+        if (onFileRemove) {
+          const fileUrl = file.url || "";
+          await onFileRemove(fileUrl);
+        }
+        return true;
+      } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : "Delete failed";
+        message.error(errorMsg);
+        return false;
+      }
     },
     disabled: uploading,
   };
@@ -159,11 +185,14 @@ function FileUpload({
     if (onFileUploaded) {
       const files = fileList
         .filter((f) => f.status === "done" || f.url)
-        .map((f) => ({
-          id: f.uid,
-          fileUrl: f.response?.fileUrl || f.response?.url || f.url || "",
-          fileName: f.name,
-        }));
+        .map((f) => {
+          const fileUrl = f.response?.fileUrl || f.response?.url || f.url || "";
+          return {
+            id: f.uid,
+            fileUrl: fileUrl,
+            fileName: f.name,
+          };
+        });
 
       if (files.length > 0) {
         onFileUploaded(mode === "single" ? files[0] : files);

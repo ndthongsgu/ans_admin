@@ -2,11 +2,12 @@ import BaseView from "@/components/base-view/BaseView";
 import type { FormField } from "@/components/form-custom";
 import FormCustom from "@/components/form-custom";
 import type { StallCreateDto, StallDto, StallUpdateDto } from "@/dto/stall.dto";
-import { useCreateStall } from "@/hooks/stall";
+import { useCreateStall, useDeleteStallImage } from "@/hooks/stall";
 import { useSelectOwners } from "@/hooks/owner";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";
 import { API_ENDPOINTS } from "@/services";
+import { FileUploadService } from "@/services/file-upload.service";
 
 export default function AddStallScreen({
   initData,
@@ -24,6 +25,13 @@ export default function AddStallScreen({
   const { isLoading, onCreateStall } = useCreateStall();
   const { data: owners } = useSelectOwners();
   const router = useRouter();
+  const { mutateAsync: deleteImage } = useDeleteStallImage(initData?.id || "");
+
+  const handleDeleteImage = async (fileUrl: string) => {
+    if (initData?.id) {
+      await deleteImage();
+    }
+  };
 
   const formFields = useMemo(() => {
     const fields: FormField[] = [
@@ -74,6 +82,8 @@ export default function AddStallScreen({
         uploadEndpoint: `${API_ENDPOINTS.STALL.UPLOADIMAGE(initData?.id || "temp")}`,
         required: false,
         placeholder: "Nhập URL ảnh bìa",
+        isSingle: true,
+        onFileRemove: handleDeleteImage,
       },
       {
         name: "category",
@@ -113,7 +123,7 @@ export default function AddStallScreen({
     ];
 
     return fields;
-  }, [isEdit]);
+  }, [isEdit, initData?.id, owners]);
 
   const handleSubmit = (values: Record<string, unknown>) => {
     if (isEdit) {

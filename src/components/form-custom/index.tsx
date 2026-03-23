@@ -81,6 +81,7 @@ export interface FormField {
   filterOption?: (input: string, option: any) => boolean;
   uploadParams?: Record<string, any>;
   uploadEndpoint?: string;
+  onFileRemove?: (fileUrl: string) => Promise<void>;
 }
 
 export interface FormCustomProps {

@@ -1,5 +1,5 @@
 import axiosInstance from "./axios";
-import API_ENDPOINTS, { API_ROUTES } from "./api-route";
+import API_ENDPOINTS from "./api-route";
 
 interface UploadResponse {
   fileUrl: string;

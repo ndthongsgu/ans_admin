@@ -370,6 +370,16 @@ function useRenderFormCustom(form: any, initialValues: any) {
             label={field.label}
             uploadParams={field.uploadParams}
             uploadEndpoint={field.uploadEndpoint}
+            onFileRemove={(file) => {
+              if (field.isSingle) {
+                form.setFieldsValue({ [field.name]: null });
+              } else {
+                const currentFiles = form.getFieldValue(field.name) || [];
+                const updatedFiles = currentFiles.filter((f: any) => f.fileUrl !== file);
+                form.setFieldsValue({ [field.name]: updatedFiles });
+              }
+              return field.onFileRemove ? field.onFileRemove(file) : Promise.resolve();
+            }}
             name={field.name}
           />
         );

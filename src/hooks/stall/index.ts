@@ -11,6 +11,7 @@ import type { PaginationResponse, SuccessResponse } from "@/dto/pagination.dto";
 import { useRouter } from "@/routes/hooks";
 import { API_ENDPOINTS } from "@/services";
 import rootApiService from "@/services/api.service";
+import { FileUploadService } from "@/services/file-upload.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../layout/useToast";
 
@@ -213,4 +214,35 @@ export const useActivateStall = () => {
   });
 
   return { onActivateStall, isLoading };
+};
+
+export const useDeleteStallImage = (stallId: string) => {
+  const queryClient = useQueryClient();
+  const showToast = useToast();
+
+  const { mutateAsync: deleteImage, isPending: isLoading } = useMutation({
+    mutationFn: () => FileUploadService.deleteStallImage(stallId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.STALL.FIND_BY_ID(stallId)],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.STALL.PAGINATION],
+      });
+      showToast({
+        type: "success",
+        title: "Thành công",
+        message: "Xóa ảnh quán ăn thành công!",
+      });
+    },
+    onError: (error: any) => {
+      showToast({
+        type: "error",
+        title: "Lỗi",
+        message: error?.message || "Xóa ảnh quán ăn thất bại!",
+      });
+    },
+  });
+
+  return { mutateAsync: deleteImage, isPending: isLoading };
 };

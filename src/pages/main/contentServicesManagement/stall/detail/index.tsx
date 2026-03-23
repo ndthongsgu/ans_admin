@@ -6,7 +6,7 @@ import { useDetailStall } from "@/hooks/stall";
 import { useRouter } from "@/routes/hooks";
 import { LANGUAGE_MAP } from "@/common/constants/language";
 import { LeftCircleOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row, Table, Tabs, Tag, Typography } from "antd";
+import { Button, Card, Col, Row, Table, Tabs, Tag, Typography, Image } from "antd";
 import { useParams } from "react-router-dom";
 
 const { Text } = Typography;
@@ -46,6 +46,29 @@ const DetailView = ({ data }: { data: StallDto }) => {
 
   return (
     <div style={{ padding: "16px 0" }}>
+      {/* Image Section */}
+      {data?.cover_image && (
+        <Card
+          title={
+            <Text strong style={{ fontSize: "18px", color: "#06498B" }}>
+              Ảnh bìa quán ăn
+            </Text>
+          }
+          style={{ marginBottom: "24px" }}
+        >
+          <Row gutter={[24, 24]} align="middle">
+            <Col span={12}>
+              <Image
+                src={data.cover_image}
+                alt="Stall cover"
+                style={{ maxHeight: "300px", objectFit: "cover", borderRadius: "8px" }}
+                preview
+              />
+            </Col>
+          </Row>
+        </Card>
+      )}
+
       {/* I. Thông tin quán ăn */}
       <Card
         title={
