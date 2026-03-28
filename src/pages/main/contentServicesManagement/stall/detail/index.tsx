@@ -5,10 +5,11 @@ import type { StallDto } from "@/dto/stall.dto";
 import { useDetailStall } from "@/hooks/stall";
 import { useRouter } from "@/routes/hooks";
 import { LANGUAGE_MAP } from "@/common/constants/language";
-import { LeftCircleOutlined } from "@ant-design/icons";
+import { DownloadOutlined, LeftCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Row, Table, Tabs, Tag, Typography, Image } from "antd";
 import { useParams } from "react-router-dom";
-
+import { useEffect, useRef } from "react";
+import QRCode from "qrcode";
 const { Text } = Typography;
 
 export default function DetailStallScreen() {
@@ -43,6 +44,36 @@ export default function DetailStallScreen() {
 
 const DetailView = ({ data }: { data: StallDto }) => {
   const router = useRouter();
+
+  const qrCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const generateQRCode = async () => {
+    if (qrCanvasRef.current && data?.id) {
+      try {
+        await QRCode.toCanvas(qrCanvasRef.current, data.id, {
+          errorCorrectionLevel: "H",
+          margin: 1,
+          width: 200,
+        });
+      } catch (err) {
+        console.error("Error generating QR code:", err);
+      }
+    }
+  };
+
+  const downloadQRCode = async () => {
+    if (qrCanvasRef.current) {
+      const url = qrCanvasRef.current.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `qr-code-${data.id}.png`;
+      link.click();
+    }
+  };
+
+  useEffect(() => {
+    generateQRCode();
+  }, [data?.id]);
 
   return (
     <div style={{ padding: "16px 0" }}>
@@ -175,6 +206,30 @@ const DetailView = ({ data }: { data: StallDto }) => {
               {data?.total_reviews ?? 0}
             </Text>
           </Col>
+          {data?.id && (
+            <Col span={24} style={{ padding: "20px" }}>
+              <Text
+                type="secondary"
+                style={{
+                  fontSize: "14px",
+                  display: "block",
+                  color: "#06498B",
+                  marginBottom: "12px",
+                }}
+              >
+                QR Code
+              </Text>
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <canvas
+                  ref={qrCanvasRef}
+                  style={{ border: "1px solid #ddd", borderRadius: "4px" }}
+                />
+                <Button type="primary" icon={<DownloadOutlined />} onClick={() => downloadQRCode()}>
+                  Tải QR Code
+                </Button>
+              </div>
+            </Col>
+          )}
         </Row>
       </Card>
 

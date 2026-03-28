@@ -6,12 +6,9 @@ import type { StallContentDto } from "@/dto/stallContent.dto";
 import { useDetailStallContent } from "@/hooks/stallContent";
 import { useRouter } from "@/routes/hooks";
 import { LANGUAGE_MAP } from "@/common/constants/language";
-import { LeftCircleOutlined, DownloadOutlined } from "@ant-design/icons";
+import { LeftCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Row, Table, Tabs, Tag, Typography } from "antd";
 import { useParams } from "react-router-dom";
-import QRCode from "qrcode";
-import { useRef } from "react";
-import React from "react";
 
 const { Text } = Typography;
 
@@ -47,35 +44,6 @@ export default function DetailStallContentScreen() {
 
 const DetailView = ({ data }: { data: StallContentDto }) => {
   const router = useRouter();
-  const qrCanvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  const generateQRCode = async () => {
-    if (qrCanvasRef.current && data?.id) {
-      try {
-        await QRCode.toCanvas(qrCanvasRef.current, data.id, {
-          errorCorrectionLevel: "H",
-          margin: 1,
-          width: 200,
-        });
-      } catch (err) {
-        console.error("Error generating QR code:", err);
-      }
-    }
-  };
-
-  const downloadQRCode = async () => {
-    if (qrCanvasRef.current) {
-      const url = qrCanvasRef.current.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `qr-code-${data.id}.png`;
-      link.click();
-    }
-  };
-
-  React.useEffect(() => {
-    generateQRCode();
-  }, [data?.id]);
 
   return (
     <div style={{ padding: "16px 0" }}>
@@ -120,7 +88,6 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
               </Text>
             )}
           </Col>
-          s{" "}
           <Col span={24} style={{ padding: "20px" }}>
             <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Script TTS
@@ -129,30 +96,6 @@ const DetailView = ({ data }: { data: StallContentDto }) => {
               {data?.tts_script || "Chưa có script"}
             </Text>
           </Col>
-          {data?.tts_script && (
-            <Col span={24} style={{ padding: "20px" }}>
-              <Text
-                type="secondary"
-                style={{
-                  fontSize: "14px",
-                  display: "block",
-                  color: "#06498B",
-                  marginBottom: "12px",
-                }}
-              >
-                QR Code
-              </Text>
-              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <canvas
-                  ref={qrCanvasRef}
-                  style={{ border: "1px solid #ddd", borderRadius: "4px" }}
-                />
-                <Button type="primary" icon={<DownloadOutlined />} onClick={() => downloadQRCode()}>
-                  Tải QR Code
-                </Button>
-              </div>
-            </Col>
-          )}
           <Col span={8} style={{ padding: "20px" }}>
             <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
               Ngày thêm vào
