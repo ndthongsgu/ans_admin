@@ -131,7 +131,11 @@ export const useUpdateStall = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateStall, isPending: isLoading } = useMutation({
-    mutationFn: (body: StallUpdateDto) => rootApiService.put<SuccessResponse>(url, body),
+    mutationFn: (body: StallUpdateDto) =>
+      rootApiService.put<SuccessResponse>(url, {
+        ...body,
+        cover_image: body.cover_image?.replace(import.meta.env.VITE_BE_API, "") || "",
+      }),
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.STALL.PAGINATION],
