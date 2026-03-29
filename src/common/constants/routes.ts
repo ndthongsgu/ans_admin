@@ -212,6 +212,28 @@ export const ROUTES = {
             },
           },
         },
+        SUBSCRIPTION_PACKAGE_MANAGER: {
+          key: "SUBSCRIPTION_PACKAGE_MANAGER",
+          label: "Quản lý gói đăng ký",
+          path: "/subscription_package_manager",
+          children: {
+            ADD_SUBSCRIPTION_PACKAGE: {
+              key: "ADD_SUBSCRIPTION_PACKAGE",
+              label: "Thêm gói đăng ký",
+              path: "/subscription_package_manager/add",
+            },
+            EDIT_SUBSCRIPTION_PACKAGE: {
+              key: "EDIT_SUBSCRIPTION_PACKAGE",
+              label: "Chỉnh sửa gói đăng ký",
+              path: "/subscription_package_manager/edit/:id",
+            },
+            DETAIL_SUBSCRIPTION_PACKAGE: {
+              key: "DETAIL_SUBSCRIPTION_PACKAGE",
+              label: "Chi tiết gói đăng ký",
+              path: "/subscription_package_manager/detail/:id",
+            },
+          },
+        },
       },
     },
   },
