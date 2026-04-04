@@ -71,7 +71,7 @@ export default function AddStallScreen({
         name: "cover_image",
         label: "Ảnh bìa",
         type: "image",
-        uploadEndpoint: `${API_ENDPOINTS.STALL.UPLOADIMAGE(initData?.id || "temp")}`,
+        uploadEndpoint: API_ENDPOINTS.STALL.UPLOADIMAGE_GENERAL,
         required: false,
         placeholder: "Nhập URL ảnh bìa",
         isSingle: true,
