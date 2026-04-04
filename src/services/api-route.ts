@@ -224,6 +224,7 @@ export const API_ENDPOINTS = {
     DEACTIVATE: (id: string) => `/admin/stalls/deactivate/${id}`,
     ACTIVATE: (id: string) => `/admin/stalls/activate/${id}`,
     UPLOADIMAGE: (stallId: string) => `/admin/stalls/${stallId}/image`,
+    UPLOADIMAGE_GENERAL: "/admin/stalls/upload-image",
     DELETEIMAGE: (stallId: string) => `/admin/stalls/${stallId}/image`,
   },
   STALL_CONTENT: {

@@ -100,8 +100,20 @@ export const useCreateStall = () => {
   const showToast = useToast();
   const router = useRouter();
   const { mutateAsync: onCreateStall, isPending: isLoading } = useMutation({
-    mutationFn: (body: StallCreateDto) =>
-      rootApiService.post<SuccessResponse>(API_ENDPOINTS.STALL.CREATE, body),
+    mutationFn: (body: StallCreateDto) => {
+       // Handle cover_image: if it's an object, take fileUrl; if string, process it
+      let coverImage = body?.cover_image;
+      if (coverImage && typeof coverImage === 'object' && 'fileUrl' in coverImage) {
+        coverImage = (coverImage as any).fileUrl;
+      }
+      if (typeof coverImage === 'string' && coverImage.includes(import.meta.env.VITE_BE_API)) {
+        coverImage = coverImage.replace(import.meta.env.VITE_BE_API, "");
+      }
+      return rootApiService.post<SuccessResponse>(API_ENDPOINTS.STALL.CREATE, {
+        ...body,
+        cover_image: coverImage,
+      });
+    },
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.STALL.PAGINATION],
@@ -131,11 +143,21 @@ export const useUpdateStall = (id: string) => {
   const router = useRouter();
   const showToast = useToast();
   const { mutateAsync: onUpdateStall, isPending: isLoading } = useMutation({
-    mutationFn: (body: StallUpdateDto) =>
-      rootApiService.put<SuccessResponse>(url, {
+    mutationFn: (body: StallUpdateDto) => {
+      // Handle cover_image: if it's an object, take fileUrl; if string, process it
+      let coverImage = body?.cover_image;
+      if (coverImage && typeof coverImage === 'object' && 'fileUrl' in coverImage) {
+        coverImage = (coverImage as any).fileUrl;
+      }
+      if (typeof coverImage === 'string' && coverImage.includes(import.meta.env.VITE_BE_API)) {
+        coverImage = coverImage.replace(import.meta.env.VITE_BE_API, "");
+      }
+      
+      return rootApiService.put<SuccessResponse>(url, {
         ...body,
-        cover_image: body.cover_image?.replace(import.meta.env.VITE_BE_API, "") || "",
-      }),
+        cover_image: coverImage,
+      });
+    },
     onSuccess: (res: SuccessResponse) => {
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.STALL.PAGINATION],
