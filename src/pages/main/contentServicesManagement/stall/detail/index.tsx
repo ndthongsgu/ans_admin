@@ -47,20 +47,6 @@ const DetailView = ({ data }: { data: StallDto }) => {
 
   const qrCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const generateQRCode = async () => {
-    if (qrCanvasRef.current && data?.id) {
-      try {
-        await QRCode.toCanvas(qrCanvasRef.current, data.id, {
-          errorCorrectionLevel: "H",
-          margin: 1,
-          width: 200,
-        });
-      } catch (err) {
-        console.error("Error generating QR code:", err);
-      }
-    }
-  };
-
   const downloadQRCode = async () => {
     if (qrCanvasRef.current) {
       const url = qrCanvasRef.current.toDataURL("image/png");
@@ -72,6 +58,20 @@ const DetailView = ({ data }: { data: StallDto }) => {
   };
 
   useEffect(() => {
+    const generateQRCode = async () => {
+      if (qrCanvasRef.current && data?.id) {
+        try {
+          await QRCode.toCanvas(qrCanvasRef.current, data.id, {
+            errorCorrectionLevel: "H",
+            margin: 1,
+            width: 200,
+          });
+        } catch (err) {
+          console.error("Error generating QR code:", err);
+        }
+      }
+    };
+
     generateQRCode();
   }, [data?.id]);
 
@@ -188,6 +188,14 @@ const DetailView = ({ data }: { data: StallDto }) => {
             </Text>
             <Text strong style={{ fontSize: "16px" }}>
               {data?.opening_hours || "Chưa cập nhật"}
+            </Text>
+          </Col>
+          <Col span={24} style={{ padding: "20px" }}>
+            <Text type="secondary" style={{ fontSize: "14px", display: "block", color: "#06498B" }}>
+              Giờ đóng cửa
+            </Text>
+            <Text strong style={{ fontSize: "16px" }}>
+              {data?.close_hours || "Chưa cập nhật"}
             </Text>
           </Col>
           <Col span={8} style={{ padding: "20px" }}>
