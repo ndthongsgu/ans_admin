@@ -20,6 +20,7 @@ export interface StallDto extends BaseDto {
   category?: string;
   price_range?: string;
   opening_hours?: string;
+  close_hours?: string;
   contact_phone?: string;
   website?: string;
   average_rating?: number;
@@ -42,10 +43,10 @@ export interface StallCreateDto {
   longitude: number;
   radius?: number;
   cover_image?: string;
-  status?: boolean;
   category?: string;
   price_range?: string;
   opening_hours?: string;
+  close_hours?: string;
   contact_phone?: string;
   website?: string;
 }
@@ -57,10 +58,10 @@ export interface StallUpdateDto {
   longitude: number;
   radius?: number;
   cover_image?: string;
-  status?: boolean;
   category?: string;
   price_range?: string;
   opening_hours?: string;
+  close_hours?: string;
   contact_phone?: string;
   website?: string;
 }
@@ -69,7 +70,6 @@ export interface StallFilter {
   name?: string;
   category?: string;
   owner_id?: string;
-  status?: boolean;
   is_deleted?: boolean;
 }
 
