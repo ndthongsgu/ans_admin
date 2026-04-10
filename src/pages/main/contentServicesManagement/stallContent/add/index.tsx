@@ -6,7 +6,7 @@ import type {
   StallContentDto,
   StallContentUpdateDto,
 } from "@/dto/stallContent.dto";
-import { useCreateStallContent } from "@/hooks/stallContent";
+import { useCreateStallContent, useSelectStallContents } from "@/hooks/stallContent";
 import { useSelectStalls } from "@/hooks/stall";
 import { useRouter } from "@/routes/hooks";
 import { useMemo } from "react";
@@ -26,9 +26,12 @@ export default function AddStallContentScreen({
 }) {
   const { isLoading, onCreateStallContent } = useCreateStallContent();
   const { data: stalls } = useSelectStalls();
+  const { data: availableStalls } = useSelectStallContents();
   const router = useRouter();
 
   const formFields = useMemo(() => {
+    const stallOptions = (isEdit ? stalls : availableStalls) || [];
+
     const fields: FormField[] = [
       {
         name: "stall_id",
@@ -36,7 +39,7 @@ export default function AddStallContentScreen({
         type: "select",
         required: true,
         placeholder: "Chọn quán ăn",
-        options: stalls.map((stall: any) => ({
+        options: stallOptions.map((stall: any) => ({
           name: stall.name,
           id: stall.id,
         })),
@@ -52,7 +55,7 @@ export default function AddStallContentScreen({
     ];
 
     return fields;
-  }, [isEdit, stalls]);
+  }, [availableStalls, isEdit, stalls]);
 
   const handleSubmit = (values: Record<string, unknown>) => {
     if (isEdit) {
