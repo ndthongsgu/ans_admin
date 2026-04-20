@@ -164,6 +164,11 @@ export const ROUTES = {
         },
       },
     },
+    STATISTICAL: {
+      key: "STATISTICAL",
+      label: "Thống kê",
+      path: "/statistical",
+    },
     CONTENT_SERVICE_MANAGER: {
       key: "CONTENT_SERVICE_MANAGER",
       label: "Quản lý nội dung & Dịch vụ",

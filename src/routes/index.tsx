@@ -2,6 +2,7 @@ import { ROUTES } from "@/common/constants/routes";
 import AppLayout from "@/layouts/AppLayout";
 import LoginPage from "@/pages/auth/LoginPage";
 import HomePage from "@/pages/main/home";
+import StatisticalPage from "@/pages/main/statistical";
 import EmployeeManager from "@/pages/main/user/employee";
 import AddEmployeeScreen from "@/pages/main/user/employee/add";
 import DetailEmployeeScreen from "@/pages/main/user/employee/detail";
@@ -53,6 +54,8 @@ export default function AppRoutes() {
         <Route element={<AppLayout />}>
           {/* Trang chủ */}
           <Route index path={ROUTES.MAIN.HOME.path} element={<HomePage />} />
+          {/* Thống kê */}
+          <Route path={ROUTES.MAIN.STATISTICAL.path} element={<StatisticalPage />} />
           {/* Quản lý nhân viên */}
           <Route
             path={ROUTES.MAIN.USER_MANAGER.children.EMPLOYEE_MANAGER.path}

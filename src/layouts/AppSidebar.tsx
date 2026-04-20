@@ -1,4 +1,4 @@
-import { DashboardOutlined, UserOutlined, ShopOutlined } from "@ant-design/icons";
+import { DashboardOutlined, UserOutlined, ShopOutlined, BarChartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -33,6 +33,12 @@ export default function AppSidebar({ collapsed }: AppSidebarProps) {
       path: ROUTES.MAIN.HOME.path,
       icon: <DashboardOutlined />,
       label: ROUTES.MAIN.HOME.label,
+    },
+    {
+      key: ROUTES.MAIN.STATISTICAL.key,
+      path: ROUTES.MAIN.STATISTICAL.path,
+      icon: <BarChartOutlined />,
+      label: ROUTES.MAIN.STATISTICAL.label,
     },
     {
       key: ROUTES.MAIN.USER_MANAGER.key,
